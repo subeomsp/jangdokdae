@@ -1,5 +1,9 @@
 # 작업 요약 — feat/issue-docent-tagging
 
+> 역사 문서: `market_ids`·`sector_ids`·`company_ids`를 `issue_docent`에 직접 두던 설계는
+> `f0a1b2c3d4e5` 마이그레이션에서 제거됐다. 현재 관심사 필터의 정본은 `news_analysis`이며,
+> 아래 내용 중 해당 배열 컬럼과 백필 스크립트 설명은 더 이상 실행 가능한 운영 절차가 아니다.
+
 > 브랜치 `feat/issue-docent-tagging` (base: `main`) · 커밋 6개 · 22 files, +816 / −50
 > PR 본문으로도 사용 가능. (이 파일은 기록용 — 불필요하면 삭제 가능)
 

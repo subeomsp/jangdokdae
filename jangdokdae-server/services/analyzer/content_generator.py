@@ -176,7 +176,8 @@ class ContentGenerator:
                     "cluster=%s head%d 금지 표현 검출: %s", issue.cluster_id, i, hits
                 )
 
-        # term_spans는 본문에 실제 등장하는 용어만 남긴다(본문에 없는 용어 하이라이트 방지) → 중복 제거.
+        # term_spans는 본문에 실제 등장하는 용어만 남긴다.
+        # 본문에 없는 용어 하이라이트를 막은 뒤 중복을 제거한다.
         in_body = _filter_term_spans_in_body(draft.term_spans, draft.answers)
         dropped = [s.term for s in draft.term_spans if s not in in_body]
         if dropped:

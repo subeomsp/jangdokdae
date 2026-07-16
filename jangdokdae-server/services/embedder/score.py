@@ -9,15 +9,23 @@ import logging
 from dataclasses import dataclass
 from datetime import date
 
+from sqlalchemy import update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
+from app.db.orm_models.news_cluster import NewsCluster
 from services.collector.tools.save_tool import upsert_news_clusters
 
 logger = logging.getLogger(__name__)
 
-# 신호별 가중치 — 휴리스틱 초기값(실데이터 교정 전).
-W = {"volume": 0.4, "velocity": 0.3, "sentiment": 0.15, "entity": 0.15}
+# 신호별 가중치 — 휴리스틱 초기값(설계 05 §6.1). 매직넘버 대신 config로 분리해 무배포 교정 가능.
+# 기본값이 운영 정본이며 합=1.0. 테스트·평가가 이 dict를 직접 참조하므로 형태는 유지한다.
+W = {
+    "volume": settings.score_weight_volume,
+    "velocity": settings.score_weight_velocity,
+    "sentiment": settings.score_weight_sentiment,
+    "entity": settings.score_weight_entity,
+}
 
 
 @dataclass
@@ -69,7 +77,16 @@ async def persist_clusters(
     (run_date, representative_news_id) 기준 UPSERT — 재실행·오후 런은 소속·중요도를 갱신할 뿐
     중복 적재하지 않는다(멱등). 여기엔 클러스터 식별·소속·중요도만 적재한다.
     """
+    # 같은 날짜의 직전 스냅샷을 먼저 비활성화한다. 분석·콘텐츠 FK가 연결된 과거 행은
+    # 삭제하지 않고 보존하며, 분석 단계는 is_current=True인 최신 스냅샷만 읽는다.
+    await db.execute(
+        update(NewsCluster)
+        .where(NewsCluster.run_date == run_date)
+        .where(NewsCluster.is_current.is_(True))
+        .values(is_current=False)
+    )
     if not scored_clusters:
+        await db.commit()
         return []
     top_n = settings.top_issue_count
     affected = await upsert_news_clusters(
@@ -82,6 +99,7 @@ async def persist_clusters(
                 "member_news_ids": cluster.member_news_ids,
                 "size": len(cluster.member_news_ids),
                 "importance": cluster.importance,
+                "is_current": True,
             }
             for cluster in scored_clusters
         ],

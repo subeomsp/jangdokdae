@@ -25,6 +25,7 @@ from sqlalchemy.orm import InstrumentedAttribute
 
 from app.db.base import KST_NOW
 from app.db.orm_models.company_entity import CompanyEntity
+from app.db.orm_models.industry_group import IndustryGroup
 from app.db.orm_models.issue_docent import IssueDocent
 from app.db.orm_models.market import Market
 from app.db.orm_models.news import News
@@ -38,12 +39,16 @@ from app.db.orm_models.user_interest_company import UserInterestCompany
 from app.db.orm_models.user_interest_market import UserInterestMarket
 from app.db.orm_models.user_interest_sector import UserInterestSector
 
-# 온보딩 시장 코드 → CompanyEntity.market(거래소) 매핑. 국내 거래소만 데이터 보유.
-# 해외(NASDAQ/SP500/US_ETF/GLOBAL)는 매핑이 없어 종목 필터 시 빈 결과로 수렴한다.
+# 온보딩 시장 코드 → CompanyEntity.market 매핑. 해외는 버킷 코드가 곧 market 값(identity).
+# GLOBAL(기타 해외)은 적재 종목이 없어 매핑을 비워 둔다(필터 시 빈 결과로 수렴).
 MARKET_CODE_TO_EXCHANGES: dict[str, tuple[str, ...]] = {
     "KOSPI": ("KOSPI",),
     "KOSDAQ": ("KOSDAQ",),
+    "NASDAQ": ("NASDAQ",),
+    "SP500": ("SP500",),
+    "US_ETF": ("US_ETF",),
 }
+
 
 def _escape_like(value: str) -> str:
     """LIKE 메타문자(\\,%,_)를 이스케이프 — 사용자 입력이 와일드카드로 해석되지 않게 한다.
@@ -95,7 +100,11 @@ async def get_latest_cluster_members(db: AsyncSession) -> tuple[dict[int, set[in
     가장 최근 run_date의 stable_id 있는 행을 직전 클러스터로 보고, 다음 id는 전체 max+1로 둔다
     (재사용 방지). 이력이 없으면 ({}, 1).
     """
-    latest = (await db.execute(select(func.max(NewsCluster.run_date)))).scalar()
+    latest = (
+        await db.execute(
+            select(func.max(NewsCluster.run_date)).where(NewsCluster.is_current.is_(True))
+        )
+    ).scalar()
     next_id = ((await db.execute(select(func.max(NewsCluster.stable_id)))).scalar() or 0) + 1
     if latest is None:
         return {}, next_id
@@ -103,6 +112,7 @@ async def get_latest_cluster_members(db: AsyncSession) -> tuple[dict[int, set[in
         await db.execute(
             select(NewsCluster.stable_id, NewsCluster.member_news_ids)
             .where(NewsCluster.run_date == latest)
+            .where(NewsCluster.is_current.is_(True))
             .where(NewsCluster.stable_id.is_not(None))
         )
     ).all()
@@ -123,21 +133,29 @@ async def save_chunk_embeddings(db: AsyncSession, id_to_vector: dict[int, list[f
 
 
 async def get_clusterable_news(db: AsyncSession, since: datetime) -> list[News]:
-    """클러스터링 대상 뉴스 조회 — 당일 수집·임베딩 완료·미탈락·비중복·미분석분.
+    """클러스터링 대상 뉴스 조회 — 기간 내 임베딩 완료·미탈락·비중복 뉴스 전체.
 
     since(KST naive)는 수집 시각 하한 — 없으면 미분석 백로그 전체가 매일 재클러스터링된다.
-    근접 중복·전처리 탈락·분석 완료 행은 제외한다.
+    분석 완료 여부와 무관하게 최근 N일 전체를 다시 묶는다. 기존 분석 행을 빼면 동일 이슈의
+    과거 기사와 신규 기사가 분리되어 rolling-window 재클러스터링과 stable id 승계가 깨진다.
     """
     result = await db.execute(
         select(News)
         .where(News.created_at >= since)
         .where(News.is_filtered.is_(False))
         .where(News.is_duplicate.is_(False))
-        .where(News.is_analyzed.is_(False))
         .where(News.embedding.is_not(None))
         .order_by(News.id)
     )
     return list(result.scalars().all())
+
+
+async def count_recent_news(db: AsyncSession, since: datetime) -> int:
+    """since(KST naive) 이후 수집된 news 행 수 — SPOF 일 수집량 계기판(설계 00 §11.5)."""
+    result = await db.execute(
+        select(func.count()).select_from(News).where(News.created_at >= since)
+    )
+    return int(result.scalar() or 0)
 
 
 # ── 분석 단계(NewsAnalyzer, →10) 핸드오프 ──────────────────────────────
@@ -156,6 +174,7 @@ async def get_unanalyzed_clusters(
     result = await db.execute(
         select(NewsCluster)
         .where(NewsCluster.run_date == run_date)
+        .where(NewsCluster.is_current.is_(True))
         .where(NewsCluster.id.notin_(analyzed))
         .order_by(NewsCluster.importance.desc())
         .limit(limit)
@@ -291,33 +310,25 @@ async def save_issue_docent(
     *,
     cluster_id: int,
     title: str,
-    market_ids: list[int],
-    sector_ids: list[int],
-    company_ids: list[int],
     hook_lines: dict,
     content_heads: list[dict],
     connection_module: list[dict],
     evidence_spans: list[dict],
     term_spans: list[dict],
+    quizzes: list[dict] | None = None,
 ) -> None:
-    """생성 콘텐츠를 적재(클러스터당 1행, 중복 시 무시).
-
-    market_ids·sector_ids·company_ids는 온보딩 관심사 기반 피드 필터의 조인 키 —
-    분류 단계에서 해소된 값을 그대로 받는다(news_analysis와 동일 소스).
-    """
+    """생성 콘텐츠를 적재(클러스터당 1행, 중복 시 무시)."""
     stmt = (
         pg_insert(IssueDocent)
         .values(
             cluster_id=cluster_id,
             title=title,
-            market_ids=market_ids,
-            sector_ids=sector_ids,
-            company_ids=company_ids,
             hook_lines=hook_lines,
             content_heads=content_heads,
             connection_module=connection_module,
             evidence_spans=evidence_spans,
             term_spans=term_spans,
+            quizzes=quizzes or [],
         )
         .on_conflict_do_nothing(index_elements=["cluster_id"])
     )
@@ -382,37 +393,6 @@ async def resolve_sector_ids(db: AsyncSession, names: list[str]) -> list[int]:
         return []
     result = await db.execute(select(Sector.id).where(Sector.name_ko.in_(wanted)))
     return sorted({row[0] for row in result.all()})
-
-
-# 종목으로 market이 안 잡히는 해외 이슈의 폴백 — markets.code "GLOBAL"(기타 해외 시장).
-_OVERSEAS_FALLBACK_MARKET_CODE = "GLOBAL"
-
-
-async def resolve_market_ids(
-    db: AsyncSession, company_ids: list[int], origin: str
-) -> list[int]:
-    """이슈와 연관된 markets.id를 해소 — issue_docent 관심사 매칭 백필.
-
-    종목의 거래소(CompanyEntity.market: KOSPI/KOSDAQ)를 markets.code와 일치시켜 해소한다
-    (종목 유니버스는 국내뿐이라 종목 기반은 KOSPI/KOSDAQ로 수렴). 종목으로 못 잡고 origin이
-    해외면 GLOBAL(기타 해외 시장)로 폴백, 국내인데 종목이 없으면 빈 리스트(시장 전체 등).
-    """
-    if company_ids:
-        result = await db.execute(
-            select(Market.id)
-            .join(CompanyEntity, CompanyEntity.market == Market.code)
-            .where(CompanyEntity.id.in_(company_ids))
-            .distinct()
-        )
-        ids = sorted({row[0] for row in result.all()})
-        if ids:
-            return ids
-    if origin == "해외":
-        result = await db.execute(
-            select(Market.id).where(Market.code == _OVERSEAS_FALLBACK_MARKET_CODE)
-        )
-        return sorted({row[0] for row in result.all()})
-    return []
 
 
 async def get_latest_stock_price(db: AsyncSession, stock_code: str) -> StockPrice | None:
@@ -570,25 +550,41 @@ async def get_all_sectors(db: AsyncSession) -> list[Sector]:
     return list(result.scalars().all())
 
 
+async def get_sector_industry_groups(db: AsyncSession) -> dict[int, list[str]]:
+    """섹터 id → 하위 산업그룹 이름 목록 — 온보딩 섹터 카드의 예시 표시용."""
+    rows = await db.execute(
+        select(IndustryGroup.sector_id, IndustryGroup.name_ko).order_by(IndustryGroup.id)
+    )
+    mapping: dict[int, list[str]] = {}
+    for sector_id, name in rows.all():
+        mapping.setdefault(sector_id, []).append(name)
+    return mapping
+
+
 async def search_companies(
     db: AsyncSession,
     sector_id: int | None,
-    market_code: str | None,
+    market_codes: tuple[str, ...] | None,
     q: str | None,
     limit: int,
     cursor: int | None,
 ) -> list[CompanyEntity]:
     """활성 종목을 필터·검색·커서 페이지네이션으로 조회.
 
-    market_code는 markets.code(거래소·지수)이고 CompanyEntity.market(KOSPI/KOSDAQ)과 동일
-    값이라 그대로 비교한다. 종목 유니버스가 국내뿐이라 해외 코드(NASDAQ 등)는 빈 결과로 수렴한다.
-    cursor는 직전 페이지 마지막 id로, id 오름차순에서 그 다음부터 limit개를 가져온다.
+    market_codes(다중 선택 가능)는 각 코드를 거래소(KOSPI/KOSDAQ/NASDAQ/SP500/US_ETF)로 풀어
+    합집합 필터한다. cursor는 직전 페이지 마지막 id로, id 오름차순에서 그 다음부터 limit개.
     """
     stmt = select(CompanyEntity).where(CompanyEntity.is_active.is_(True))
     if sector_id is not None:
         stmt = stmt.where(CompanyEntity.sector_id == sector_id)
-    if market_code is not None:
-        stmt = stmt.where(CompanyEntity.market == market_code)
+    if market_codes:
+        exchanges = [
+            exch
+            for code in market_codes
+            for exch in MARKET_CODE_TO_EXCHANGES.get(code, ())
+        ]
+        # 매핑 없는 시장(GLOBAL 등)만 선택되면 빈 결과로 수렴(in_([]) → no rows).
+        stmt = stmt.where(CompanyEntity.market.in_(exchanges))
     if q:
         escaped = _escape_like(q)
         stmt = stmt.where(

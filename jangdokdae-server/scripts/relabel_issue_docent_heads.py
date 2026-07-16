@@ -64,7 +64,11 @@ async def _run(apply: bool, date: str | None, all_rows: bool) -> None:
             heads = r["content_heads"] or []
             new_heads, changes = _relabel(heads, r["frame"], r["origin"])
             # question 매칭 안 된 head(스펙 불일치) 감지
-            specs = frames.get_head_specs(r["frame"], r["origin"]) if r["frame"] in frames.FRAMES else []
+            specs = (
+                frames.get_head_specs(r["frame"], r["origin"])
+                if r["frame"] in frames.FRAMES
+                else []
+            )
             spec_qs = {s["question"] for s in specs}
             miss = [h.get("label") for h in heads if h.get("question") not in spec_qs]
             if miss:
@@ -77,19 +81,27 @@ async def _run(apply: bool, date: str | None, all_rows: bool) -> None:
             print(f"cluster={r['cluster_id']} ({r['frame']}/{r['origin']}): {pairs}")
             if apply:
                 await db.execute(
-                    text("UPDATE issue_docent SET content_heads = CAST(:ch AS jsonb) WHERE id = :id"),
+                    text(
+                        "UPDATE issue_docent SET content_heads = CAST(:ch AS jsonb) "
+                        "WHERE id = :id"
+                    ),
                     {"ch": json.dumps(new_heads, ensure_ascii=False), "id": r["id"]},
                 )
         if apply:
             await db.commit()
     mode = "적용 완료" if apply else "DRY-RUN (쓰기 없음)"
-    print(f"\n[{mode}] 대상 {len(rows)}행 중 label 변경 {changed}행 (question 미매칭 {unmatched}행)")
+    print(
+        f"\n[{mode}] 대상 {len(rows)}행 중 label 변경 {changed}행 "
+        f"(question 미매칭 {unmatched}행)"
+    )
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="issue_docent content_heads label 재라벨")
     parser.add_argument("--apply", action="store_true", help="실제 UPDATE 수행(미지정 시 dry-run)")
-    parser.add_argument("--date", default="2026-06-23", help="created_at 일자 필터(기본 2026-06-23)")
+    parser.add_argument(
+        "--date", default="2026-06-23", help="created_at 일자 필터(기본 2026-06-23)"
+    )
     parser.add_argument("--all", action="store_true", help="날짜 필터 없이 전체 issue_docent")
     args = parser.parse_args()
     asyncio.run(_run(args.apply, args.date, args.all))

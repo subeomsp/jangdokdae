@@ -10,7 +10,7 @@
 import asyncio
 import logging
 from datetime import datetime, timedelta
-from typing import TypedDict
+from typing import TypedDict, cast
 
 import numpy as np
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -103,13 +103,25 @@ class EmbeddingClusterer:
         return duplicates_removed, clusters_formed, top_issues
 
     async def _embed_parallel(self, errors: list[str]) -> tuple[int, int]:
-        """두 임베딩을 독립 세션에서 병렬 실행한다. 한쪽 실패는 errors에 담고 0으로 처리한다."""
+        """두 임베딩을 독립 세션에서 병렬 실행하고, 하나라도 실패하면 단계 전체를 실패시킨다.
+
+        성공한 쪽은 이미 commit됐을 수 있지만 재시도 시 미처리 행만 다시 읽으므로 안전하다.
+        예외를 삼키면 Airflow가 성공으로 판단해 잘못된 Asset 완료 신호를 발행한다.
+        """
         news_result, chunks_result = await asyncio.gather(
             self._embed_news(), self._embed_chunks(), return_exceptions=True
         )
-        news_embedded = self._unwrap(news_result, "embed_news", errors)
-        chunks_embedded = self._unwrap(chunks_result, "embed_chunks", errors)
-        return news_embedded, chunks_embedded
+        failures = [
+            (label, result)
+            for label, result in (("embed_news", news_result), ("embed_chunks", chunks_result))
+            if isinstance(result, BaseException)
+        ]
+        if failures:
+            for label, exc in failures:
+                logger.error("%s 실패: %s", label, exc)
+                errors.append(f"{label}: {exc}")
+            raise RuntimeError("임베딩 단계 실패: " + "; ".join(errors))
+        return cast(int, news_result), cast(int, chunks_result)
 
     async def _embed_news(self) -> int:
         async with AsyncSessionLocal() as session:
@@ -118,15 +130,6 @@ class EmbeddingClusterer:
     async def _embed_chunks(self) -> int:
         async with AsyncSessionLocal() as session:
             return await self.report_embedder.embed_chunks(session)
-
-    @staticmethod
-    def _unwrap(result: int | BaseException, label: str, errors: list[str]) -> int:
-        """gather 결과를 푼다 — 예외면 errors에 기록하고 0(부분 실패 후 나머지 단계는 진행)."""
-        if isinstance(result, BaseException):
-            logger.warning("%s 실패: %s", label, result)
-            errors.append(f"{label}: {result}")
-            return 0
-        return result
 
     async def _cluster_and_select(self, db: AsyncSession, since: datetime) -> tuple[int, list[int]]:
         """클러스터링 → 싱글톤 보존 → 중심 근접순 정렬 → 중요도 스코어 → news_cluster 적재.

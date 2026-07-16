@@ -34,14 +34,24 @@ class Settings(BaseSettings):
     fetch_budget_seconds: int = 300
     dedup_similarity_threshold: float = 0.95  # bake-off 검증: same-이슈 7.3%·diff 오탐 0.01%
     top_issue_count: int = 10
+    # 클러스터 중요도 가중치 W(설계 05 §6.1) — 휴리스틱 초기값. bake-off(2026-06-22 §8.2)에서
+    # 운영데이터 교정 전까지 유지로 결정. 합=1.0. Sentiment·Entity는 분석(06)이 값을 채우기 전엔
+    # 0이라 Volume·Velocity가 지배. config로 분리해 무배포 교정 가능.
+    score_weight_volume: float = 0.4
+    score_weight_velocity: float = 0.3
+    score_weight_sentiment: float = 0.15
+    score_weight_entity: float = 0.15
     pipeline_window_hours: int = 24
     google_application_credentials: str = ""
     google_cloud_project: str = ""  # (.env: GOOGLE_CLOUD_PROJECT)
     google_cloud_location: str = "asia-northeast3"  # (.env: GOOGLE_CLOUD_LOCATION)
     # LLM 분석용 (.env: VERTEX_MODEL). 2026-06-22 정정: 3.5-flash는 리전 미존재(404).
     vertex_model: str = "gemini-2.5-flash"
-    # 있으면 분석·생성 LLM을 Vertex(IAM/ADC) 대신 google-genai(Gemini API 키)로 호출 (.env: GOOGLE_API_KEY).
+    # 있으면 분석·생성 LLM을 Vertex(IAM/ADC) 대신 Gemini API 키로 호출한다.
     google_api_key: str = ""
+    dictionary_model: str = "gemini-3-flash-preview"  # (.env: DICTIONARY_MODEL)
+    dictionary_fallback_model: str = "gemini-3.1-flash-lite-preview"
+    dictionary_admin_token: str = ""
     # 뉴스 분석·콘텐츠 생성 단계 (설계 10) — 분류·생성 LLM 호출 파라미터.
     # 분석할 상위 클러스터 수 (.env: ANALYSIS_TOP_CLUSTER_COUNT)
     analysis_top_cluster_count: int = 10
@@ -50,10 +60,16 @@ class Settings(BaseSettings):
     classification_confidence_threshold: float = 0.5  # 미만이면 needs_review(검수 큐)
     llm_request_delay_seconds: float = 0.5  # 이슈 간 호출 간격(rate limit 완화)
     llm_max_retries: int = 6  # langchain(Vertex) 429 지수 백오프 재시도 횟수
-    # 발행 품질 게이트 — head 4개 중 honest-blank("기사에 …없습니다")가 이 수 이상이면 needs_review.
+    # 발행 품질 게이트 — honest-blank head와 원문 부족 콘텐츠를 자동 발행에서 격리한다.
     max_blank_heads: int = 2
-    # 대표 기사 본문이 이 글자 수 미만이면 원문 부족 — 생성 건너뛰고 needs_review(설계 15).
     min_source_body_chars: int = 200
+
+    # --- SPOF 전환 메트릭 계기판 (설계 00 §11.5) ---
+    # 단일 호스트 docker-compose(LocalExecutor)의 한계 임계 — 결함이 아니라 측정값이 닿으면
+    # Celery/K8s·Composer로 승격할 "전환 시점"을 알려주는 계기판. 초기 추정값(운영 데이터로 교정).
+    spof_daily_volume_threshold: int = 5000       # 일 수집량 ≥ → 백필·대량 재처리 부담
+    spof_batch_duration_ratio: float = 0.5        # 세션 배치 소요÷세션 간격 ≥ → 스케일아웃 압박
+    spof_monthly_manual_interventions: int = 2    # 월 수동 개입 ≥ → 무중단 운영 한계
 
     # --- 인증/세션 (httpOnly 쿠키 + stateless JWT) ---
     secret_key: str  # JWT 서명 키 — .env 필수, 코드 기본값 금지(시크릿)

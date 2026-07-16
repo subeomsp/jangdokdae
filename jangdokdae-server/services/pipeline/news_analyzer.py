@@ -23,7 +23,6 @@ from app.db.queries import (
     get_unanalyzed_clusters,
     mark_news_analyzed,
     resolve_company_ids,
-    resolve_market_ids,
     resolve_sector_ids,
     save_issue_docent,
     save_news_analysis,
@@ -36,6 +35,7 @@ from services.analyzer.schemas import (
     ClassificationResult,
     ContentResult,
     Issue,
+    QuizOutput,
 )
 from utils.dates import now_kst
 
@@ -43,11 +43,11 @@ logger = logging.getLogger(__name__)
 
 
 class ClusterOutcome(NamedTuple):
-    """한 클러스터 처리 결과 — 검수 큐 진입 여부 + skip 사유."""
+    """한 클러스터 처리 결과 — 검수 큐 진입 여부 + 콘텐츠 skip 사유."""
 
-    review: bool              # 검수 큐 진입(저신뢰·OPINION 가드 실패·honest-blank·본문 부족)
+    review: bool              # 검수 큐 진입(저신뢰·생성 가드·본문 부족)
     skipped_irrelevant: bool  # 비투자성으로 콘텐츠 생성·적재를 건너뜀(relevance 필터)
-    low_source: bool          # 원문 본문 부족으로 생성을 건너뜀(needs_review로 격리, 설계 15)
+    low_source: bool          # 원문 본문 부족으로 생성을 건너뜀
 
 
 class NewsAnalyzerState(TypedDict):
@@ -58,7 +58,7 @@ class NewsAnalyzerState(TypedDict):
     analyzed: int           # 분류·적재까지 완료한 수(비투자성 skip 포함)
     needs_review: int       # 저신뢰로 검수 큐에 들어간 수
     skipped_irrelevant: int  # 비투자성으로 콘텐츠 생성을 건너뛴 수(relevance 필터)
-    low_source: int         # 원문 본문 부족으로 생성을 건너뛴 수(설계 15)
+    low_source: int         # 원문 본문 부족으로 콘텐츠 생성을 건너뛴 수
     errors: list[str]       # 클러스터별 실패 신호 — 부분 실패 가시성(빈 리스트=전부 성공)
 
 
@@ -94,6 +94,7 @@ class NewsAnalyzer:
         issue: Issue,
         classification: ClassificationResult,
         content: ContentResult | None,
+        quizzes: QuizOutput | None,
         review: bool,
     ) -> None:
         # 태그(이름)를 마스터 id로 해소해 백필 — 관계형 조회·주가 연동의 조인 키.
@@ -120,22 +121,16 @@ class NewsAnalyzer:
         )
         # relevance 필터: 비투자성(content 없음)이면 분류만 남기고 콘텐츠 적재는 건너뛴다.
         if content is not None:
-            # 온보딩 관심사 매칭용 백필 — market은 종목 거래소(해외는 GLOBAL 폴백)로,
-            # sector·company는 분류에서 해소한 id 재사용.
-            market_ids = await resolve_market_ids(db, company_ids, classification.origin)
             await save_issue_docent(
                 db,
                 cluster_id=cluster.id,
-                # LLM이 생성한 주린이용 제목. 누락 시 대표 기사 원문 제목으로 폴백.
                 title=content.title or issue.main_article.title,
-                market_ids=market_ids,
-                sector_ids=sector_ids,
-                company_ids=company_ids,
                 hook_lines=content.hook_lines.model_dump() if content.hook_lines else {},
                 content_heads=[h.model_dump() for h in content.heads],
                 connection_module=[c.model_dump() for c in content.connection_module],
                 evidence_spans=[e.model_dump() for e in content.evidence_spans],
                 term_spans=[t.model_dump() for t in content.term_spans],
+                quizzes=[q.model_dump() for q in quizzes.quizzes] if quizzes else [],
             )
         await mark_news_analyzed(db, cluster.member_news_ids)
 
@@ -154,24 +149,25 @@ class NewsAnalyzer:
         # 여기선 ainvoke로 직접 await한다. enrich 노드의 key 조회용으로 db를 함께 넘긴다.
         result = await self.graph.ainvoke({"issue": issue, "db": db})
         classification: ClassificationResult = result["classification"]
-        content: ContentResult | None = result.get("content")  # skip(비투자성·본문부족) 시 None
-        # content가 없는 두 경로 구분: 비투자성(relevance)과 본문 부족(low_source, 설계 15).
+        content: ContentResult | None = result.get("content")
+        quizzes: QuizOutput | None = result.get("quizzes")
         skipped_irrelevant = content is None and not classification.is_investment_relevant
         low_source = content is None and classification.is_investment_relevant
         if skipped_irrelevant:
             logger.info("relevance 필터: 비투자성 — 콘텐츠 생성 생략 cluster_id=%s", cluster.id)
         elif low_source:
             logger.info("본문 부족 — 콘텐츠 생성 생략, needs_review cluster_id=%s", cluster.id)
-        # 검수 큐 진입: 분류 저신뢰 OR OPINION 가드·honest-blank(generation_review) OR 본문 부족.
         review = (
             needs_review(classification)
             or result.get("generation_review", False)
             or low_source
         )
-        await self._persist(db, cluster, issue, classification, content, review)
+        await self._persist(db, cluster, issue, classification, content, quizzes, review)
         await db.commit()
         return ClusterOutcome(
-            review=review, skipped_irrelevant=skipped_irrelevant, low_source=low_source
+            review=review,
+            skipped_irrelevant=skipped_irrelevant,
+            low_source=low_source,
         )
 
     async def run(self, db: AsyncSession) -> NewsAnalyzerState:
@@ -206,6 +202,10 @@ class NewsAnalyzer:
             run_date, len(clusters), analyzed, review_count, skipped_count,
             low_source_count, len(errors),
         )
+        if errors:
+            # 성공한 클러스터는 이미 commit되어 재시도에서 자동 제외된다. 실패를 호출자에게
+            # 올려야 Airflow가 Task를 재시도하고 전체 실패를 성공으로 오인하지 않는다.
+            raise RuntimeError("뉴스 분석 단계 일부 실패: " + "; ".join(errors))
         return NewsAnalyzerState(
             run_date=str(run_date),
             clusters=len(clusters),
