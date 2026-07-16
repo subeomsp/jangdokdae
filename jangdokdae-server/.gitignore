@@ -1,0 +1,60 @@
+# 환경
+.env
+.env.local
+.env.*.local
+
+# GCP 서비스 계정 키 — 절대 커밋 금지
+app/credentials/
+**/credentials/
+*vertex_key*.json
+*service_account*.json
+credentials.json
+service-account.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 테스트·커버리지
+.pytest_cache/
+.coverage
+htmlcov/
+tests/
+tests/data/
+
+# 캐시
+.cache/
+.mypy_cache/
+.ruff_cache/
+.benchmarks/
+
+# 로그
+*.log
+logs/
+dev-logs/
+
+# 기타
+tmp/
+temp/
+*.bak
+
+# 베이크오프 임베딩 캐시 — 모델별 .npy(수MB×N), 재생성 가능해 커밋 안 함
+evaluation/cache/
+
+# 베이크오프 골드셋·라벨셋 — 수집 뉴스 본문·제목 포함 생성 데이터, 커밋 금지(example만 추적)
+scripts/data/goldset_*
+scripts/data/embedding_labelset.json
+
+# 시각화·분석 산출물 (HTML/PNG/md) — 재생성 가능, 뉴스 제목 포함될 수 있어 커밋 안 함
+output/
