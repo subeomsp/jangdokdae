@@ -1,0 +1,122 @@
+name: Jangdokdae News Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      session:
+        description: Pipeline market session
+        required: true
+        default: morning
+        type: choice
+        options:
+          - premarket
+          - morning
+          - afternoon
+          - afterhours
+  schedule:
+    # GitHub cron is UTC. Start with the two recommended KST runs.
+    - cron: "7 0 * * *"   # 09:07 KST
+    - cron: "37 6 * * *"  # 15:37 KST
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: jangdokdae-news-pipeline
+  cancel-in-progress: false
+
+jobs:
+  run-pipeline:
+    name: Collect, embed, cluster, and analyze news
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: jangdokdae-server
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      OPENDART_API_KEY: ${{ secrets.OPENDART_API_KEY }}
+      ECOS_API_KEY: ${{ secrets.ECOS_API_KEY }}
+      KRX_ID: ${{ secrets.KRX_ID }}
+      KRX_PW: ${{ secrets.KRX_PW }}
+      GCP_WIF_PROVIDER: ${{ vars.GCP_WIF_PROVIDER }}
+      GCP_SERVICE_ACCOUNT: ${{ vars.GCP_SERVICE_ACCOUNT }}
+      GOOGLE_CLOUD_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      GOOGLE_CLOUD_LOCATION: ${{ vars.GOOGLE_CLOUD_LOCATION }}
+      VERTEX_MODEL: ${{ vars.VERTEX_MODEL }}
+      EMBED_MODEL: ${{ vars.EMBED_MODEL }}
+      HF_HOME: ${{ github.workspace }}/.cache/huggingface
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+
+      - name: Validate required configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            DATABASE_URL
+            SECRET_KEY
+            OPENDART_API_KEY
+            GCP_WIF_PROVIDER
+            GCP_SERVICE_ACCOUNT
+            GOOGLE_CLOUD_PROJECT
+            GOOGLE_CLOUD_LOCATION
+            VERTEX_MODEL
+            EMBED_MODEL
+          )
+          missing=()
+          for name in "${required[@]}"; do
+            if [[ -z "${!name:-}" ]]; then
+              missing+=("$name")
+            fi
+          done
+          if (( ${#missing[@]} > 0 )); then
+            printf 'Missing GitHub Actions configuration: %s\n' "${missing[*]}" >&2
+            exit 1
+          fi
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+        with:
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up uv and Python
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          version: "0.9.10"
+          python-version: "3.12"
+          working-directory: jangdokdae-server
+          enable-cache: true
+          cache-dependency-glob: jangdokdae-server/uv.lock
+
+      - name: Restore embedding model cache
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+        with:
+          path: .cache/huggingface
+          key: huggingface-${{ runner.os }}-${{ hashFiles('jangdokdae-server/uv.lock') }}
+
+      - name: Install application dependencies
+        run: uv sync --frozen
+
+      - name: Apply database migrations
+        run: uv run alembic upgrade head
+
+      - name: Select market session
+        id: session
+        shell: bash
+        run: |
+          session="${{ inputs.session }}"
+          if [[ -z "$session" ]]; then
+            session="$(uv run python -c 'from utils.dates import current_market_session; print(current_market_session())')"
+          fi
+          echo "Selected session: $session"
+          echo "value=$session" >> "$GITHUB_OUTPUT"
+
+      - name: Run news pipeline
+        run: uv run python -m services.pipeline.runner "${{ steps.session.outputs.value }}"
