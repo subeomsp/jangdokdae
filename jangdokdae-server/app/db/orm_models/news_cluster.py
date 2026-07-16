@@ -7,7 +7,18 @@
 
 from datetime import date, datetime
 
-from sqlalchemy import ARRAY, Date, DateTime, Float, ForeignKey, Integer, UniqueConstraint
+from sqlalchemy import (
+    ARRAY,
+    Boolean,
+    Date,
+    DateTime,
+    Float,
+    ForeignKey,
+    Index,
+    Integer,
+    UniqueConstraint,
+    text,
+)
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import KST_NOW, Base
@@ -18,6 +29,11 @@ class NewsCluster(Base):
     __table_args__ = (
         # 같은 실행 일자·대표 기사 조합은 1행만 — 재실행 시 중복 적재를 막는 멱등 키.
         UniqueConstraint("run_date", "representative_news_id", name="uq_news_cluster_run_rep"),
+        Index(
+            "ix_news_cluster_current_run",
+            "run_date",
+            postgresql_where=text("is_current = true"),
+        ),
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -34,6 +50,11 @@ class NewsCluster(Base):
     member_news_ids: Mapped[list[int]] = mapped_column(ARRAY(Integer), nullable=False)
     size: Mapped[int] = mapped_column(Integer, nullable=False)  # 클러스터 기사 수
     importance: Mapped[float] = mapped_column(Float, nullable=False)  # 복합 중요도 [0,1]
+    # 같은 날 여러 차례 재클러스터링할 때 현재 스냅샷에 속한 행만 True다.
+    # 과거 행은 분석·콘텐츠 FK 보존을 위해 삭제하지 않고 False로 내린다.
+    is_current: Mapped[bool] = mapped_column(
+        Boolean, server_default=text("true"), default=True, nullable=False
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=False), server_default=KST_NOW, nullable=False
     )

@@ -30,7 +30,6 @@ __pycache__/
 .pytest_cache/
 .coverage
 htmlcov/
-tests/
 tests/data/
 
 # 캐시

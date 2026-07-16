@@ -8,7 +8,7 @@
 from __future__ import annotations
 
 from app.config import settings
-from services.analyzer.schemas import ClassificationResult, ContentDraft
+from services.analyzer.schemas import ClassificationResult, ContentDraft, QuizOutput
 
 
 def _chat(temperature: float):  # noqa: ANN201 — 백엔드별 구체 타입 노출은 과함
@@ -41,3 +41,8 @@ def make_classifier():  # noqa: ANN201 — Runnable 제네릭 타입 노출은 �
 def make_generator():  # noqa: ANN201
     """호출 B — 본문 생성기. invoke(messages) → ContentDraft."""
     return _chat(settings.generate_temperature).with_structured_output(ContentDraft)
+
+
+def make_quiz_generator():  # noqa: ANN201
+    """호출 C — 퀴즈 생성기. invoke(messages) → QuizOutput."""
+    return _chat(settings.generate_temperature).with_structured_output(QuizOutput)
