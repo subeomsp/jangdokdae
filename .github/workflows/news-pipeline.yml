@@ -93,7 +93,7 @@ jobs:
           python-version: "3.12"
           working-directory: jangdokdae-server
           enable-cache: true
-          cache-dependency-glob: jangdokdae-server/uv.lock
+          cache-dependency-glob: uv.lock
 
       - name: Restore embedding model cache
         uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
