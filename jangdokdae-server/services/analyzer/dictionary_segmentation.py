@@ -13,7 +13,7 @@ from services.analyzer.bok_dictionary import build_aliases, normalize_term
 from services.analyzer.dictionary_generator import grounded_dictionary_model_name
 
 TermRelationship = Literal["single", "distinct_concepts", "aliases", "notation"]
-SEGMENTATION_PROMPT_VERSION = "bok-term-units-v1"
+SEGMENTATION_PROMPT_VERSION = "bok-term-units-v2"
 
 
 class ProposedTermUnit(BaseModel):
@@ -55,17 +55,46 @@ def has_top_level_slash(term: str) -> bool:
     return False
 
 
-def _explicit_definition_alias(source_term: str, raw_definition: str) -> str | None:
-    """정의 첫머리의 ``한국어(English)``처럼 원문에 명시된 별칭만 찾는다."""
+def _explicit_english_aliases(label: str, source_text: str) -> list[str]:
+    """``용어(BCBS; English Name)``에서 영문 표기만 결정적으로 추출한다."""
 
-    if not raw_definition:
-        return None
-    match = re.match(
-        rf"\s*{re.escape(normalize_term(source_term))}\s*\(([^(){{}}]{{2,50}})\)",
-        raw_definition,
-        flags=re.IGNORECASE,
+    aliases: list[str] = []
+    pattern = rf"{re.escape(normalize_term(label))}\s*\(([^(){{}}]{{2,120}})\)"
+    for match in re.finditer(pattern, source_text, flags=re.IGNORECASE):
+        for part in re.split(r"[;,]", match.group(1)):
+            alias = normalize_term(part)
+            if not re.search(r"[A-Za-z]{2}", alias):
+                continue
+            if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9 .+&'/_-]{1,119}", alias):
+                continue
+            aliases.append(alias)
+    return list(dict.fromkeys(aliases))
+
+
+def enrich_explicit_aliases(
+    source_term: str,
+    raw_definition: str,
+    proposal: TermUnitProposal,
+) -> TermUnitProposal:
+    """대표 용어와 이미 찾은 별칭 바로 뒤의 공식 영문 표기를 같은 unit에 보강한다."""
+
+    source_text = f"{source_term}\n{raw_definition}"
+    units: list[ProposedTermUnit] = []
+    for unit in proposal.units:
+        aliases = list(unit.aliases)
+        for label in [unit.term, *unit.aliases]:
+            aliases.extend(_explicit_english_aliases(label, source_text))
+        aliases = [
+            alias
+            for alias in dict.fromkeys(aliases)
+            if alias.casefold() != unit.term.casefold()
+        ]
+        units.append(ProposedTermUnit(term=unit.term, aliases=aliases))
+    return TermUnitProposal(
+        relationship=proposal.relationship,
+        units=units,
+        reason=proposal.reason,
     )
-    return normalize_term(match.group(1)) if match else None
 
 
 def deterministic_single_proposal(
@@ -78,21 +107,22 @@ def deterministic_single_proposal(
         return None
     relationship: TermRelationship = "notation" if "/" in source_term else "single"
     alias_candidates = build_aliases(source_term)
-    definition_alias = _explicit_definition_alias(source_term, raw_definition)
-    if definition_alias:
-        alias_candidates.append(definition_alias)
     aliases = [
         alias
         for alias in dict.fromkeys(alias_candidates)
         if alias.casefold() != normalize_term(source_term).casefold()
     ]
-    return TermUnitProposal(
-        relationship=relationship,
-        units=[ProposedTermUnit(term=normalize_term(source_term), aliases=aliases)],
-        reason=(
-            "slash가 괄호 안 약어 표기에만 있어 하나의 용어로 유지합니다."
-            if relationship == "notation"
-            else "제목에 복합 용어 구분자가 없어 하나의 용어로 유지합니다."
+    return enrich_explicit_aliases(
+        source_term,
+        raw_definition,
+        TermUnitProposal(
+            relationship=relationship,
+            units=[ProposedTermUnit(term=normalize_term(source_term), aliases=aliases)],
+            reason=(
+                "slash가 괄호 안 약어 표기에만 있어 하나의 용어로 유지합니다."
+                if relationship == "notation"
+                else "제목에 복합 용어 구분자가 없어 하나의 용어로 유지합니다."
+            ),
         ),
     )
 
@@ -186,6 +216,8 @@ async def propose_term_units(
         "- single: 그 밖의 단일 개념\n"
         "distinct_concepts일 때만 units를 두 개 이상 만든다.\n"
         "aliases, notation, single은 대표 용어 하나만 만들고 나머지 표기는 aliases에 넣는다.\n"
+        "원문에서 용어 바로 뒤 괄호에 영문명이나 약어가 명시되면 해당 unit의 aliases에 "
+        "빠짐없이 포함한다.\n"
         "생략형 제목은 원문이 직접 뒷받침할 때만 완전한 용어로 복원한다.\n"
         "예: 단리/복리 → distinct_concepts, 단리와 복리\n"
         "예: 환매조건부매매/RP/Repo → aliases, 대표 용어 환매조건부매매\n"
@@ -196,6 +228,7 @@ async def propose_term_units(
     )
     raw_proposal = await _segmentation_llm(grounded_dictionary_model_name()).ainvoke(prompt)
     proposal = normalize_proposal(cast(TermUnitProposal, raw_proposal))
+    proposal = enrich_explicit_aliases(source_term, raw_definition, proposal)
     problems = validate_term_unit_proposal(source_term, raw_definition, proposal)
     if problems:
         raise ValueError(f"invalid term unit proposal: {', '.join(problems)}")

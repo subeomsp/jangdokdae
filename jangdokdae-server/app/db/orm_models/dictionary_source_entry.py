@@ -51,6 +51,9 @@ class DictionarySourceEntry(Base):
         String(20), nullable=False, server_default=text("'pending'")
     )
     term_units_model_name: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    term_units_prompt_version: Mapped[str | None] = mapped_column(
+        String(80), nullable=True
+    )
     term_units_reviewed_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=False), nullable=True
     )

@@ -42,6 +42,19 @@
 등장하는지는 다시 코드로 검사한다. 이 단계의 결과는 제안일 뿐이며 검수 승인 전에는
 본문에 노출하지 않는다.
 
+복합 제목의 분리안을 8개씩 만들려면 다음 명령을 사용한다.
+
+```bash
+uv run python scripts/propose_dictionary_term_units.py --limit 8
+```
+
+특정 제목만 처리하려면 `--term`을 여러 번 지정한다. 결과는
+`dictionary_source_entries.term_units_status=proposed`로만 저장된다. 이미
+`approved`인 행은 `--force`를 사용해도 덮어쓰지 않는다.
+
+각 제안에는 `term_units_model_name`과 `term_units_prompt_version`을 함께 기록한다.
+모델이나 프롬프트가 바뀌면 기존 결과와 새 결과를 구분해 회귀 평가할 수 있다.
+
 공식 출처:
 
 - [한국은행 경제금융용어 800선 안내 페이지](https://www.bok.or.kr/portal/bbs/B0000249/view.do?depth=200765&menuNo=200765&nttId=10096081&oldMenuNo=201150&programType=newsData&relate=Y)

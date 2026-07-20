@@ -4,6 +4,7 @@ from services.analyzer.dictionary_segmentation import (
     ProposedTermUnit,
     TermUnitProposal,
     deterministic_single_proposal,
+    enrich_explicit_aliases,
     has_top_level_slash,
     proposal_to_records,
     propose_term_units,
@@ -36,6 +37,47 @@ def test_single_term_uses_explicit_english_alias_from_definition():
     assert proposal.relationship == "single"
     assert proposal.units[0].term == "빅테크"
     assert proposal.units[0].aliases == ["Big Tech"]
+
+
+def test_explicit_alias_enrichment_splits_abbreviation_and_english_name():
+    proposal = TermUnitProposal(
+        relationship="aliases",
+        units=[
+            ProposedTermUnit(
+                term="바젤은행감독위원회",
+                aliases=["바젤위원회", "BCBS"],
+            )
+        ],
+        reason="같은 위원회의 다른 표기",
+    )
+
+    enriched = enrich_explicit_aliases(
+        "바젤은행감독위원회/바젤위원회(BCBS)",
+        "바젤은행감독위원회(BCBS; Basel Committee on Banking Supervision)가 설립되었다.",
+        proposal,
+    )
+
+    assert enriched.units[0].aliases == [
+        "바젤위원회",
+        "BCBS",
+        "Basel Committee on Banking Supervision",
+    ]
+
+
+def test_explicit_alias_enrichment_ignores_korean_formula_parentheses():
+    proposal = TermUnitProposal(
+        relationship="single",
+        units=[ProposedTermUnit(term="경제활동인구", aliases=[])],
+        reason="단일 용어",
+    )
+
+    enriched = enrich_explicit_aliases(
+        "경제활동인구",
+        "경제활동인구(취업자 + 실업자)를 전체 인구와 비교한다.",
+        proposal,
+    )
+
+    assert enriched.units[0].aliases == []
 
 
 def test_distinct_proposal_requires_multiple_supported_units():
@@ -88,6 +130,7 @@ async def test_compound_proposal_uses_official_source_only(monkeypatch):
     )
 
     assert "제목과 [공식 원문]에 있는 정보만 사용" in captured["prompt"]
+    assert "영문명이나 약어가 명시되면" in captured["prompt"]
     assert proposal.units[0].aliases == ["RP", "Repo"]
     assert proposal_to_records(proposal) == [
         {
