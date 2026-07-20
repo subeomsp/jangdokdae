@@ -24,7 +24,7 @@ def _load_tasks():
 def test_approved_eval_tasks_are_valid_and_cover_all_relationships():
     tasks = _load_tasks()
 
-    assert len(tasks) == 5
+    assert len(tasks) == 13
     assert all(task.label_status == "approved" for task in tasks)
     assert {task.expected.relationship for task in tasks} == {
         "single",
@@ -76,17 +76,17 @@ def test_report_summarizes_overall_and_each_relationship():
     tasks = _load_tasks()
     report = build_segmentation_report(tasks, [_exact_grade(task) for task in tasks])
 
-    assert report.task_count == 5
-    assert report.passed_count == 5
+    assert report.task_count == 13
+    assert report.passed_count == 13
     assert report.pass_rate == 1
     assert report.average_score == 100
     assert report.hard_failure_count == 0
     assert {
         summary.relationship: summary.task_count for summary in report.by_relationship
     } == {
-        "distinct_concepts": 2,
-        "aliases": 1,
-        "notation": 1,
+        "distinct_concepts": 7,
+        "aliases": 3,
+        "notation": 2,
         "single": 1,
     }
 
