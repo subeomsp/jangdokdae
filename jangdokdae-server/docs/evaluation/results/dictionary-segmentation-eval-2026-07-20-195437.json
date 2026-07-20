@@ -1,0 +1,574 @@
+{
+  "started_at": "2026-07-20T10:53:47.265681Z",
+  "completed_at": "2026-07-20T10:54:37.771498Z",
+  "model_name": "gemini-2.5-flash",
+  "prompt_version": "bok-term-units-v1",
+  "repeats": 3,
+  "task_content_hashes": {
+    "bok-seg-001": "dc46dc03c5d709bd7a7a4e94fd8aa931e9be912520d3ea04b4d3957d55e2060e",
+    "bok-seg-002": "5b8085cea317db6a8f0c3978217628b0a99d85931b289a4f81618d7045870e39",
+    "bok-seg-003": "809985a66f7f1dc543d44dc320be0f69a057a9f26e4ced672e13f46fa8599b51",
+    "bok-seg-004": "835461e179c41e5ffad9b0d578521276d02353dea7024cf0d3034902f77fba4f",
+    "bok-seg-005": "345c92f34048b175c7da0b7073c41a8b7f1f4eb04e7c9537c484bfd1f54f7773"
+  },
+  "trials": [
+    {
+      "task_id": "bok-seg-001",
+      "source_term": "단리/복리",
+      "expected_relationship": "distinct_concepts",
+      "trial_number": 1,
+      "started_at": "2026-07-20T10:53:47.265685Z",
+      "latency_ms": 5338,
+      "prediction": {
+        "relationship": "distinct_concepts",
+        "units": [
+          {
+            "term": "단리",
+            "aliases": [
+              "Simple Interest"
+            ]
+          },
+          {
+            "term": "복리",
+            "aliases": [
+              "Compound Interest"
+            ]
+          }
+        ],
+        "reason": "원문에서 단리와 복리를 각각의 개념으로 정의하고 설명하며 비교하고 있으므로 분리된 개념으로 본다."
+      },
+      "grade": {
+        "task_id": "bok-seg-001",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-001",
+      "source_term": "단리/복리",
+      "expected_relationship": "distinct_concepts",
+      "trial_number": 2,
+      "started_at": "2026-07-20T10:53:52.604103Z",
+      "latency_ms": 5324,
+      "prediction": {
+        "relationship": "distinct_concepts",
+        "units": [
+          {
+            "term": "단리",
+            "aliases": [
+              "Simple Interest"
+            ]
+          },
+          {
+            "term": "복리",
+            "aliases": [
+              "Compound Interest"
+            ]
+          }
+        ],
+        "reason": "단리와 복리는 이자를 계산하는 두 가지 다른 방식으로, 각각의 정의와 예시가 원문에 명확히 설명되어 있어 별개의 개념으로 분리해야 합니다."
+      },
+      "grade": {
+        "task_id": "bok-seg-001",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-001",
+      "source_term": "단리/복리",
+      "expected_relationship": "distinct_concepts",
+      "trial_number": 3,
+      "started_at": "2026-07-20T10:53:57.928068Z",
+      "latency_ms": 3734,
+      "prediction": {
+        "relationship": "distinct_concepts",
+        "units": [
+          {
+            "term": "단리",
+            "aliases": [
+              "Simple Interest"
+            ]
+          },
+          {
+            "term": "복리",
+            "aliases": [
+              "Compound Interest"
+            ]
+          }
+        ],
+        "reason": "단리와 복리는 이자를 계산하는 서로 다른 방식이며, 원문에서 각각의 개념과 특징을 명확히 구분하여 설명하고 있다."
+      },
+      "grade": {
+        "task_id": "bok-seg-001",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-002",
+      "source_term": "명목금리/실질금리",
+      "expected_relationship": "distinct_concepts",
+      "trial_number": 1,
+      "started_at": "2026-07-20T10:54:01.662623Z",
+      "latency_ms": 6302,
+      "prediction": {
+        "relationship": "distinct_concepts",
+        "units": [
+          {
+            "term": "명목금리",
+            "aliases": []
+          },
+          {
+            "term": "실질금리",
+            "aliases": []
+          }
+        ],
+        "reason": "원문에서 명목금리와 실질금리를 물가변동 고려 여부에 따라 구분되는 별개의 개념으로 설명하고 있음"
+      },
+      "grade": {
+        "task_id": "bok-seg-002",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-002",
+      "source_term": "명목금리/실질금리",
+      "expected_relationship": "distinct_concepts",
+      "trial_number": 2,
+      "started_at": "2026-07-20T10:54:07.964321Z",
+      "latency_ms": 6085,
+      "prediction": {
+        "relationship": "distinct_concepts",
+        "units": [
+          {
+            "term": "명목금리",
+            "aliases": []
+          },
+          {
+            "term": "실질금리",
+            "aliases": []
+          }
+        ],
+        "reason": "원문에서 명목금리와 실질금리를 물가변동 고려 여부에 따라 구분되는 별개의 개념으로 정의하고 각각 설명하고 있기 때문"
+      },
+      "grade": {
+        "task_id": "bok-seg-002",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-002",
+      "source_term": "명목금리/실질금리",
+      "expected_relationship": "distinct_concepts",
+      "trial_number": 3,
+      "started_at": "2026-07-20T10:54:14.049721Z",
+      "latency_ms": 4485,
+      "prediction": {
+        "relationship": "distinct_concepts",
+        "units": [
+          {
+            "term": "명목금리",
+            "aliases": []
+          },
+          {
+            "term": "실질금리",
+            "aliases": []
+          }
+        ],
+        "reason": "원문에서 물가변동 고려 여부를 기준으로 명목금리와 실질금리를 서로 다른 개념으로 구분하여 설명하고 있음"
+      },
+      "grade": {
+        "task_id": "bok-seg-002",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-003",
+      "source_term": "환매조건부매매/RP/Repo",
+      "expected_relationship": "aliases",
+      "trial_number": 1,
+      "started_at": "2026-07-20T10:54:18.534674Z",
+      "latency_ms": 7154,
+      "prediction": {
+        "relationship": "aliases",
+        "units": [
+          {
+            "term": "환매조건부매매",
+            "aliases": [
+              "RP",
+              "Repo"
+            ]
+          }
+        ],
+        "reason": "공식 원문에서 RP거래가 환매조건부매매를 지칭하며, Repo는 RP의 일반적인 약어이므로 모두 같은 개념을 가리킨다."
+      },
+      "grade": {
+        "task_id": "bok-seg-003",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-003",
+      "source_term": "환매조건부매매/RP/Repo",
+      "expected_relationship": "aliases",
+      "trial_number": 2,
+      "started_at": "2026-07-20T10:54:25.689048Z",
+      "latency_ms": 6307,
+      "prediction": {
+        "relationship": "aliases",
+        "units": [
+          {
+            "term": "환매조건부매매",
+            "aliases": [
+              "RP",
+              "Repo"
+            ]
+          }
+        ],
+        "reason": "환매조건부매매, RP, Repo는 모두 동일한 개념을 지칭하는 다른 표기 및 약어이다."
+      },
+      "grade": {
+        "task_id": "bok-seg-003",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-003",
+      "source_term": "환매조건부매매/RP/Repo",
+      "expected_relationship": "aliases",
+      "trial_number": 3,
+      "started_at": "2026-07-20T10:54:31.996257Z",
+      "latency_ms": 5774,
+      "prediction": {
+        "relationship": "aliases",
+        "units": [
+          {
+            "term": "환매조건부매매",
+            "aliases": [
+              "RP",
+              "Repo"
+            ]
+          }
+        ],
+        "reason": "환매조건부매매, RP, Repo는 모두 동일한 개념을 가리키는 정식 명칭과 약어, 다른 표기이다."
+      },
+      "grade": {
+        "task_id": "bok-seg-003",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-004",
+      "source_term": "산업연관표(I/O Tables)",
+      "expected_relationship": "notation",
+      "trial_number": 1,
+      "started_at": "2026-07-20T10:54:37.770397Z",
+      "latency_ms": 1,
+      "prediction": {
+        "relationship": "notation",
+        "units": [
+          {
+            "term": "산업연관표(I/O Tables)",
+            "aliases": [
+              "산업연관표",
+              "I/O Tables"
+            ]
+          }
+        ],
+        "reason": "slash가 괄호 안 약어 표기에만 있어 하나의 용어로 유지합니다."
+      },
+      "grade": {
+        "task_id": "bok-seg-004",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-004",
+      "source_term": "산업연관표(I/O Tables)",
+      "expected_relationship": "notation",
+      "trial_number": 2,
+      "started_at": "2026-07-20T10:54:37.770997Z",
+      "latency_ms": 0,
+      "prediction": {
+        "relationship": "notation",
+        "units": [
+          {
+            "term": "산업연관표(I/O Tables)",
+            "aliases": [
+              "산업연관표",
+              "I/O Tables"
+            ]
+          }
+        ],
+        "reason": "slash가 괄호 안 약어 표기에만 있어 하나의 용어로 유지합니다."
+      },
+      "grade": {
+        "task_id": "bok-seg-004",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-004",
+      "source_term": "산업연관표(I/O Tables)",
+      "expected_relationship": "notation",
+      "trial_number": 3,
+      "started_at": "2026-07-20T10:54:37.771123Z",
+      "latency_ms": 0,
+      "prediction": {
+        "relationship": "notation",
+        "units": [
+          {
+            "term": "산업연관표(I/O Tables)",
+            "aliases": [
+              "산업연관표",
+              "I/O Tables"
+            ]
+          }
+        ],
+        "reason": "slash가 괄호 안 약어 표기에만 있어 하나의 용어로 유지합니다."
+      },
+      "grade": {
+        "task_id": "bok-seg-004",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-005",
+      "source_term": "빅테크",
+      "expected_relationship": "single",
+      "trial_number": 1,
+      "started_at": "2026-07-20T10:54:37.771233Z",
+      "latency_ms": 0,
+      "prediction": {
+        "relationship": "single",
+        "units": [
+          {
+            "term": "빅테크",
+            "aliases": [
+              "Big Tech"
+            ]
+          }
+        ],
+        "reason": "제목에 복합 용어 구분자가 없어 하나의 용어로 유지합니다."
+      },
+      "grade": {
+        "task_id": "bok-seg-005",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-005",
+      "source_term": "빅테크",
+      "expected_relationship": "single",
+      "trial_number": 2,
+      "started_at": "2026-07-20T10:54:37.771362Z",
+      "latency_ms": 0,
+      "prediction": {
+        "relationship": "single",
+        "units": [
+          {
+            "term": "빅테크",
+            "aliases": [
+              "Big Tech"
+            ]
+          }
+        ],
+        "reason": "제목에 복합 용어 구분자가 없어 하나의 용어로 유지합니다."
+      },
+      "grade": {
+        "task_id": "bok-seg-005",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    },
+    {
+      "task_id": "bok-seg-005",
+      "source_term": "빅테크",
+      "expected_relationship": "single",
+      "trial_number": 3,
+      "started_at": "2026-07-20T10:54:37.771416Z",
+      "latency_ms": 0,
+      "prediction": {
+        "relationship": "single",
+        "units": [
+          {
+            "term": "빅테크",
+            "aliases": [
+              "Big Tech"
+            ]
+          }
+        ],
+        "reason": "제목에 복합 용어 구분자가 없어 하나의 용어로 유지합니다."
+      },
+      "grade": {
+        "task_id": "bok-seg-005",
+        "relationship_score": 30.0,
+        "term_score": 35.0,
+        "alias_score": 20.0,
+        "source_support_score": 15.0,
+        "total_score": 100.0,
+        "passed": true,
+        "mismatches": [],
+        "hard_failures": []
+      },
+      "error": null
+    }
+  ],
+  "metrics": {
+    "task_count": 5,
+    "trial_count": 15,
+    "passed_trial_count": 15,
+    "errored_trial_count": 0,
+    "hard_failure_count": 0,
+    "pass_at_1": 1.0,
+    "pass_power_k": 1.0,
+    "average_score": 100.0,
+    "by_relationship": [
+      {
+        "relationship": "distinct_concepts",
+        "task_count": 2,
+        "trial_count": 6,
+        "trial_pass_rate": 1.0,
+        "pass_at_1": 1.0,
+        "pass_power_k": 1.0,
+        "average_score": 100.0
+      },
+      {
+        "relationship": "aliases",
+        "task_count": 1,
+        "trial_count": 3,
+        "trial_pass_rate": 1.0,
+        "pass_at_1": 1.0,
+        "pass_power_k": 1.0,
+        "average_score": 100.0
+      },
+      {
+        "relationship": "notation",
+        "task_count": 1,
+        "trial_count": 3,
+        "trial_pass_rate": 1.0,
+        "pass_at_1": 1.0,
+        "pass_power_k": 1.0,
+        "average_score": 100.0
+      },
+      {
+        "relationship": "single",
+        "task_count": 1,
+        "trial_count": 3,
+        "trial_pass_rate": 1.0,
+        "pass_at_1": 1.0,
+        "pass_power_k": 1.0,
+        "average_score": 100.0
+      }
+    ]
+  }
+}
