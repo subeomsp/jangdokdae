@@ -44,6 +44,14 @@ export interface ReaderCard {
 export interface IssueTerm {
   name: string;
   definition: string;
+  aliases: string[];
+  source_label: string | null;
+  source_title: string | null;
+  source_url: string | null;
+  source_page: number | null;
+  original_url: string | null;
+  ai_generated: boolean;
+  verification_status: string;
 }
 
 export interface SourceArticle {

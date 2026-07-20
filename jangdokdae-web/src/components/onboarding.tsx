@@ -3,8 +3,10 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { BottomBar } from "@/components/bottom-bar";
 import { Brand } from "@/components/brand";
-import { getSectors } from "@/lib/api";
+import { CheckIcon } from "@/components/icons";
+import { ApiError, getSectors } from "@/lib/api";
 import { getInterests, saveInterests } from "@/lib/storage";
 import type { Sector } from "@/lib/types";
 
@@ -30,7 +32,9 @@ export function Onboarding() {
       .catch((reason: unknown) => {
         if (active) {
           setError(
-            reason instanceof Error ? reason.message : "섹터를 불러오지 못했어요.",
+            reason instanceof ApiError
+              ? reason.message
+              : "서버에 연결하지 못했어요. 네트워크를 확인한 뒤 다시 시도해주세요.",
           );
         }
       })
@@ -59,33 +63,34 @@ export function Onboarding() {
   }
 
   return (
-    <main className="app-shell onboarding-shell">
+    <main className="shell">
       <header className="topbar">
         <Brand />
-        <span className="step-label">처음 한 번만</span>
+        <span className="topbar__note">처음 한 번만</span>
       </header>
 
-      <section className="onboarding-intro">
-        <span className="eyebrow">관심 설정</span>
+      <section className="page-head">
+        <p className="page-head__label">관심 설정</p>
         <h1>어떤 산업의 흐름이<br />가장 궁금한가요?</h1>
-        <p>한 개부터 세 개까지 골라주세요. 나중에 언제든 바꿀 수 있어요.</p>
+        <p className="page-head__sub">한 개부터 세 개까지 골라주세요. 나중에 언제든 바꿀 수 있어요.</p>
       </section>
 
-      <div className="selection-count" aria-live="polite">
-        <strong>{selected.length}</strong> / {MAX_SELECTION} 선택
-      </div>
+      <p className="select-count" aria-live="polite">
+        <strong>{selected.length}</strong>
+        <span> / {MAX_SELECTION} 선택</span>
+      </p>
 
       {loading ? (
-        <div className="sector-grid" aria-label="섹터 불러오는 중">
+        <div className="sector-grid" aria-hidden="true">
           {Array.from({ length: 6 }, (_, index) => (
-            <div className="sector-card sector-card--skeleton" key={index} />
+            <div className="sector-tile--skeleton skeleton" key={index} />
           ))}
         </div>
       ) : error ? (
-        <section className="empty-state empty-state--inline">
+        <section className="state-block">
           <h2>섹터를 불러오지 못했어요.</h2>
           <p>{error}</p>
-          <button className="button button--secondary" onClick={() => location.reload()}>
+          <button className="btn btn--ghost" onClick={() => location.reload()} type="button">
             다시 시도하기
           </button>
         </section>
@@ -96,16 +101,18 @@ export function Onboarding() {
             const disabled = !checked && selected.length >= MAX_SELECTION;
             return (
               <button
-                className={`sector-card ${checked ? "is-selected" : ""}`}
+                aria-pressed={checked}
+                className={`sector-tile ${checked ? "is-selected" : ""}`}
                 disabled={disabled}
                 key={sector.id}
                 onClick={() => toggleSector(sector.id)}
                 type="button"
-                aria-pressed={checked}
               >
-                <span className="sector-card__check">{checked ? "✓" : "+"}</span>
+                <span className="sector-tile__check" aria-hidden="true">
+                  {checked && <CheckIcon size={13} />}
+                </span>
                 <strong>{sector.name_ko}</strong>
-                <span>
+                <span className="sector-tile__sub">
                   {sector.industry_groups.slice(0, 2).join(" · ") || sector.name_en}
                 </span>
               </button>
@@ -114,16 +121,16 @@ export function Onboarding() {
         </section>
       )}
 
-      <div className="sticky-action">
+      <BottomBar>
         <button
-          className="button button--primary button--wide"
+          className="btn btn--primary btn--wide"
           disabled={selected.length === 0}
           onClick={completeOnboarding}
           type="button"
         >
           오늘의 세 가지 만나기
         </button>
-      </div>
+      </BottomBar>
     </main>
   );
 }
