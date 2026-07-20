@@ -14,7 +14,12 @@ from app.api.routers.dictionary import (
     list_dictionary_terms,
     update_dictionary_term_status,
 )
-from services.analyzer.dictionary_generator import DictionaryDraft, generate_dictionary_draft
+from services.analyzer.dictionary_generator import (
+    DictionaryDraft,
+    generate_dictionary_draft,
+    generate_grounded_dictionary_draft,
+    validate_grounded_draft,
+)
 
 
 def test_extract_terms_deduplicates_term_values_only():
@@ -64,6 +69,44 @@ async def test_dictionary_prompt_requires_formal_korean_style(monkeypatch):
     await generate_dictionary_draft("기준금리")
 
     assert "모든 문장은 '~입니다/~합니다' 문체로 통일한다" in captured["prompt"]
+
+
+@pytest.mark.asyncio
+async def test_grounded_dictionary_prompt_forbids_external_facts(monkeypatch):
+    captured = {}
+
+    class FakeLlm:
+        async def ainvoke(self, prompt: str):
+            captured["prompt"] = prompt
+            return DictionaryDraft(
+                term_type="finance",
+                definition="기준금리는 중앙은행이 정하는 정책금리입니다.",
+                example=None,
+            )
+
+    monkeypatch.setattr(
+        "services.analyzer.dictionary_generator._llm", lambda _model: FakeLlm()
+    )
+
+    await generate_grounded_dictionary_draft(
+        "기준금리", "중앙은행이 정책 수행을 위해 정하는 금리이다."
+    )
+
+    assert "아래 [공식 원문]만 근거로 사용한다" in captured["prompt"]
+    assert "원문에 없는 사실, 수치, 최신 상황" in captured["prompt"]
+
+
+def test_grounded_dictionary_validator_rejects_new_numbers_and_advice():
+    draft = DictionaryDraft(
+        term_type="finance",
+        definition="이 지표가 10%를 넘으면 주식을 매수하세요.",
+        example=None,
+    )
+
+    assert validate_grounded_draft("위험을 나타내는 지표이다.", draft) == [
+        "investment_advice",
+        "unsupported_number",
+    ]
 
 
 @pytest.mark.asyncio

@@ -24,11 +24,17 @@ def _response(row: DictionaryTerm) -> DictionaryTermResponse:
     return DictionaryTermResponse(
         id=row.id,
         term=row.term,
+        aliases=getattr(row, "aliases", []),
         term_type=row.term_type,
         definition=row.definition,
         example=row.example,
         source=row.source,
         status=row.status,
+        source_url=getattr(row, "source_url", None),
+        source_page=getattr(row, "source_page", None),
+        is_ai_generated=getattr(row, "is_ai_generated", True),
+        verification_status=getattr(row, "verification_status", "legacy"),
+        quality_score=getattr(row, "quality_score", None),
     )
 
 

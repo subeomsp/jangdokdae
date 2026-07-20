@@ -25,12 +25,14 @@ from app.api.models import (
 from app.core.security import get_current_user, get_current_user_optional
 from app.db.base import KST_NOW, get_db
 from app.db.orm_models.company_entity import CompanyEntity
+from app.db.orm_models.dictionary_source_entry import DictionarySourceEntry
 from app.db.orm_models.dictionary_term import DictionaryTerm
 from app.db.orm_models.issue_docent import IssueDocent
 from app.db.orm_models.news_analysis import NewsAnalysis
 from app.db.orm_models.news_cluster import NewsCluster
 from app.db.orm_models.user_issue_activity import UserIssueActivity
 from app.db.queries import get_cluster_articles
+from services.analyzer.term_matcher import TermCandidate, match_terms
 
 router = APIRouter(prefix="/issues", tags=["issues"])
 
@@ -135,12 +137,17 @@ def build_issue_detail(
     analysis: Any | None,
     articles: list[Any],
     term_definitions: dict[str, str] | None = None,
+    issue_terms: list[IssueTermResponse] | None = None,
 ) -> IssueDetailResponse:
     base = build_issue_list_item(docent, cluster, analysis)
     return IssueDetailResponse(
         **base.model_dump(),
         cards=_cards(getattr(docent, "content_heads", []) or []),
-        terms=_terms(getattr(docent, "term_spans", []) or [], term_definitions),
+        terms=(
+            issue_terms
+            if issue_terms is not None
+            else _terms(getattr(docent, "term_spans", []) or [], term_definitions)
+        ),
         sources=_sources(articles),
     )
 
@@ -245,18 +252,79 @@ async def get_issue(issue_id: int, db: AsyncSession = Depends(get_db)) -> IssueD
 
     docent, cluster, analysis = row
     articles = await get_cluster_articles(db, cluster.member_news_ids)
-    term_names = [
+    priority_names = [
         str(span.get("term") or "").strip()
         for span in (docent.term_spans or [])
         if str(span.get("term") or "").strip()
     ]
     dictionary_rows = (
         await db.execute(
-            select(DictionaryTerm).where(DictionaryTerm.term.in_(set(term_names)))
+            select(DictionaryTerm, DictionarySourceEntry)
+            .outerjoin(
+                DictionarySourceEntry,
+                DictionaryTerm.source_entry_id == DictionarySourceEntry.id,
+            )
+            .where(
+                DictionaryTerm.status == "approved",
+                DictionaryTerm.source == "bok_800",
+                DictionaryTerm.verification_status == "verified",
+                DictionaryTerm.source_entry_id.is_not(None),
+            )
+            .order_by(DictionaryTerm.term)
         )
-    ).scalars().all() if term_names else []
-    definitions = {row.term: row.definition for row in dictionary_rows if row.status == "approved"}
-    return build_issue_detail(docent, cluster, analysis, articles, definitions)
+    ).all()
+    candidates: list[TermCandidate] = []
+    for dictionary_row, source_entry in dictionary_rows:
+        aliases = [dictionary_row.term, *(dictionary_row.aliases or [])]
+        aliases = list(dict.fromkeys(alias for alias in aliases if alias))
+
+        is_verified_source = (
+            source_entry is not None
+            and dictionary_row.verification_status == "verified"
+            and dictionary_row.source == "bok_800"
+        )
+        candidates.append(
+            TermCandidate(
+                name=dictionary_row.term,
+                definition=dictionary_row.definition,
+                aliases=aliases,
+                source_label="한국은행 원문 기반" if is_verified_source else None,
+                source_title=source_entry.source_title if is_verified_source else None,
+                source_url=source_entry.source_url if is_verified_source else None,
+                source_page=source_entry.source_page if is_verified_source else None,
+                original_url=(
+                    f"{source_entry.source_pdf_url}#page={source_entry.pdf_page}"
+                    if is_verified_source
+                    else None
+                ),
+                ai_generated=dictionary_row.is_ai_generated,
+                verification_status=dictionary_row.verification_status,
+            )
+        )
+
+    cards = _cards(getattr(docent, "content_heads", []) or [])
+    matched = match_terms(
+        [paragraph for card in cards for paragraph in card.paragraphs],
+        candidates,
+        priority_names=priority_names,
+        max_terms=5,
+    )
+    issue_terms = [
+        IssueTermResponse(
+            name=term.name,
+            definition=term.definition,
+            aliases=term.aliases,
+            source_label=term.source_label,
+            source_title=term.source_title,
+            source_url=term.source_url,
+            source_page=term.source_page,
+            original_url=term.original_url,
+            ai_generated=term.ai_generated,
+            verification_status=term.verification_status,
+        )
+        for term in matched
+    ]
+    return build_issue_detail(docent, cluster, analysis, articles, issue_terms=issue_terms)
 
 
 @router.get("/{issue_id}/quiz", response_model=QuizResponse)

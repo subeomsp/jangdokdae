@@ -9,7 +9,7 @@
 - 데이터베이스: 새 Neon PostgreSQL 프로젝트
 - LLM: 새 Google Cloud 프로젝트의 Vertex AI
 - 실행기: GitHub-hosted Actions runner
-- API 서버: 당장은 만들지 않으며, 프론트엔드 연결 시 별도로 배포
+- API 서버·프론트엔드: 코드 구현 완료, 운영 공개 시 각각 별도 배포
 
 > 중요: 비밀번호, DB 주소, API 키, 서비스 계정 JSON을 이 문서·Git 커밋·이슈·채팅에
 > 붙여 넣지 마세요. 이 문서에서 “복사”라고 하는 값은 비밀번호 관리자, 로컬 `.env`,
@@ -31,8 +31,9 @@ GitHub Actions (하루 2~4회, 필요할 때 수동 실행 가능)
 Airflow DAG와 Docker Compose 코드는 삭제하지 않습니다. 나중에 파이프라인이 더 복잡해지거나
 상시 서버를 마련하면 다시 Airflow로 전환할 수 있습니다.
 
-GitHub Actions는 배치 작업만 실행합니다. FastAPI 서버를 24시간 제공하는 서비스가 아니므로,
-프론트엔드가 생겼을 때는 API 서버를 Cloud Run 등에 별도로 배포해야 합니다.
+GitHub Actions는 배치 작업만 실행합니다. 구현된 FastAPI와 Next.js는 로컬에서 전체 흐름을
+실행할 수 있지만, 인터넷에 공개할 때는 API 서버를 Cloud Run 같은 상시 HTTP 서비스에,
+프론트엔드를 Vercel 같은 Next.js 호스팅에 별도로 배포해야 합니다.
 
 ## 2. 전체 체크리스트
 

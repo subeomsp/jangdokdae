@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class IssueCardResponse(BaseModel):
@@ -29,6 +29,14 @@ class IssueReaderCardResponse(BaseModel):
 class IssueTermResponse(BaseModel):
     name: str
     definition: str
+    aliases: list[str] = Field(default_factory=list)
+    source_label: str | None = None
+    source_title: str | None = None
+    source_url: str | None = None
+    source_page: int | None = None
+    original_url: str | None = None
+    ai_generated: bool = True
+    verification_status: str = "legacy"
 
 
 class SourceArticleResponse(BaseModel):
@@ -89,11 +97,17 @@ class IssueActivityMutationResponse(BaseModel):
 class DictionaryTermResponse(BaseModel):
     id: int
     term: str
+    aliases: list[str] = Field(default_factory=list)
     term_type: str
     definition: str
     example: str | None
     source: str
     status: str
+    source_url: str | None = None
+    source_page: int | None = None
+    is_ai_generated: bool = True
+    verification_status: str = "legacy"
+    quality_score: int | None = None
 
 
 class DictionaryCandidateResponse(BaseModel):

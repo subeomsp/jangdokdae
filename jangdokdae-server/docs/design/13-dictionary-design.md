@@ -11,7 +11,9 @@
 | `news_analysis.term_tags` | 클러스터 분석 단계에서 고른 설명 필요 용어 목록 |
 | `issue_docent.term_spans` | 생성 본문 안에 실제 등장한 용어와 사용 문장 `[{term, sentence}]` |
 
-하지만 현재 DB에는 dictionary table이 없다. 그래서 Issue Detail API는 임시로 `definition="준비 중인 용어입니다."`를 내려준다.
+현재는 `dictionary_terms`와 공식 원문 저장소인 `dictionary_source_entries`가 구현되어
+있다. 실제 운영 명령과 노출 규칙은
+[`docs/guide/03-bok-inline-glossary.md`](../guide/03-bok-inline-glossary.md)를 따른다.
 
 ## 2. 목표
 
