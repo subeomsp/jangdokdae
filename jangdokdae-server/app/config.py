@@ -51,6 +51,9 @@ class Settings(BaseSettings):
     google_api_key: str = ""
     dictionary_model: str = "gemini-3-flash-preview"  # (.env: DICTIONARY_MODEL)
     dictionary_fallback_model: str = "gemini-3.1-flash-lite-preview"
+    # 공식 원문 기반 사전은 검증된 파이프라인 모델을 기본 사용한다. 필요할 때만 별도 override.
+    dictionary_grounded_model: str = ""  # (.env: DICTIONARY_GROUNDED_MODEL)
+    dictionary_request_timeout_seconds: float = 60
     dictionary_admin_token: str = ""
     # 뉴스 분석·콘텐츠 생성 단계 (설계 10) — 분류·생성 LLM 호출 파라미터.
     # 분석할 상위 클러스터 수 (.env: ANALYSIS_TOP_CLUSTER_COUNT)
