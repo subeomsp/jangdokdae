@@ -13,6 +13,7 @@ from services.analyzer.bok_dictionary import build_aliases, normalize_term
 from services.analyzer.dictionary_generator import grounded_dictionary_model_name
 
 TermRelationship = Literal["single", "distinct_concepts", "aliases", "notation"]
+SEGMENTATION_PROMPT_VERSION = "bok-term-units-v1"
 
 
 class ProposedTermUnit(BaseModel):
@@ -54,15 +55,35 @@ def has_top_level_slash(term: str) -> bool:
     return False
 
 
-def deterministic_single_proposal(source_term: str) -> TermUnitProposal | None:
+def _explicit_definition_alias(source_term: str, raw_definition: str) -> str | None:
+    """정의 첫머리의 ``한국어(English)``처럼 원문에 명시된 별칭만 찾는다."""
+
+    if not raw_definition:
+        return None
+    match = re.match(
+        rf"\s*{re.escape(normalize_term(source_term))}\s*\(([^(){{}}]{{2,50}})\)",
+        raw_definition,
+        flags=re.IGNORECASE,
+    )
+    return normalize_term(match.group(1)) if match else None
+
+
+def deterministic_single_proposal(
+    source_term: str,
+    raw_definition: str = "",
+) -> TermUnitProposal | None:
     """복합 제목이 아닌 항목과 괄호 속 약어의 slash를 AI 호출 없이 처리한다."""
 
     if has_top_level_slash(source_term):
         return None
     relationship: TermRelationship = "notation" if "/" in source_term else "single"
+    alias_candidates = build_aliases(source_term)
+    definition_alias = _explicit_definition_alias(source_term, raw_definition)
+    if definition_alias:
+        alias_candidates.append(definition_alias)
     aliases = [
         alias
-        for alias in build_aliases(source_term)
+        for alias in dict.fromkeys(alias_candidates)
         if alias.casefold() != normalize_term(source_term).casefold()
     ]
     return TermUnitProposal(
@@ -151,7 +172,7 @@ async def propose_term_units(
 ) -> TermUnitProposal:
     """원문을 수정하지 않고 화면용 용어 분리안만 반환한다."""
 
-    deterministic = deterministic_single_proposal(source_term)
+    deterministic = deterministic_single_proposal(source_term, raw_definition)
     if deterministic is not None:
         return deterministic
 

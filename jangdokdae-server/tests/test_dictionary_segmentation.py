@@ -26,6 +26,18 @@ def test_notation_slash_is_kept_as_one_term_without_llm():
     assert proposal.units[0].aliases == ["산업연관표", "I/O Tables"]
 
 
+def test_single_term_uses_explicit_english_alias_from_definition():
+    proposal = deterministic_single_proposal(
+        "빅테크",
+        "빅테크(Big Tech)는 규모가 크고 영향력이 큰 기술 기업들을 통칭한다.",
+    )
+
+    assert proposal is not None
+    assert proposal.relationship == "single"
+    assert proposal.units[0].term == "빅테크"
+    assert proposal.units[0].aliases == ["Big Tech"]
+
+
 def test_distinct_proposal_requires_multiple_supported_units():
     valid = TermUnitProposal(
         relationship="distinct_concepts",
