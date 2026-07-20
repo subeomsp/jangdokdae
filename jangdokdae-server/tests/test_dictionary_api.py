@@ -94,6 +94,34 @@ async def test_grounded_dictionary_prompt_forbids_external_facts(monkeypatch):
 
     assert "아래 [공식 원문]만 근거로 사용한다" in captured["prompt"]
     assert "원문에 없는 사실, 수치, 최신 상황" in captured["prompt"]
+    assert "[용어] 하나에 해당하는 내용만 설명한다" in captured["prompt"]
+
+
+@pytest.mark.asyncio
+async def test_grounded_dictionary_prompt_includes_human_review_feedback(monkeypatch):
+    captured = {}
+
+    class FakeLlm:
+        async def ainvoke(self, prompt: str):
+            captured["prompt"] = prompt
+            return DictionaryDraft(
+                term_type="finance",
+                definition="수정된 원문 기반 설명입니다.",
+                example=None,
+            )
+
+    monkeypatch.setattr(
+        "services.analyzer.dictionary_generator._llm", lambda _model: FakeLlm()
+    )
+
+    await generate_grounded_dictionary_draft(
+        "직접금융",
+        "기업이 주식이나 채권을 발행해 자금을 조달한다.",
+        review_feedback="주식 투자를 대출처럼 표현하지 않는다.",
+    )
+
+    assert "[사람 검수 피드백]" in captured["prompt"]
+    assert "주식 투자를 대출처럼 표현하지 않는다" in captured["prompt"]
 
 
 def test_grounded_dictionary_validator_rejects_new_numbers_and_advice():
@@ -107,6 +135,17 @@ def test_grounded_dictionary_validator_rejects_new_numbers_and_advice():
         "investment_advice",
         "unsupported_number",
     ]
+
+
+@pytest.mark.parametrize("empty_value", ["null", "None", "없음", "(없음)", ""])
+def test_dictionary_draft_normalizes_empty_example_strings(empty_value):
+    draft = DictionaryDraft(
+        term_type="finance",
+        definition="한국은행 원문을 기반으로 작성한 쉬운 설명입니다.",
+        example=empty_value,
+    )
+
+    assert draft.example is None
 
 
 @pytest.mark.asyncio

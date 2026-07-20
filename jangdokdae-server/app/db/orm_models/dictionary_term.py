@@ -44,6 +44,9 @@ class DictionaryTerm(Base):
     source: Mapped[str] = mapped_column(String(20), nullable=False, default="llm")
     status: Mapped[str] = mapped_column(String(20), nullable=False, default="candidate")
     model_name: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    generation_prompt_version: Mapped[str | None] = mapped_column(
+        String(80), nullable=True
+    )
     first_issue_docent_id: Mapped[int | None] = mapped_column(
         Integer, ForeignKey("issue_docent.id"), nullable=True
     )

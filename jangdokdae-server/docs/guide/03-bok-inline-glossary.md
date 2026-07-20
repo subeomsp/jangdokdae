@@ -55,6 +55,16 @@ uv run python scripts/propose_dictionary_term_units.py --limit 8
 각 제안에는 `term_units_model_name`과 `term_units_prompt_version`을 함께 기록한다.
 모델이나 프롬프트가 바뀌면 기존 결과와 새 결과를 구분해 회귀 평가할 수 있다.
 
+사람이 검수한 특정 제안을 승인할 때는 정확한 원문 제목을 지정한다.
+
+```bash
+uv run python scripts/review_dictionary_term_units.py \
+  --term '간접금융/직접금융'
+```
+
+승인 도구는 저장된 결과의 구조와 원문 근거를 다시 검사하고 `proposed` 상태만
+`approved`로 바꾼다.
+
 공식 출처:
 
 - [한국은행 경제금융용어 800선 안내 페이지](https://www.bok.or.kr/portal/bbs/B0000249/view.do?depth=200765&menuNo=200765&nttId=10096081&oldMenuNo=201150&programType=newsData&relate=Y)
@@ -134,6 +144,23 @@ uv run python scripts/import_bok_dictionary.py \
 `DICTIONARY_GROUNDED_MODEL`을 따로 설정하지 않으면 뉴스 파이프라인에서 이미 검증된
 `VERTEX_MODEL`을 사용한다. 한 항목마다 생성 1회와 검증 1회의 Vertex AI 호출이 발생한다.
 
+분리 승인을 마친 개별 용어는 다음 명령으로 설명 후보를 만든다.
+
+```bash
+uv run python -m scripts.generate_dictionary_term_candidates \
+  --term 간접금융 \
+  --term 직접금융
+```
+
+이 명령의 결과는 검증 점수와 관계없이 `candidate`로 저장된다. 사람 검수에서 문제가
+발견되면 한 용어와 피드백을 지정해 다시 생성한다.
+
+```bash
+uv run python -m scripts.generate_dictionary_term_candidates \
+  --term 직접금융 \
+  --review-feedback '주식 투자를 대출처럼 표현하지 않는다.'
+```
+
 ## 5. 품질 게이트
 
 설명은 다음 단계를 모두 통과해야 `approved`로 저장된다.
@@ -141,7 +168,7 @@ uv run python scripts/import_bok_dictionary.py \
 1. 생성 모델은 해당 용어의 한국은행 원문만 입력으로 받는다.
 2. 코드가 문장 길이, 문장 수, 투자 권유 문구, 원문에 없는 숫자를 검사한다.
 3. 별도 검증 호출이 모든 주장의 원문 근거, 가독성, 맞춤법을 평가한다.
-4. `supported=true`이며 80점 이상인 결과만 승인한다.
+4. `supported=true`이며 90점 이상인 결과만 승인 대상으로 본다.
 5. 탈락하거나 호출에 실패하면 기존 승인 설명을 변경하지 않는다.
 
 AI 검증도 맞춤법을 완벽히 잡는 것은 아니므로, 여러 건을 한꺼번에 공개하기 전에

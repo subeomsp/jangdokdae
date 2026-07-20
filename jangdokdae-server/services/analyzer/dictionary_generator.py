@@ -9,15 +9,31 @@ from typing import Literal, TypedDict, cast
 
 from langchain_google_vertexai import ChatVertexAI
 from langgraph.graph import END, START, StateGraph
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from app.config import settings
+
+GROUNDED_DICTIONARY_PROMPT_VERSION = "bok-definition-v2"
+GROUNDED_DICTIONARY_MIN_SCORE = 90
 
 
 class DictionaryDraft(BaseModel):
     term_type: Literal["finance", "domain"] = Field(description="용어 유형")
     definition: str = Field(description="주린이가 이해하기 쉬운 한두 문장 설명")
     example: str | None = Field(description="짧은 예시 문장")
+
+    @field_validator("example", mode="before")
+    @classmethod
+    def normalize_empty_example(cls, value):
+        if isinstance(value, str) and value.strip().casefold() in {
+            "",
+            "null",
+            "none",
+            "없음",
+            "(없음)",
+        }:
+            return None
+        return value
 
 
 class GroundingVerdict(BaseModel):
@@ -85,14 +101,25 @@ async def generate_dictionary_draft(term: str) -> DictionaryDraft:
 
 
 async def generate_grounded_dictionary_draft(
-    term: str, raw_definition: str
+    term: str,
+    raw_definition: str,
+    review_feedback: str | None = None,
 ) -> DictionaryDraft:
     """한국은행 원문 범위 안에서만 화면용 설명을 생성한다."""
 
+    feedback_block = (
+        "\n\n[사람 검수 피드백]\n"
+        f"{review_feedback}\n"
+        "피드백에서 지적한 문제를 고치되 공식 원문 밖의 정보는 추가하지 않는다."
+        if review_feedback
+        else ""
+    )
     prompt = (
         "너는 초보 투자자를 위한 경제 용어 편집자다.\n"
         "아래 [공식 원문]만 근거로 사용한다. 원문에 없는 사실, 수치, 최신 상황, "
         "전망을 추가하거나 상식으로 보완하지 않는다.\n"
+        "공식 원문에 여러 개념이 함께 있어도 [용어] 하나에 해당하는 내용만 설명한다. "
+        "다른 개념의 정의를 섞거나 두 개념을 하나처럼 설명하지 않는다.\n"
         "핵심 의미를 1~3개의 짧은 문장으로 풀어 쓰고, 어려운 용어는 쉬운 말로 바꾼다.\n"
         "정의와 예시의 모든 문장은 '~입니다/~합니다' 문체로 통일한다.\n"
         "제출 전에 맞춤법과 오탈자를 확인하고 자연스러운 한국어 문장만 반환한다.\n"
@@ -100,6 +127,7 @@ async def generate_grounded_dictionary_draft(
         "예시는 원문의 의미만으로 만들 수 있을 때만 작성하고, 아니면 null로 둔다.\n\n"
         f"[용어]\n{term}\n\n"
         f"[공식 원문]\n{raw_definition}"
+        f"{feedback_block}"
     )
     draft = await _llm(grounded_dictionary_model_name()).ainvoke(prompt)
     return cast(DictionaryDraft, draft)
@@ -146,6 +174,8 @@ async def verify_grounded_dictionary_draft(
     prompt = (
         "너는 경제 용어 설명의 팩트체커다.\n"
         "후보 설명의 각 주장이 [공식 원문]에서 직접 뒷받침되는지 판정한다.\n"
+        "후보가 [용어]가 아닌 다른 개념의 정의를 섞거나 여러 개념을 하나처럼 설명하면 "
+        "supported=false다.\n"
         "원문에 없는 원인·결과·수치·시점·전망이 하나라도 있으면 supported=false다.\n"
         "맞춤법 오류, 오탈자, 어색한 문장이 있으면 80점 미만을 준다.\n"
         "정확하면서 초보자가 이해하기 쉽고 투자 조언이 없을 때만 80점 이상을 준다.\n\n"

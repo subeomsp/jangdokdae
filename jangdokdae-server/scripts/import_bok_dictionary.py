@@ -38,6 +38,7 @@ from services.analyzer.bok_dictionary import (
     parse_bok_dictionary,
 )
 from services.analyzer.dictionary_generator import (
+    GROUNDED_DICTIONARY_MIN_SCORE,
     generate_grounded_dictionary_draft,
     grounded_dictionary_model_name,
     verify_grounded_dictionary_draft,
@@ -210,7 +211,10 @@ async def _generate_selected(
             verdict = await verify_grounded_dictionary_draft(
                 target_term, source.raw_definition, draft
             )
-            approved = verdict.supported and verdict.score >= 80
+            approved = (
+                verdict.supported
+                and verdict.score >= GROUNDED_DICTIONARY_MIN_SCORE
+            )
             async with AsyncSessionLocal() as db:
                 row = await db.scalar(
                     select(DictionaryTerm).where(DictionaryTerm.term == target_term)
