@@ -1,0 +1,328 @@
+{
+  "started_at": "2026-07-20T11:56:20.002504Z",
+  "completed_at": "2026-07-20T12:00:59.424822Z",
+  "model_name": "gemini-2.5-flash",
+  "prompt_version": "bok-definition-v2",
+  "minimum_score": 90,
+  "repeats": 3,
+  "task_content_hashes": {
+    "bok-def-001": "4f86fdf23dd458326234551f93d26e8bee7078322ebfd6acaf85e38ba78b9f3e",
+    "bok-def-002": "4f86fdf23dd458326234551f93d26e8bee7078322ebfd6acaf85e38ba78b9f3e",
+    "bok-def-003": "43a613616a20d4c101528464a1cee484854366306868febf7543cb501de97fab",
+    "bok-def-004": "bd6b183f9b996357137c91b39debb41881ea6057797cdccbbf1afa95197b5104",
+    "bok-def-005": "bd6b183f9b996357137c91b39debb41881ea6057797cdccbbf1afa95197b5104"
+  },
+  "trials": [
+    {
+      "task_id": "bok-def-001",
+      "term": "간접금융",
+      "trial_number": 1,
+      "started_at": "2026-07-20T11:56:20.002508Z",
+      "latency_ms": 15335,
+      "draft": {
+        "term_type": "finance",
+        "definition": "간접금융은 돈이 남는 사람이나 기관과 돈이 필요한 사람이나 기관 사이에 은행과 같은 금융기관이 개입하여 자금을 연결해 주는 방식입니다. 금융기관이 일반 대중으로부터 예금을 받아 기업 등 다른 경제 주체에게 대출해 주는 것이 대표적입니다.",
+        "example": "은행이 고객에게 예금을 받아 기업에 대출해 주는 것이 간접금융의 예시입니다."
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": true,
+        "score": 90,
+        "reason": "후보 정의와 예시 모두 공식 원문의 내용을 정확하고 간결하게 설명하고 있으며, 초보자가 이해하기 쉬운 표현을 사용했습니다. 원문에 없는 정보나 다른 개념을 혼동하지 않았습니다."
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-001",
+      "term": "간접금융",
+      "trial_number": 2,
+      "started_at": "2026-07-20T11:56:35.338169Z",
+      "latency_ms": 15732,
+      "draft": {
+        "term_type": "finance",
+        "definition": "간접금융은 돈이 남는 사람과 돈이 필요한 사람 사이에 은행과 같은 금융기관이 개입하여 자금을 연결해 주는 방식입니다. 금융기관이 일반 대중에게 예금을 받아 기업 등 다른 경제 주체에게 대출해 주는 것을 말합니다.",
+        "example": null
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": true,
+        "score": 95,
+        "reason": "후보 정의의 모든 내용은 원문에 명확하게 근거하고 있습니다. 원문의 내용을 초보자가 이해하기 쉬운 표현으로 잘 다듬었으며, 불필요한 정보나 투자 조언이 포함되어 있지 않습니다."
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-001",
+      "term": "간접금융",
+      "trial_number": 3,
+      "started_at": "2026-07-20T11:56:51.070387Z",
+      "latency_ms": 13027,
+      "draft": {
+        "term_type": "finance",
+        "definition": "간접금융은 돈이 남는 사람이나 기업과 돈이 필요한 사람이나 기업 사이에 은행과 같은 금융기관이 개입하여 자금을 연결해 주는 방식입니다. 금융기관이 일반 대중에게 예금을 받아 기업 등에 대출해 주는 것이 대표적입니다.",
+        "example": "은행이 고객에게 예금을 받아 기업에 대출해 주는 것이 간접금융의 예시입니다."
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": true,
+        "score": 95,
+        "reason": "후보 정의와 예시 모두 원문의 내용을 정확하게 반영하고 있으며, 초보자가 이해하기 쉽게 설명되어 있습니다. 원문에 없는 정보나 다른 개념을 혼동하지 않았습니다."
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-002",
+      "term": "직접금융",
+      "trial_number": 1,
+      "started_at": "2026-07-20T11:57:04.097856Z",
+      "latency_ms": 13948,
+      "draft": {
+        "term_type": "finance",
+        "definition": "직접금융은 자금이 필요한 사람이 은행과 같은 금융기관을 거치지 않고, 주식이나 채권을 발행하여 금융시장에서 직접 돈을 조달하는 방식입니다.",
+        "example": "기업이 새로운 사업을 위해 주식을 발행하여 투자자들로부터 직접 자금을 모으는 것이 직접금융의 예시입니다."
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": true,
+        "score": 90,
+        "reason": "후보 정의와 예시 모두 원문의 내용을 정확하게 반영하고 있으며, 초보자가 이해하기 쉽게 잘 설명되어 있습니다. 원문에 없는 내용이나 다른 개념을 혼동하지 않았습니다."
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-002",
+      "term": "직접금융",
+      "trial_number": 2,
+      "started_at": "2026-07-20T11:57:18.046043Z",
+      "latency_ms": 14354,
+      "draft": {
+        "term_type": "finance",
+        "definition": "직접금융은 돈이 필요한 기업 등이 은행과 같은 금융기관을 거치지 않고, 주식이나 채권을 발행하여 투자자들로부터 직접 자금을 조달하는 방식입니다.",
+        "example": "기업이 새로운 공장을 짓기 위해 자금이 필요할 때, 주식을 발행하여 투자자들에게 직접 돈을 받는 것이 직접금융의 예시입니다."
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": true,
+        "score": 95,
+        "reason": "후보 정의와 예시 모두 원문의 내용을 정확하게 반영하고 있으며, 초보자가 이해하기 쉽게 설명되어 있습니다. 원문에 없는 내용이나 다른 개념을 혼동하지 않았습니다."
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-002",
+      "term": "직접금융",
+      "trial_number": 3,
+      "started_at": "2026-07-20T11:57:32.399842Z",
+      "latency_ms": 18580,
+      "draft": {
+        "term_type": "finance",
+        "definition": "직접금융은 자금을 필요로 하는 기업 등이 은행과 같은 금융기관을 거치지 않고, 주식이나 채권을 발행하여 금융시장에서 직접 자금을 조달하는 방식입니다.",
+        "example": "기업이 새로운 사업을 위해 주식을 발행하여 투자자들에게 판매하고 자금을 모으는 경우가 직접금융의 예시입니다."
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": true,
+        "score": 95,
+        "reason": "후보 정의는 자금수요자가 금융기관을 거치지 않고 주식이나 채권 발행을 통해 금융시장에서 직접 자금을 조달하는 방식이라는 직접금융의 핵심 내용을 원문에 따라 정확하게 설명하고 있습니다. 후보 예시 또한 기업의 주식 발행을 통한 자금 조달을 들어 직접금융의 구체적인 사례를 명확하게 제시하며 원문의 내용과 일치합니다. 초보자가 이해하기 쉬운 명확한 문장으로 구성되어 있으며, 투자 조언이 포함되어 있지 않습니다."
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-003",
+      "term": "경기조절정책",
+      "trial_number": 1,
+      "started_at": "2026-07-20T11:57:50.980260Z",
+      "latency_ms": 22553,
+      "draft": {
+        "term_type": "finance",
+        "definition": "경기조절정책은 경기가 너무 활발하거나 침체되었을 때, 이를 정상적인 상태로 되돌리기 위해 정부가 사용하는 여러 가지 정책을 말합니다. 이는 경제 전체의 수요를 조절하여 경기를 안정시키는 데 목적이 있습니다. 주로 정부의 재정 정책이나 중앙은행의 통화 정책을 통해 이루어집니다.",
+        "example": "경기가 너무 안 좋을 때는 정부가 돈을 더 쓰거나 세금을 줄여서 경기를 살리려고 합니다. 반대로 경기가 너무 뜨거울 때는 정부가 돈을 덜 쓰거나 세금을 늘려서 경기를 진정시키려고 합니다."
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": true,
+        "score": 90,
+        "reason": "후보 설명의 모든 주장이 [공식 원문]에서 직접 뒷받침됩니다. [용어]의 정의를 정확하게 설명하고 있으며, 다른 개념과 혼동하지 않았습니다. 원문에 없는 내용(원인, 결과, 수치, 시점, 전망)이 포함되지 않았습니다. 맞춤법 오류나 어색한 문장 없이 정확하고 초보자가 이해하기 쉽게 작성되었습니다. 투자 조언도 없습니다."
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-003",
+      "term": "경기조절정책",
+      "trial_number": 2,
+      "started_at": "2026-07-20T11:58:13.533914Z",
+      "latency_ms": 26797,
+      "draft": {
+        "term_type": "finance",
+        "definition": "경기조절정책은 경기가 너무 활발하거나 침체될 때, 이를 적절한 수준으로 되돌리기 위해 정부가 사용하는 여러 가지 정책입니다. 이 정책은 경제 전체의 수요를 조절하여 경기를 안정시키는 데 초점을 맞추고 있습니다. 주로 정부 지출이나 세금을 조절하는 재정 정책과, 통화량이나 금리를 조절하는 통화 정책을 활용합니다.",
+        "example": "예를 들어, 경기가 좋지 않을 때는 정부가 돈을 더 쓰거나 세금을 줄여 경제 활동을 늘리고, 경기가 너무 과열될 때는 정부 지출을 줄이거나 세금을 늘려 경제를 진정시킵니다."
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": false,
+        "score": 70,
+        "reason": "후보 정의의 첫 문장에서 정책 주체를 '정부'로 한정하여 원문의 '정책당국'이 포괄하는 중앙은행의 역할이 누락되었고, 후보 예시에서도 재정정책(정부)의 예시만 제시되어 통화정책(중앙은행)의 예시가 빠져 원문의 내용을 완전히 반영하지 못했습니다."
+      },
+      "passed": false,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-003",
+      "term": "경기조절정책",
+      "trial_number": 3,
+      "started_at": "2026-07-20T11:58:40.330703Z",
+      "latency_ms": 32650,
+      "draft": {
+        "term_type": "finance",
+        "definition": "경기조절정책은 경기가 지나치게 좋아지거나 나빠질 때, 이를 적절한 수준으로 되돌리기 위해 정부가 사용하는 여러 가지 방법을 말합니다. 이 정책은 경제 전체의 수요를 조절하여 경기를 안정시키는 데 초점을 맞춥니다.",
+        "example": "경기가 침체되어 어려울 때는 정부가 지출을 늘리거나 세금을 줄이는 방법을 사용하며, 반대로 경기가 너무 과열될 때는 지출을 줄이거나 세금을 늘리는 등의 조치를 합니다."
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": false,
+        "score": 65,
+        "reason": "후보 설명은 경기조절정책의 한 축인 재정정책(정부의 지출 및 세금 조절)만을 다루고 있으며, 원문에 명시된 또 다른 중요한 축인 통화정책(중앙은행의 통화량 및 금리 조절)에 대한 언급이 전혀 없어 용어의 전체적인 의미를 정확하게 전달하지 못하고 있습니다. 따라서 원문의 내용을 온전히 뒷받침한다고 볼 수 없습니다."
+      },
+      "passed": false,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-004",
+      "term": "경제활동인구",
+      "trial_number": 1,
+      "started_at": "2026-07-20T11:59:12.981124Z",
+      "latency_ms": 14344,
+      "draft": {
+        "term_type": "finance",
+        "definition": "경제활동인구는 만 15세 이상 인구 중에서 일할 능력이 있고, 실제로 일할 의사도 있는 사람들을 말합니다. 이들은 현재 직업이 있는 취업자와 직업을 찾고 있는 실업자로 구분됩니다.",
+        "example": ")) # example is None as per instructions. The model should handle this. # The example parameter is optional, so I can omit it if it"
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": true,
+        "score": 90,
+        "reason": "후보 설명의 모든 내용은 원문에 명시된 경제활동인구의 정의와 그 구성 요소를 정확하게 반영하고 있습니다. 추가 정보나 다른 개념의 혼동 없이 명확하게 설명되어 있습니다."
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-004",
+      "term": "경제활동인구",
+      "trial_number": 2,
+      "started_at": "2026-07-20T11:59:27.325182Z",
+      "latency_ms": 14070,
+      "draft": {
+        "term_type": "finance",
+        "definition": "만 15세 이상 인구 중에서 일할 능력과 일할 의지를 모두 가진 사람을 말합니다. 이들은 현재 일을 하고 있는 취업자와 일자리를 찾고 있는 실업자로 나뉩니다.",
+        "example": null
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": true,
+        "score": 95,
+        "reason": "후보 설명은 경제활동인구의 정의와 그 구성(취업자, 실업자)을 원문의 내용에 따라 정확하고 간결하게 설명하고 있습니다. 원문에 없는 내용이나 다른 개념을 혼동하지 않았으며, 초보자가 이해하기 쉽게 작성되었습니다."
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-004",
+      "term": "경제활동인구",
+      "trial_number": 3,
+      "started_at": "2026-07-20T11:59:41.395528Z",
+      "latency_ms": 13573,
+      "draft": {
+        "term_type": "finance",
+        "definition": "경제활동인구는 만 15세 이상 인구 중에서 일할 능력과 일할 의사를 모두 갖춘 사람들을 말합니다. 이들은 현재 일을 하고 있는 취업자와 일자리를 찾고 있는 실업자로 구성됩니다.",
+        "example": null
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": true,
+        "score": 95,
+        "reason": "후보 설명의 모든 내용이 원문에 명확하게 제시되어 있습니다. 다른 개념을 혼동하지 않았고, 원문에 없는 정보나 투자 조언도 포함되어 있지 않습니다. 문장도 간결하고 이해하기 쉬워 초보자가 읽기에도 적합합니다."
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-005",
+      "term": "비경제활동인구",
+      "trial_number": 1,
+      "started_at": "2026-07-20T11:59:54.968628Z",
+      "latency_ms": 24556,
+      "draft": {
+        "term_type": "finance",
+        "definition": "만 15세 이상 인구 중에서 일할 능력과 의사가 있지만, 조사 기간에 취업자도 실업자도 아닌 상태에 있는 사람들을 비경제활동인구라고 합니다. 이들은 경제활동에 참여하지 않는 사람들입니다.",
+        "example": "집에서 가사와 육아를 전담하는 전업주부나 학교에 다니는 학생은 비경제활동인구에 해당합니다."
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": false,
+        "score": 50,
+        "reason": "후보 정의에서 \"일할 능력과 의사가 있지만\"이라는 부분이 원문의 정의와 다릅니다. 원문에서는 비경제활동인구를 경제활동인구(일할 능력과 의사를 갖춘 사람)에 포함되지 않는 사람으로 정의하며, 비경제활동인구의 예시로 \"일을 할 수 없는 연로자와 심신장애자\"를 들어 일할 능력이 없는 경우도 포함됨을 명시하고 있습니다. 따라서 후보 정의는 원문의 내용과 상충됩니다."
+      },
+      "passed": false,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-005",
+      "term": "비경제활동인구",
+      "trial_number": 2,
+      "started_at": "2026-07-20T12:00:19.525357Z",
+      "latency_ms": 20727,
+      "draft": {
+        "term_type": "finance",
+        "definition": "비경제활동인구는 만 15세 이상 인구 중에서 일할 능력과 의사가 없어 경제활동에 참여하지 않는 사람들을 말합니다. 이들은 조사 기간에 취업자도 실업자도 아닌 상태에 있는 사람들입니다. 전업주부, 학생, 연로자, 구직단념자 등이 비경제활동인구에 포함됩니다.",
+        "example": "가사와 육아를 전담하는 주부나 학교에 다니는 학생은 비경제활동인구에 해당합니다."
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": true,
+        "score": 90,
+        "reason": "후보 설명은 비경제활동인구의 정의와 포함 대상을 원문에 따라 정확하게 설명하고 있습니다. 특히, \"조사 기간에 취업자도 실업자도 아닌 상태에 있는 사람들\"이라는 핵심적인 내용을 잘 반영하고 있으며, 전업주부, 학생, 연로자, 구직단념자 등의 예시도 원문과 일치합니다. 초보자가 이해하기 쉬운 문장으로 구성되어 있으며, 투자 조언이 포함되어 있지 않습니다."
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "task_id": "bok-def-005",
+      "term": "비경제활동인구",
+      "trial_number": 3,
+      "started_at": "2026-07-20T12:00:40.252286Z",
+      "latency_ms": 19172,
+      "draft": {
+        "term_type": "domain",
+        "definition": "비경제활동인구는 만 15세 이상 인구 중 경제활동에 참여하지 않는 사람들을 말합니다. 이들은 취업자도 실업자도 아닌 상태에 있는 사람입니다.",
+        "example": "집에서 가사와 육아를 전담하는 주부나 학교에 다니는 학생이 비경제활동인구에 해당합니다."
+      },
+      "deterministic_problems": [],
+      "verdict": {
+        "supported": true,
+        "score": 95,
+        "reason": "후보 설명의 모든 내용이 원문에 명확하게 제시되어 있으며, 초보자가 이해하기 쉽게 잘 설명되어 쉽고 정확합니다."
+      },
+      "passed": true,
+      "error": null
+    }
+  ],
+  "metrics": {
+    "task_count": 5,
+    "trial_count": 15,
+    "passed_trial_count": 12,
+    "errored_trial_count": 0,
+    "deterministic_failure_count": 0,
+    "unsupported_count": 3,
+    "pass_at_1": 0.8,
+    "pass_power_k": 0.6,
+    "average_score": 86.67
+  }
+}

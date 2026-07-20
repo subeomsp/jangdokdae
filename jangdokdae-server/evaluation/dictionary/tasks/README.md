@@ -1,4 +1,4 @@
-# 용어 분리 평가 Task
+# 경제용어 평가 Task
 
 `segmentation_gold.jsonl`은 한국은행 「경제금융용어 800선」 원문에서 뽑은 승인 골드
 라벨이다. 2026년 7월 20일 프로젝트 소유자가 각 관계, 대표 용어, 별칭을 검수했다.
@@ -26,3 +26,20 @@
 | `bok-seg-011` | 매입외환/환가료 | `distinct_concepts` |
 | `bok-seg-012` | 바젤은행감독위원회/바젤위원회(BCBS) | `aliases` |
 | `bok-seg-013` | 원/위안 직거래시장 | `notation` |
+
+## 쉬운 설명 골드셋
+
+`definition_gold.jsonl`은 사람이 승인한 개별 용어 설명과 그 근거인 한국은행 원문을
+함께 고정한다. 현재 5개 Task가 있으며 모두 `approved` 상태다.
+
+- 생성 모델의 답을 그대로 정답으로 쓰지 않고, 사람이 수정·승인한 DB 설명만 내보낸다.
+- `required_concept_groups`는 반드시 남아야 하는 핵심 범위를 정의한다.
+- `forbidden_phrases`는 실제 검수에서 발견한 잘못된 표현의 회귀를 막는다.
+- 원문이나 승인 설명이 바뀌면 새 해시와 검수 시각으로 다시 내보낸다.
+
+```bash
+uv run python -m evaluation.dictionary.run_definition --repeats 3
+```
+
+평가는 DB를 수정하지 않는다. 각 Trial은 최대 두 번 생성하며, 1차 검증 실패 시 그
+사유로 한 번 자동 보정한다. JSON transcript에는 모든 시도와 최종 판정을 함께 남긴다.

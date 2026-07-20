@@ -25,9 +25,8 @@ from services.analyzer.bok_dictionary import BOK_SOURCE_CODE, BOK_SOURCE_VERSION
 from services.analyzer.dictionary_generator import (
     GROUNDED_DICTIONARY_MIN_SCORE,
     GROUNDED_DICTIONARY_PROMPT_VERSION,
-    generate_grounded_dictionary_draft,
+    generate_verified_grounded_dictionary_draft,
     grounded_dictionary_model_name,
-    verify_grounded_dictionary_draft,
 )
 
 
@@ -177,19 +176,18 @@ async def run(terms: list[str], review_feedback: str | None = None) -> None:
                 skipped += 1
                 print(f"[skipped:approved] {target.term}", flush=True)
                 continue
-            draft = await generate_grounded_dictionary_draft(
+            result = await generate_verified_grounded_dictionary_draft(
                 target.term,
                 target.raw_definition,
                 review_feedback=review_feedback,
             )
-            verdict = await verify_grounded_dictionary_draft(
-                target.term,
-                target.raw_definition,
-                draft,
-            )
+            draft = result.final_attempt.draft
+            verdict = result.final_attempt.verdict
             prompt_version = GROUNDED_DICTIONARY_PROMPT_VERSION
             if review_feedback:
                 prompt_version += "-human-feedback"
+            if len(result.attempts) > 1:
+                prompt_version += "-auto-retry"
             await _save_candidate(
                 target,
                 draft,
@@ -198,7 +196,8 @@ async def run(terms: list[str], review_feedback: str | None = None) -> None:
             )
             generated += 1
             print(
-                f"[candidate:{verdict.score}:{'supported' if verdict.supported else 'rejected'}] "
+                f"[candidate:{verdict.score}:{'supported' if verdict.supported else 'rejected'}:"
+                f"{len(result.attempts)}attempts] "
                 f"{target.term}",
                 flush=True,
             )

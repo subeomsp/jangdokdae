@@ -16,8 +16,10 @@ from app.api.routers.dictionary import (
 )
 from services.analyzer.dictionary_generator import (
     DictionaryDraft,
+    GroundingVerdict,
     generate_dictionary_draft,
     generate_grounded_dictionary_draft,
+    generate_verified_grounded_dictionary_draft,
     validate_grounded_draft,
 )
 
@@ -95,6 +97,9 @@ async def test_grounded_dictionary_prompt_forbids_external_facts(monkeypatch):
     assert "아래 [공식 원문]만 근거로 사용한다" in captured["prompt"]
     assert "원문에 없는 사실, 수치, 최신 상황" in captured["prompt"]
     assert "[용어] 하나에 해당하는 내용만 설명한다" in captured["prompt"]
+    assert "일부 예시에만 해당하는 특징을 용어 전체의 정의로 일반화하지 않는다" in captured[
+        "prompt"
+    ]
 
 
 @pytest.mark.asyncio
@@ -124,6 +129,86 @@ async def test_grounded_dictionary_prompt_includes_human_review_feedback(monkeyp
     assert "주식 투자를 대출처럼 표현하지 않는다" in captured["prompt"]
 
 
+@pytest.mark.asyncio
+async def test_grounded_dictionary_prompt_includes_automatic_quality_feedback(
+    monkeypatch,
+):
+    captured = {}
+
+    class FakeLlm:
+        async def ainvoke(self, prompt: str):
+            captured["prompt"] = prompt
+            return DictionaryDraft(
+                term_type="finance",
+                definition="수정된 원문 기반 설명입니다.",
+            )
+
+    monkeypatch.setattr(
+        "services.analyzer.dictionary_generator._llm", lambda _model: FakeLlm()
+    )
+
+    await generate_grounded_dictionary_draft(
+        "경기조절정책",
+        "정부의 재정정책과 중앙은행의 통화정책을 활용한다.",
+        quality_feedback="통화정책을 빠뜨리지 않는다.",
+    )
+
+    assert "[자동 검증 피드백]" in captured["prompt"]
+    assert "통화정책을 빠뜨리지 않는다" in captured["prompt"]
+
+
+@pytest.mark.asyncio
+async def test_grounded_dictionary_pipeline_retries_failed_draft(monkeypatch):
+    quality_feedbacks = []
+    drafts = [
+        DictionaryDraft(
+            term_type="finance",
+            definition="금융기관이 일반 대중에게 예금을 받아 자금을 중개합니다.",
+        ),
+        DictionaryDraft(
+            term_type="finance",
+            definition="금융기관이 일반 대중으로부터 예금을 받아 자금을 중개합니다.",
+        ),
+    ]
+
+    async def fake_generate(
+        _term,
+        _raw_definition,
+        review_feedback=None,
+        quality_feedback=None,
+    ):
+        quality_feedbacks.append(quality_feedback)
+        return drafts.pop(0)
+
+    async def fake_verify(_term, _raw_definition, draft):
+        supported = "대중으로부터" in draft.definition
+        return GroundingVerdict(
+            supported=supported,
+            score=95 if supported else 0,
+            reason="조사를 수정했습니다." if supported else "예금 출처의 조사가 어색합니다.",
+        )
+
+    monkeypatch.setattr(
+        "services.analyzer.dictionary_generator.generate_grounded_dictionary_draft",
+        fake_generate,
+    )
+    monkeypatch.setattr(
+        "services.analyzer.dictionary_generator.verify_grounded_dictionary_draft",
+        fake_verify,
+    )
+
+    result = await generate_verified_grounded_dictionary_draft(
+        "간접금융",
+        "금융기관이 일반 대중으로부터 예금을 받아 자금을 중개한다.",
+    )
+
+    assert len(result.attempts) == 2
+    assert result.passed is True
+    assert quality_feedbacks[0] is None
+    assert "unnatural_deposit_source_particle" in quality_feedbacks[1]
+    assert "예금 출처의 조사가 어색합니다" in quality_feedbacks[1]
+
+
 def test_grounded_dictionary_validator_rejects_new_numbers_and_advice():
     draft = DictionaryDraft(
         term_type="finance",
@@ -132,9 +217,80 @@ def test_grounded_dictionary_validator_rejects_new_numbers_and_advice():
     )
 
     assert validate_grounded_draft("위험을 나타내는 지표이다.", draft) == [
+        "definition_style",
         "investment_advice",
         "unsupported_number",
     ]
+
+
+def test_grounded_dictionary_validator_rejects_meta_example_artifact():
+    draft = DictionaryDraft(
+        term_type="finance",
+        definition="경제활동인구는 일할 능력과 의사가 있는 사람입니다.",
+        example=")) # example is None as per instructions.",
+    )
+
+    assert validate_grounded_draft(
+        "경제활동인구는 일할 능력과 의사가 있는 사람이다.",
+        draft,
+    ) == ["example_style", "example_artifact"]
+
+
+def test_dictionary_draft_allows_omitted_example_field():
+    draft = DictionaryDraft.model_validate(
+        {
+            "term_type": "finance",
+            "definition": "경제활동인구는 일할 능력과 일할 의사가 있는 사람입니다.",
+        }
+    )
+
+    assert draft.example is None
+
+
+def test_grounded_dictionary_validator_rejects_unnatural_deposit_particle():
+    draft = DictionaryDraft(
+        term_type="finance",
+        definition="금융기관은 일반 대중에게 예금을 받아 기업에 대출합니다.",
+    )
+
+    assert validate_grounded_draft(
+        "금융기관은 일반 대중으로부터 예금을 받아 기업에 대출한다.",
+        draft,
+    ) == ["unnatural_deposit_source_particle"]
+
+
+@pytest.mark.parametrize(
+    ("definition", "example"),
+    [
+        (
+            "경기조절정책은 경기의 움직임을 안정시키는 정책을 말합니다.",
+            "정부와 중앙은행이 각자의 정책 수단으로 경기를 조절합니다.",
+        ),
+        (
+            "직접금융은 주식이나 채권을 발행해 자금을 마련하는 방식에 해당합니다.",
+            "기업이 필요한 자금을 주식 발행으로 직접 마련합니다.",
+        ),
+        (
+            "노동생산성은 노동 투입량과 생산량을 비교해 살펴봅니다.",
+            "생산량을 노동시간으로 나누어 변화를 확인합니다.",
+        ),
+        (
+            "경제활동인구는 취업자와 실업자로 나뉩니다.",
+            "조사 대상자를 두 집단으로 나누어 집계합니다.",
+        ),
+    ],
+)
+def test_grounded_dictionary_validator_accepts_formal_bieup_nida_endings(
+    definition,
+    example,
+):
+    draft = DictionaryDraft(
+        term_type="finance",
+        definition=definition,
+        example=example,
+    )
+
+    assert validate_grounded_draft("공식 원문에는 숫자가 없다.", draft) == []
 
 
 @pytest.mark.parametrize("empty_value", ["null", "None", "없음", "(없음)", ""])

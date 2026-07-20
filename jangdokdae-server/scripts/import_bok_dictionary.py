@@ -39,9 +39,8 @@ from services.analyzer.bok_dictionary import (
 )
 from services.analyzer.dictionary_generator import (
     GROUNDED_DICTIONARY_MIN_SCORE,
-    generate_grounded_dictionary_draft,
+    generate_verified_grounded_dictionary_draft,
     grounded_dictionary_model_name,
-    verify_grounded_dictionary_draft,
 )
 
 logger = logging.getLogger(__name__)
@@ -205,12 +204,11 @@ async def _generate_selected(
             continue
 
         try:
-            draft = await generate_grounded_dictionary_draft(
+            result = await generate_verified_grounded_dictionary_draft(
                 target_term, source.raw_definition
             )
-            verdict = await verify_grounded_dictionary_draft(
-                target_term, source.raw_definition, draft
-            )
+            draft = result.final_attempt.draft
+            verdict = result.final_attempt.verdict
             approved = (
                 verdict.supported
                 and verdict.score >= GROUNDED_DICTIONARY_MIN_SCORE
