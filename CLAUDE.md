@@ -166,7 +166,8 @@ GitHub Actions 배치는 운영 중이지만 공개 API·프론트의 실제 배
 - AI 분리 제안은 `proposed`, 사람 검수 후에만 `approved`
 - 승인된 개별 용어만 한국은행 원문 기반 쉬운 설명 후보 생성
 - 생성과 별도 검증을 분리하고 90점 이상만 승인 후보로 인정
-- 1차 검증 실패 시 실패 사유를 넣어 최대 한 번 자동 보정하는 `bok-definition-v4`
+- 1차 검증 실패 시 실패 사유를 넣어 최대 한 번 자동 보정하는 `bok-definition-v5`
+  (v5에서 검증기가 "함께 정의되는 개념 누락=fail"과 "용어의 하류 파급효과 생략=ok"을 구분)
 - 사람 승인 전에는 최종 결과도 `candidate` 유지
 - 본문 첫 등장에만 밑줄을 표시하고 tooltip/sheet와 원문 링크 제공
 
@@ -175,19 +176,22 @@ GitHub Actions 배치는 운영 중이지만 공개 API·프론트의 실제 배
 에이전트 평가는 마지막 출력만 보는 대신 Task, transcript, outcome, metrics를 분리했다.
 
 - 용어 분리 골드셋: 13개 승인 Task
-- 쉬운 설명 골드셋: 5개 승인 Task
+- 쉬운 설명 골드셋: 10개 승인 Task (1차 5 + 2차 5, `definition_batch_02` 태그로 구분)
 - 각 중요 Task를 3회 반복해 `pass@1`과 `pass^3` 측정
 - 코드 검사와 별도 LLM 원문 근거 검증 결합
 - 프롬프트 버전, 모델, 원문 해시, 전체 시도 JSON 보존
 
-최근 쉬운 설명 v4 평가 결과:
+최근 쉬운 설명 v5 평가 결과(2026-07-21, 2차 배치 반영):
 
-- 5 Task × 3회 = 15 Trials
-- 최종 15/15 통과
+- 10 Task × 3회 = 30 Trials
+- 최종 30/30 통과
 - `pass@1 = 100%`
 - `pass^3 = 100%`
-- 생성 16회 중 1건만 자동 보정
+- 생성 32회 중 2건만 자동 보정
 - 코드 검사 실패 0, 원문 미지원 0, 실행 오류 0
+
+> 2차 배치 첫 평가에서 `노동생산성지수`가 문장수 게이트(≤3문장) ↔ 완전성 검증기 충돌로
+> 3/3 실패했고, 검증기가 근거성을 완전성과 혼동하지 않도록 v5로 고친 뒤 통과했다.
 
 이 결과는 **작은 회귀 게이트 통과**일 뿐 전체 789개 자동 승인을 허용하는 근거가 아니다.
 
@@ -205,7 +209,7 @@ GitHub Actions 배치는 운영 중이지만 공개 API·프론트의 실제 배
 | 현재 콘텐츠 기반 선택 원문 | 25 |
 | `term_units_status=approved` 원문 | 9 |
 | `term_units_status=pending` 원문 | 780 |
-| 한국은행 기반 `approved + verified` 설명 | 6 |
+| 한국은행 기반 `approved + verified` 설명 | 11 |
 | 기존 LLM 레거시 용어 | 340 |
 
 Alembic 현재 head는 `e0a2b4c6d8f0` 하나다.
@@ -283,10 +287,12 @@ uv run python -m evaluation.dictionary.run_definition --repeats 3
 
 ### P0 — 바로 이어서 할 일
 
-1. **쉬운 설명 두 번째 5개 배치**
-   - 위 다섯 용어 생성, 사람 검수, 승인, 골드셋 추가
-   - 10 Task × 3회 반복 평가
-   - 실패 transcript를 읽고 회귀 조건 추가
+1. **쉬운 설명 세 번째 5개 배치** (2차 배치는 2026-07-21 완료)
+   - 2차 배치(경제활동참가율·노동생산성·노동생산성지수·리스크 온·리스크 오프) 5개는
+     생성·검수·승인·골드셋·30 Trial 평가까지 끝났고 `bok-definition-v5` 게이트를 통과했다.
+   - 다음 5개 대상은 아직 미정이다. §5 순서(분리 승인→설명 생성→검수→승인→골드셋→평가)를
+     그대로 반복한다. 분리 단위가 `approved`인지 먼저 확인하고, 없으면 분리 승인부터 한다.
+   - 생성 결과가 90점이어도 자동 승인하지 않는다. 실패 transcript를 읽고 회귀 조건을 추가한다.
 
 2. **하루 세 콘텐츠의 선택 기준 고도화**
    - 현재 코드는 최신 실행일과 클러스터 중요도 순서를 유지하며 세 역할을 채운다.
@@ -424,12 +430,12 @@ uv run python -m services.pipeline.runner morning
 - `jangdokdae-server/docs/guide/02-github-actions-new-environment-setup.md`: 신규 운영 환경 구축
 - `jangdokdae-server/docs/guide/03-bok-inline-glossary.md`: 한국은행 사전 운영 순서
 - `jangdokdae-server/docs/evaluation/10-dictionary-agent-eval-plan.md`: 사전 평가와 자동화 기준
-- `jangdokdae-server/docs/evaluation/results/dictionary-definition-eval-2026-07-20-212626.md`:
-  현재 쉬운 설명 v4 평가 결과
+- `jangdokdae-server/docs/evaluation/results/dictionary-definition-eval-2026-07-21-153655.md`:
+  현재 쉬운 설명 v5 평가 결과(2차 배치 반영, 30/30 통과)
 - `jangdokdae-server/evaluation/dictionary/tasks/README.md`: 골드셋 규칙
 - `jangdokdae-web/README.md`: 프론트 기능과 로컬 실행
 
 마지막 기능 기준 커밋은 다음 두 개다.
 
-- `cf617f0 feat(dictionary): approve grounded definition batch`
-- `599523e feat(eval): add resilient dictionary definition gate`
+- `6939ba5 feat(dictionary): add second grounded definition batch to goldset`
+- `a3f8bb6 fix(dictionary): separate grounding from completeness in definition gate`
