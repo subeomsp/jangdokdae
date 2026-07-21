@@ -102,7 +102,7 @@ jobs:
           key: huggingface-${{ runner.os }}-${{ hashFiles('jangdokdae-server/uv.lock') }}
 
       - name: Install application dependencies
-        run: uv sync --frozen
+        run: uv sync --frozen --group pipeline
 
       - name: Apply database migrations
         run: uv run alembic upgrade head

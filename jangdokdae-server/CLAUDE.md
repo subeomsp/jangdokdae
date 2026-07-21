@@ -9,7 +9,7 @@ Actions가 담당한다. Airflow 코드는 향후 대안으로만 보존한다.
 서버 검증은 다음 명령을 기본으로 한다.
 
 ```bash
-uv sync --frozen --extra dev
+uv sync --frozen --group pipeline --extra dev
 uv run python -m pytest -q
 uv run ruff check .
 uv run alembic heads

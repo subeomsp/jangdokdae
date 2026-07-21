@@ -1507,31 +1507,19 @@ dependencies = [
     { name = "asyncpg" },
     { name = "email-validator" },
     { name = "fastapi" },
-    { name = "feedparser" },
-    { name = "finance-datareader" },
     { name = "greenlet" },
-    { name = "hdbscan" },
     { name = "httpx" },
-    { name = "langchain" },
-    { name = "langchain-google-genai" },
     { name = "langchain-google-vertexai" },
-    { name = "langchain-huggingface" },
     { name = "langgraph" },
     { name = "passlib", extra = ["bcrypt"] },
     { name = "pgvector" },
     { name = "psycopg2-binary" },
     { name = "pydantic" },
     { name = "pydantic-settings" },
-    { name = "pykrx" },
-    { name = "pypdf" },
-    { name = "python-dateutil" },
     { name = "python-jose", extra = ["cryptography"] },
     { name = "python-multipart" },
     { name = "pyyaml" },
-    { name = "scikit-learn" },
-    { name = "sentence-transformers" },
     { name = "sqlalchemy" },
-    { name = "trafilatura" },
     { name = "uvicorn", extra = ["standard"] },
 ]
 
@@ -1545,6 +1533,22 @@ dev = [
     { name = "ruff" },
 ]
 
+[package.dev-dependencies]
+pipeline = [
+    { name = "feedparser" },
+    { name = "finance-datareader" },
+    { name = "hdbscan" },
+    { name = "langchain" },
+    { name = "langchain-google-genai" },
+    { name = "langchain-huggingface" },
+    { name = "pykrx" },
+    { name = "pypdf" },
+    { name = "python-dateutil" },
+    { name = "scikit-learn" },
+    { name = "sentence-transformers" },
+    { name = "trafilatura" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "alembic", specifier = "==1.18.4" },
@@ -1552,15 +1556,9 @@ requires-dist = [
     { name = "black", marker = "extra == 'dev'", specifier = "==26.5.1" },
     { name = "email-validator", specifier = "==2.3.0" },
     { name = "fastapi", specifier = "==0.136.3" },
-    { name = "feedparser", specifier = "==6.0.12" },
-    { name = "finance-datareader", specifier = "==0.9.202" },
     { name = "greenlet", specifier = "==3.5.1" },
-    { name = "hdbscan", specifier = ">=0.8.44" },
     { name = "httpx", specifier = "==0.28.1" },
-    { name = "langchain", specifier = "==1.3.4" },
-    { name = "langchain-google-genai", specifier = ">=4.2.4" },
     { name = "langchain-google-vertexai", specifier = "==3.2.3" },
-    { name = "langchain-huggingface", specifier = ">=1.2.2" },
     { name = "langgraph", specifier = "==1.2.4" },
     { name = "mypy", marker = "extra == 'dev'", specifier = "==2.1.0" },
     { name = "passlib", extras = ["bcrypt"], specifier = "==1.7.4" },
@@ -1568,23 +1566,33 @@ requires-dist = [
     { name = "psycopg2-binary", specifier = "==2.9.12" },
     { name = "pydantic", specifier = "==2.13.4" },
     { name = "pydantic-settings", specifier = "==2.14.1" },
-    { name = "pykrx", specifier = ">=1.2.8" },
-    { name = "pypdf", specifier = "==6.14.2" },
     { name = "pytest", marker = "extra == 'dev'", specifier = "==9.0.3" },
     { name = "pytest-asyncio", marker = "extra == 'dev'", specifier = "==1.4.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = "==7.1.0" },
-    { name = "python-dateutil", specifier = "==2.9.0.post0" },
     { name = "python-jose", extras = ["cryptography"], specifier = "==3.5.0" },
     { name = "python-multipart", specifier = "==0.0.32" },
     { name = "pyyaml", specifier = "==6.0.3" },
     { name = "ruff", marker = "extra == 'dev'", specifier = "==0.15.16" },
-    { name = "scikit-learn", specifier = ">=1.9.0" },
-    { name = "sentence-transformers", specifier = ">=5.5.1" },
     { name = "sqlalchemy", specifier = "==2.0.50" },
-    { name = "trafilatura", specifier = ">=2.1.0" },
     { name = "uvicorn", extras = ["standard"], specifier = "==0.49.0" },
 ]
 provides-extras = ["dev"]
+
+[package.metadata.requires-dev]
+pipeline = [
+    { name = "feedparser", specifier = "==6.0.12" },
+    { name = "finance-datareader", specifier = "==0.9.202" },
+    { name = "hdbscan", specifier = ">=0.8.44" },
+    { name = "langchain", specifier = "==1.3.4" },
+    { name = "langchain-google-genai", specifier = ">=4.2.4" },
+    { name = "langchain-huggingface", specifier = ">=1.2.2" },
+    { name = "pykrx", specifier = ">=1.2.8" },
+    { name = "pypdf", specifier = "==6.14.2" },
+    { name = "python-dateutil", specifier = "==2.9.0.post0" },
+    { name = "scikit-learn", specifier = ">=1.9.0" },
+    { name = "sentence-transformers", specifier = ">=5.5.1" },
+    { name = "trafilatura", specifier = ">=2.1.0" },
+]
 
 [[package]]
 name = "jinja2"
