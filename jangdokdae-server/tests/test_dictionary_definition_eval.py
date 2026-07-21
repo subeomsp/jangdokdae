@@ -59,23 +59,40 @@ def test_approved_definition_becomes_gold_task():
         source,
         task_id="bok-def-001",
         reviewed_at=datetime(2026, 7, 20, 21, 0, tzinfo=ZoneInfo("Asia/Seoul")),
+        batch_tag="definition_batch_02",
     )
 
     assert task.term == "간접금융"
     assert task.reference.definition == row.definition
     assert task.content_hash == source.content_hash
+    assert task.tags == ["definition_batch_02", "human_reviewed"]
 
 
-def test_definition_goldset_contains_five_approved_tasks():
+def test_definition_goldset_contains_two_approved_batches():
     tasks = load_definition_tasks(TASKS_PATH)
 
-    assert len(tasks) == 5
+    assert len(tasks) == 10
     assert {task.term for task in tasks} == {
         "간접금융",
         "직접금융",
         "경기조절정책",
         "경제활동인구",
         "비경제활동인구",
+        "경제활동참가율",
+        "노동생산성",
+        "노동생산성지수",
+        "리스크 온",
+        "리스크 오프",
+    }
+    batch_02_terms = {
+        task.term for task in tasks if "definition_batch_02" in task.tags
+    }
+    assert batch_02_terms == {
+        "경제활동참가율",
+        "노동생산성",
+        "노동생산성지수",
+        "리스크 온",
+        "리스크 오프",
     }
 
 

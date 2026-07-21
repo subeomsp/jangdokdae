@@ -38,6 +38,7 @@ def _task_from_rows(
     *,
     task_id: str,
     reviewed_at: datetime,
+    batch_tag: str,
 ) -> DefinitionEvalTask:
     if (
         row.status != "approved"
@@ -65,13 +66,13 @@ def _task_from_rows(
             definition=row.definition,
             example=row.example,
         ),
-        tags=["definition_batch_01", "human_reviewed"],
+        tags=[batch_tag, "human_reviewed"],
         reviewed_by="project-owner",
         reviewed_at=reviewed_at,
     )
 
 
-async def export(terms: list[str], gold_path: Path) -> None:
+async def export(terms: list[str], gold_path: Path, batch_tag: str) -> None:
     if not terms:
         raise ValueError("at least one --term is required")
     existing = load_definition_tasks(gold_path) if gold_path.exists() else []
@@ -113,6 +114,7 @@ async def export(terms: list[str], gold_path: Path) -> None:
                 source,
                 task_id=f"bok-def-{next_number:03d}",
                 reviewed_at=reviewed_at,
+                batch_tag=batch_tag,
             )
         )
         next_number += 1
@@ -133,5 +135,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="승인 쉬운 설명을 골드셋에 추가")
     parser.add_argument("--term", action="append", default=[])
     parser.add_argument("--gold-path", type=Path, default=DEFAULT_GOLD_PATH)
+    parser.add_argument("--batch-tag", default="definition_batch_01")
     args = parser.parse_args()
-    asyncio.run(export(args.term, args.gold_path))
+    asyncio.run(export(args.term, args.gold_path, args.batch_tag))
