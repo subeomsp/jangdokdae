@@ -68,32 +68,36 @@ def test_approved_definition_becomes_gold_task():
     assert task.tags == ["definition_batch_02", "human_reviewed"]
 
 
-def test_definition_goldset_contains_two_approved_batches():
+def test_definition_goldset_contains_three_approved_batches():
     tasks = load_definition_tasks(TASKS_PATH)
 
-    assert len(tasks) == 10
-    assert {task.term for task in tasks} == {
+    assert len(tasks) == 34
+    # 모든 Task는 사람 검수를 거친 승인 상태여야 한다.
+    assert all(task.label_status == "approved" for task in tasks)
+    assert all("human_reviewed" in task.tags for task in tasks)
+
+    batch_01 = {t.term for t in tasks if "definition_batch_01" in t.tags}
+    batch_02 = {t.term for t in tasks if "definition_batch_02" in t.tags}
+    batch_03 = {t.term for t in tasks if "definition_batch_03" in t.tags}
+
+    assert batch_01 == {
         "간접금융",
         "직접금융",
         "경기조절정책",
         "경제활동인구",
         "비경제활동인구",
+    }
+    assert batch_02 == {
         "경제활동참가율",
         "노동생산성",
         "노동생산성지수",
         "리스크 온",
         "리스크 오프",
     }
-    batch_02_terms = {
-        task.term for task in tasks if "definition_batch_02" in task.tags
-    }
-    assert batch_02_terms == {
-        "경제활동참가율",
-        "노동생산성",
-        "노동생산성지수",
-        "리스크 온",
-        "리스크 오프",
-    }
+    assert len(batch_03) == 24
+    assert {"기준금리", "인플레이션", "유동성", "상장지수펀드(ETF)", "M&A"} <= batch_03
+    # 배치는 서로 겹치지 않고 전체를 덮는다.
+    assert batch_01 | batch_02 | batch_03 == {t.term for t in tasks}
 
 
 @pytest.mark.asyncio
