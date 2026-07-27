@@ -167,8 +167,11 @@ Next.js MVP에는 다음 화면과 흐름이 있다.
 - AI 분리 제안은 `proposed`, 사람 검수 후에만 `approved`
 - 승인된 개별 용어만 한국은행 원문 기반 쉬운 설명 후보 생성
 - 생성과 별도 검증을 분리하고 90점 이상만 승인 후보로 인정
-- 1차 검증 실패 시 실패 사유를 넣어 최대 한 번 자동 보정하는 `bok-definition-v5`
-  (v5에서 검증기가 "함께 정의되는 개념 누락=fail"과 "용어의 하류 파급효과 생략=ok"을 구분)
+- 1차 검증 실패 시 실패 사유를 넣어 최대 한 번 자동 보정하는 `bok-definition-v6`
+  (v5: "함께 정의되는 개념 누락=fail" vs "하류 파급효과 생략=ok" 구분,
+  v6: 열거된 하위 항목은 나열이면 충분, 지수·비율형 용어의 기반 개념 혼동 금지,
+  다조건 용어의 절 결합 압축과 320자 제한 명시, 행동·손익 시나리오는 하류로 간주,
+  PDF 추출로 붙은 수치 토큰의 `unsupported_number` 오탐 수정)
 - 사람 승인 전에는 최종 결과도 `candidate` 유지
 - 본문 첫 등장에만 밑줄을 표시하고 tooltip/sheet와 원문 링크 제공
 
@@ -182,21 +185,15 @@ Next.js MVP에는 다음 화면과 흐름이 있다.
 - 코드 검사와 별도 LLM 원문 근거 검증 결합
 - 프롬프트 버전, 모델, 원문 해시, 전체 시도 JSON 보존
 
-2차 배치까지의 마지막 PASS 평가(v5, 2026-07-21):
+마지막 PASS 평가(v6, 2026-07-28) — 3차 배치 HOLD 해제:
 
-- 10 Task × 3회 = 30 Trials, 30/30 통과, `pass@1 = pass^3 = 100%`
-- 2차 첫 평가에서 `노동생산성지수`가 문장수 게이트(≤3문장) ↔ 완전성 검증기 충돌로
-  3/3 실패 → 검증기가 근거성을 완전성과 혼동하지 않도록 v5로 고친 뒤 통과.
-
-3차 배치(24개) 상태 — 데이터는 승인 완료·골드셋 반영, **평가 게이트는 HOLD**:
-
-- 승인 설명은 사람 검수를 통과한 정본이고 골드셋에 들어갔다(34 Task).
-- 34 Task 반복 평가에서 `M&A`·`유동성`이 노동생산성지수와 같은 구조로 실패했다.
-  원문이 하위 항목을 열거하는데(M&A의 4가지 방법, 유동성의 파생 개념) 검증기가 이를
-  모두 요구해 3문장 게이트와 충돌한다. v5는 "하류 파급효과 생략 OK"까지만 다뤘고,
-  "열거된 구성 항목은 나열이면 충분"은 미반영이다. → 검증기 v6 보정 + 재평가가 후속(P0).
-- Gemini 429 rate limit으로 34×3=102 Trial 대규모 재평가가 현재 지연된다. 청크 분할
-  실행이 필요하다.
+- 34 Task × 3회 = 102 Trials, 102/102 통과, `pass@1 = pass^3 = 100%`, 평균 95.78점.
+- Gemini 429 때문에 골드셋을 5개 안팎 7청크로 나눠 순차 실행하고 지표를 합산했다.
+- v6에서 해결한 실패 구조 5가지(열거 하위 항목, 수치 토큰 오탐, 지수형 기반 개념 혼동,
+  다조건 압축 실패, 행동 시나리오 오판)는
+  `docs/evaluation/results/dictionary-definition-eval-2026-07-28-041131-aggregate.md`에
+  원인·조치와 함께 기록했다.
+- `노동생산성지수`·`사이드카`에는 골드 Task `required_concept_groups` 회귀 검사를 달았다.
 
 이 결과는 **작은 회귀 게이트**일 뿐 전체 789개 자동 승인을 허용하는 근거가 아니다.
 
@@ -292,17 +289,13 @@ uv run python -m evaluation.dictionary.run_definition --repeats 3
 
 ### P0 — 바로 이어서 할 일
 
-1. **검증기 v6 보정 + 3차 배치 재평가** (가장 먼저)
-   - 3차 배치(24개, `definition_batch_03`)는 승인·골드셋까지 끝났으나 **평가 게이트가 HOLD**다.
-   - `M&A`·`유동성`이 노동생산성지수와 같은 구조로 실패한다. 검증기가 "열거된 하위 항목은
-     간결히 나열하면 충분하고, 각각을 상세 정의할 필요는 없다"를 구분하도록 v6로 보정한다.
-     이는 v5의 "하류 파급효과 생략 OK" 원칙의 연장이다(사용자가 택한 브레비티 방향).
-   - `경제활동참가율`의 1회 `unsupported_number` 슬립도 재현/원인 확인한다.
-   - v6 후 34 Task × 3 재평가로 `pass^3` 회복을 확인하고 결과를 커밋한다. Gemini 429로
-     102 Trial 일괄 실행이 막히면 골드셋을 청크로 나눠 돌리고 지표를 합산한다.
+(완료 2026-07-28) ~~검증기 v6 보정 + 3차 배치 재평가~~ — 102/102 통과로 HOLD 해제.
+자세한 원인·조치는 §3 평가 체계와 aggregate 평가 결과 문서 참조.
 
-2. **쉬운 설명 4차 배치** (v6 게이트 안정화 후)
-   - 다음 대상은 미정. §5 순서(분리 승인→생성→검수→승인→골드셋→평가)를 반복한다.
+1. **쉬운 설명 4차 배치** (선별 pending이 다시 생기면)
+   - 현재 `is_selected` 25개 원문은 전부 커버 완료라 당장 할 배치는 없다. 파이프라인이
+     새 콘텐츠에서 새 용어를 선별하면 재개한다.
+   - §5 순서(분리 승인→생성→검수→승인→골드셋→평가)를 반복한다.
    - 선별된 pending 원문에서 초보자 가치가 높은 용어를 고른다. 분리 단위가 `approved`인지
      먼저 확인하고, 없으면 분리 승인부터 한다.
    - 생성 결과가 90점이어도 자동 승인하지 않는다. 실패 transcript를 읽고 회귀 조건을 추가한다.
@@ -442,12 +435,10 @@ uv run python -m services.pipeline.runner morning
 - `jangdokdae-server/docs/guide/02-github-actions-new-environment-setup.md`: 신규 운영 환경 구축
 - `jangdokdae-server/docs/guide/03-bok-inline-glossary.md`: 한국은행 사전 운영 순서
 - `jangdokdae-server/docs/evaluation/10-dictionary-agent-eval-plan.md`: 사전 평가와 자동화 기준
-- `jangdokdae-server/docs/evaluation/results/dictionary-definition-eval-2026-07-21-153655.md`:
-  현재 쉬운 설명 v5 평가 결과(2차 배치 반영, 30/30 통과)
+- `jangdokdae-server/docs/evaluation/results/dictionary-definition-eval-2026-07-28-041131-aggregate.md`:
+  현재 쉬운 설명 v6 평가 결과(34 Task 전체, 102/102 통과, 실패 구조 5가지 원인·조치 기록)
 - `jangdokdae-server/evaluation/dictionary/tasks/README.md`: 골드셋 규칙
 - `jangdokdae-web/README.md`: 프론트 기능과 로컬 실행
 
-마지막 기능 기준 커밋은 다음 두 개다.
-
-- `4e26739 feat(dictionary): add third grounded definition batch to goldset` (평가 게이트 HOLD)
-- `a3f8bb6 fix(dictionary): separate grounding from completeness in definition gate` (마지막 PASS)
+마지막 기능 기준 커밋은 v6 게이트 보정·34 Task 평가 커밋(2026-07-28,
+`fix(dictionary)`/`feat(eval)`/`docs(eval)` 3연속)이다. 3차 배치 HOLD는 해제됐다.
