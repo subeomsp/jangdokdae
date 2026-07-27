@@ -168,14 +168,19 @@ def _role_copy(role: LearningRole, personalized: bool) -> tuple[str, str]:
     return "시야 넓히기", "익숙한 관심사 밖의 중요한 흐름이에요"
 
 
-async def _load_candidates(db: AsyncSession) -> list[LearningCandidate]:
-    since = now_kst() - timedelta(days=_CANDIDATE_WINDOW_DAYS)
+async def _load_candidates(
+    db: AsyncSession, as_of: Any | None = None
+) -> list[LearningCandidate]:
+    """오늘의 학습 후보를 로드한다. as_of를 주면 그 시점의 후보 풀을 재구성한다(평가용)."""
+    reference = as_of if as_of is not None else now_kst()
+    since = reference - timedelta(days=_CANDIDATE_WINDOW_DAYS)
     rows = (
         await db.execute(
             select(IssueDocent, NewsCluster, NewsAnalysis)
             .join(NewsCluster, IssueDocent.cluster_id == NewsCluster.id)
             .join(NewsAnalysis, IssueDocent.cluster_id == NewsAnalysis.cluster_id)
             .where(IssueDocent.created_at >= since)
+            .where(IssueDocent.created_at <= reference)
             .where(NewsAnalysis.is_investment_relevant.is_(True))
             .where(NewsAnalysis.needs_review.is_(False))
             .where(func.jsonb_array_length(IssueDocent.quizzes) > 0)

@@ -1,0 +1,538 @@
+{
+ "snapshot_version": 1,
+ "learning_date": "2026-07-18",
+ "as_of": "2026-07-18T23:59:59",
+ "window_days": 7,
+ "candidates": [
+  {
+   "rank": 1,
+   "issue_id": 38,
+   "cluster_id": 1299,
+   "stable_id": 72,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.4,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7,
+    8
+   ],
+   "sector_names": [
+    "금융",
+    "IT"
+   ],
+   "company_ids": [
+    1670,
+    3364
+   ],
+   "title": "미국 반도체주 하락, 업황 둔화 우려 확산",
+   "hook": "미국 반도체주 하락으로 국내 반도체 업황 둔화 우려가 제기되고 있습니다.",
+   "created_at": "2026-07-18T12:24:28.742145"
+  },
+  {
+   "rank": 2,
+   "issue_id": 39,
+   "cluster_id": 1297,
+   "stable_id": 236,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.38095238095238093,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7
+   ],
+   "sector_names": [
+    "금융"
+   ],
+   "company_ids": [
+    1670,
+    3364
+   ],
+   "title": "단일종목 레버리지 상품 투자 규제 강화",
+   "hook": "금융당국, 단일종목 레버리지 상품에 대한 투자 규제 강화 방안 발표",
+   "created_at": "2026-07-18T12:26:05.820949"
+  },
+  {
+   "rank": 3,
+   "issue_id": 41,
+   "cluster_id": 1204,
+   "stable_id": 7,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.13333333333333333,
+   "scope": "회사",
+   "sector_ids": [
+    4,
+    7
+   ],
+   "sector_names": [
+    "경기소비재",
+    "금융"
+   ],
+   "company_ids": [],
+   "title": "메리츠금융, 홈플러스에 2천억 긴급 자금 지원 결정",
+   "hook": "메리츠금융이 홈플러스에 2천억 원 규모의 긴급 운영 자금을 추가 지원하기로 했습니다.",
+   "created_at": "2026-07-18T17:27:16.048148"
+  },
+  {
+   "rank": 4,
+   "issue_id": 40,
+   "cluster_id": 1228,
+   "stable_id": 34,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.13333333333333333,
+   "scope": "시장 전체",
+   "sector_ids": [
+    2,
+    3,
+    4,
+    5,
+    7,
+    8,
+    9
+   ],
+   "sector_names": [
+    "소재",
+    "산업재",
+    "경기소비재",
+    "필수소비재",
+    "금융",
+    "IT",
+    "커뮤니케이션서비스"
+   ],
+   "company_ids": [
+    1078,
+    1953,
+    2222,
+    2330,
+    2481,
+    2634,
+    3004,
+    3426
+   ],
+   "title": "기업의 주주환원 계획 발표, 무엇을 봐야 할까",
+   "hook": "기업들이 자사주 소각 등 새로운 계획을 발표했습니다.",
+   "created_at": "2026-07-18T12:27:34.500606"
+  },
+  {
+   "rank": 5,
+   "issue_id": 46,
+   "cluster_id": 1298,
+   "stable_id": 71,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.11428571428571428,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7,
+    8
+   ],
+   "sector_names": [
+    "금융",
+    "IT"
+   ],
+   "company_ids": [
+    1670,
+    3364
+   ],
+   "title": "단일종목 레버리지 ETF 보완책 발표 예고",
+   "hook": "금융당국, 단일종목 레버리지 ETF 보완 방안 발표 예고",
+   "created_at": "2026-07-18T17:34:18.032606"
+  },
+  {
+   "rank": 6,
+   "issue_id": 45,
+   "cluster_id": 1224,
+   "stable_id": 13,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.11428571428571428,
+   "scope": "회사",
+   "sector_ids": [
+    2
+   ],
+   "sector_names": [
+    "소재"
+   ],
+   "company_ids": [
+    2306,
+    3493
+   ],
+   "title": "영풍·고려아연, 회계기준 위반으로 과징금 부과",
+   "hook": "영풍과 고려아연이 회계기준 위반으로 금융당국으로부터 과징금을 부과받았습니다.",
+   "created_at": "2026-07-18T17:33:08.285537"
+  },
+  {
+   "rank": 7,
+   "issue_id": 44,
+   "cluster_id": 1252,
+   "stable_id": 52,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.11428571428571428,
+   "scope": "업종·테마",
+   "sector_ids": [
+    3
+   ],
+   "sector_names": [
+    "산업재"
+   ],
+   "company_ids": [
+    2549,
+    2840,
+    3189,
+    3270,
+    3282,
+    3487
+   ],
+   "title": "미국 조선업 협력 발언에 국내 조선주 주목",
+   "hook": "트럼프 전 대통령의 조선업 협력 발언에 국내 조선주가 상승했습니다.",
+   "created_at": "2026-07-18T17:31:51.474590"
+  },
+  {
+   "rank": 8,
+   "issue_id": 43,
+   "cluster_id": 1309,
+   "stable_id": 78,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.11428571428571428,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7,
+    8
+   ],
+   "sector_names": [
+    "금융",
+    "IT"
+   ],
+   "company_ids": [
+    994,
+    1183,
+    1470,
+    1670,
+    1834,
+    2008,
+    2016,
+    2269,
+    2326,
+    3332,
+    3364,
+    3476,
+    3499,
+    3540,
+    3605,
+    3698,
+    3722,
+    3830
+   ],
+   "title": "코스피, 반도체주 약세로 6%대 하락",
+   "hook": "코스피와 코스닥이 반도체주 약세 영향으로 큰 폭으로 하락했습니다.",
+   "created_at": "2026-07-18T17:30:26.644797"
+  },
+  {
+   "rank": 9,
+   "issue_id": 42,
+   "cluster_id": 1289,
+   "stable_id": 65,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.11428571428571428,
+   "scope": "업종·테마",
+   "sector_ids": [
+    4,
+    7,
+    8
+   ],
+   "sector_names": [
+    "경기소비재",
+    "금융",
+    "IT"
+   ],
+   "company_ids": [],
+   "title": "KB운용 ETF, 상장 후 최고 분배금 확정",
+   "hook": "KB자산운용 ETF, 상장 후 최고 분배금 확정",
+   "created_at": "2026-07-18T17:28:42.760421"
+  },
+  {
+   "rank": 10,
+   "issue_id": 50,
+   "cluster_id": 1263,
+   "stable_id": 149,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.09523809523809523,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7
+   ],
+   "sector_names": [
+    "금융"
+   ],
+   "company_ids": [],
+   "title": "코스닥 시장, 질적 성장 위한 제도 개편 추진",
+   "hook": "코스닥 시장의 질적 성장을 위한 제도 개편 방안이 발표되었습니다.",
+   "created_at": "2026-07-18T17:38:56.603783"
+  },
+  {
+   "rank": 11,
+   "issue_id": 49,
+   "cluster_id": 1229,
+   "stable_id": 35,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.09523809523809523,
+   "scope": "회사",
+   "sector_ids": [
+    6
+   ],
+   "sector_names": [
+    "헬스케어"
+   ],
+   "company_ids": [
+    2853
+   ],
+   "title": "파마리서치, 의료기기·화장품 성장 기대에 목표가 엇갈려",
+   "hook": "파마리서치에 대한 증권사들의 목표주가 조정 소식입니다.",
+   "created_at": "2026-07-18T17:37:42.804475"
+  },
+  {
+   "rank": 12,
+   "issue_id": 48,
+   "cluster_id": 1212,
+   "stable_id": 27,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.09523809523809523,
+   "scope": "회사",
+   "sector_ids": [
+    3,
+    7
+   ],
+   "sector_names": [
+    "산업재",
+    "금융"
+   ],
+   "company_ids": [],
+   "title": "한투AC, 美 기관과 손잡고 방산 스타트업 해외 진출 지원",
+   "hook": "한국투자액셀러레이터가 미국 기관과 협력해 국내 방산·드론 스타트업의 미국 진출을 돕습니다.",
+   "created_at": "2026-07-18T17:36:28.112856"
+  },
+  {
+   "rank": 13,
+   "issue_id": 47,
+   "cluster_id": 1307,
+   "stable_id": 83,
+   "run_date": "2026-07-18",
+   "is_current": true,
+   "importance": 0.09523809523809523,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7
+   ],
+   "sector_names": [
+    "금융"
+   ],
+   "company_ids": [],
+   "title": "코스피·코스닥 급락, 매도 사이드카 발동",
+   "hook": "코스피·코스닥 급락, 매도 사이드카 발동 소식",
+   "created_at": "2026-07-18T17:35:28.645259"
+  },
+  {
+   "rank": 14,
+   "issue_id": 30,
+   "cluster_id": 555,
+   "stable_id": 31,
+   "run_date": "2026-07-17",
+   "is_current": true,
+   "importance": 0.07692307692307693,
+   "scope": "시장 전체",
+   "sector_ids": [
+    2,
+    3,
+    4,
+    8
+   ],
+   "sector_names": [
+    "소재",
+    "산업재",
+    "경기소비재",
+    "IT"
+   ],
+   "company_ids": [
+    1670,
+    2549,
+    3282,
+    3364
+   ],
+   "title": "청년 고용 부진 지속, 기업 채용 방식 변화 주목",
+   "hook": "청년 고용 지표가 하락세를 이어가는 가운데, 기업들의 채용 방식에도 변화가 나타나고 있습니다.",
+   "created_at": "2026-07-17T17:42:04.076113"
+  },
+  {
+   "rank": 15,
+   "issue_id": 37,
+   "cluster_id": 577,
+   "stable_id": 44,
+   "run_date": "2026-07-17",
+   "is_current": true,
+   "importance": 0.06153846153846154,
+   "scope": "시장 전체",
+   "sector_ids": [],
+   "sector_names": [],
+   "company_ids": [],
+   "title": "미국 생산자물가 예상 밖 하락, 에너지 가격 영향",
+   "hook": "미국 6월 생산자물가가 예상과 달리 하락했습니다.",
+   "created_at": "2026-07-17T17:51:07.174654"
+  },
+  {
+   "rank": 16,
+   "issue_id": 36,
+   "cluster_id": 563,
+   "stable_id": 37,
+   "run_date": "2026-07-17",
+   "is_current": true,
+   "importance": 0.06153846153846154,
+   "scope": "회사",
+   "sector_ids": [
+    1
+   ],
+   "sector_names": [
+    "에너지"
+   ],
+   "company_ids": [
+    2434
+   ],
+   "title": "SK이노베이션, 2분기 실적 기대에 목표가 상향",
+   "hook": "SK이노베이션, 증권사 목표가 상향 소식",
+   "created_at": "2026-07-17T17:50:01.083940"
+  },
+  {
+   "rank": 17,
+   "issue_id": 35,
+   "cluster_id": 562,
+   "stable_id": 36,
+   "run_date": "2026-07-17",
+   "is_current": true,
+   "importance": 0.06153846153846154,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7
+   ],
+   "sector_names": [
+    "금융"
+   ],
+   "company_ids": [],
+   "title": "상반기 주식관련사채 권리행사 증가, 의미는?",
+   "hook": "상반기 주식관련사채 권리행사가 늘었습니다.",
+   "created_at": "2026-07-17T17:48:26.265781"
+  },
+  {
+   "rank": 18,
+   "issue_id": 34,
+   "cluster_id": 570,
+   "stable_id": 42,
+   "run_date": "2026-07-17",
+   "is_current": true,
+   "importance": 0.06153846153846154,
+   "scope": "회사",
+   "sector_ids": [
+    7
+   ],
+   "sector_names": [
+    "금융"
+   ],
+   "company_ids": [],
+   "title": "iM증권, 1500억 자본 확충으로 성장 전략 전환",
+   "hook": "iM증권이 1500억원 규모의 신종자본증권을 발행해 자본을 확충합니다.",
+   "created_at": "2026-07-17T17:47:21.669276"
+  },
+  {
+   "rank": 19,
+   "issue_id": 33,
+   "cluster_id": 575,
+   "stable_id": 43,
+   "run_date": "2026-07-17",
+   "is_current": true,
+   "importance": 0.06153846153846154,
+   "scope": "회사",
+   "sector_ids": [
+    7
+   ],
+   "sector_names": [
+    "금융"
+   ],
+   "company_ids": [
+    1963
+   ],
+   "title": "신한투자증권 비대면 자산관리 서비스 가입자 2만명 돌파",
+   "hook": "신한투자증권의 비대면 자산관리 서비스 가입자가 2만명을 넘어섰습니다.",
+   "created_at": "2026-07-17T17:46:15.088052"
+  },
+  {
+   "rank": 20,
+   "issue_id": 25,
+   "cluster_id": 518,
+   "stable_id": 3,
+   "run_date": "2026-07-17",
+   "is_current": true,
+   "importance": 0.06153846153846154,
+   "scope": "회사",
+   "sector_ids": [
+    2
+   ],
+   "sector_names": [
+    "소재"
+   ],
+   "company_ids": [
+    1953
+   ],
+   "title": "엔켐 주가, 애프터마켓에서 10%대 상승",
+   "hook": "엔켐 주가가 애프터마켓에서 10% 넘게 올랐습니다.",
+   "created_at": "2026-07-17T12:42:32.305372"
+  },
+  {
+   "rank": 21,
+   "issue_id": 15,
+   "cluster_id": 54,
+   "stable_id": 54,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.08421052631578947,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7
+   ],
+   "sector_names": [
+    "금융"
+   ],
+   "company_ids": [],
+   "title": "한국은행, 3년 6개월 만에 기준금리 인상",
+   "hook": "한국은행, 3년 6개월 만에 기준금리 인상",
+   "created_at": "2026-07-16T18:07:54.445983"
+  },
+  {
+   "rank": 22,
+   "issue_id": 14,
+   "cluster_id": 56,
+   "stable_id": 56,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.08421052631578947,
+   "scope": "회사",
+   "sector_ids": [
+    8
+   ],
+   "sector_names": [
+    "IT"
+   ],
+   "company_ids": [
+    994
+   ],
+   "title": "IBK증권, 삼성전기 목표가 175만원 상향 분석",
+   "hook": "증권사가 삼성전기 목표가를 높여 잡았습니다.",
+   "created_at": "2026-07-16T18:07:01.482158"
+  }
+ ]
+}

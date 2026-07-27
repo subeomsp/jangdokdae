@@ -1,0 +1,423 @@
+{
+ "snapshot_version": 1,
+ "learning_date": "2026-07-16",
+ "as_of": "2026-07-16T23:59:59",
+ "window_days": 7,
+ "candidates": [
+  {
+   "rank": 1,
+   "issue_id": 1,
+   "cluster_id": 72,
+   "stable_id": 72,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.4,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7,
+    8
+   ],
+   "sector_names": [
+    "금융",
+    "IT"
+   ],
+   "company_ids": [
+    1670,
+    3364
+   ],
+   "title": "반도체 업황, 투자 속도 조절 우려가 커지고 있습니다",
+   "hook": "반도체 업황 둔화 우려와 빅테크의 AI 투자 지속 소식",
+   "created_at": "2026-07-16T14:37:47.106886"
+  },
+  {
+   "rank": 2,
+   "issue_id": 9,
+   "cluster_id": 320,
+   "stable_id": 236,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.21052631578947367,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7
+   ],
+   "sector_names": [
+    "금융"
+   ],
+   "company_ids": [
+    1670,
+    3364
+   ],
+   "title": "단일종목 레버리지 상품 투자 규제 강화",
+   "hook": "단일종목 레버리지 상품에 대한 투자 규제가 강화됩니다.",
+   "created_at": "2026-07-16T18:00:48.722964"
+  },
+  {
+   "rank": 3,
+   "issue_id": 10,
+   "cluster_id": 247,
+   "stable_id": 7,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.14736842105263157,
+   "scope": "회사",
+   "sector_ids": [
+    4,
+    7
+   ],
+   "sector_names": [
+    "경기소비재",
+    "금융"
+   ],
+   "company_ids": [],
+   "title": "메리츠금융, 홈플러스에 2천억 긴급 자금 지원 결정",
+   "hook": "메리츠금융이 홈플러스에 긴급 운영자금을 추가 지원하기로 결정했습니다.",
+   "created_at": "2026-07-16T18:02:26.664450"
+  },
+  {
+   "rank": 4,
+   "issue_id": 2,
+   "cluster_id": 71,
+   "stable_id": 71,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.14736842105263157,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7
+   ],
+   "sector_names": [
+    "금융"
+   ],
+   "company_ids": [
+    1670,
+    3364
+   ],
+   "title": "단일종목 레버리지 ETF, 보완 방안 발표 예고",
+   "hook": "금융당국, 단일종목 레버리지 ETF 보완 방안 발표 예고",
+   "created_at": "2026-07-16T14:39:26.818170"
+  },
+  {
+   "rank": 5,
+   "issue_id": 11,
+   "cluster_id": 324,
+   "stable_id": 78,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.12631578947368421,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7,
+    8
+   ],
+   "sector_names": [
+    "금융",
+    "IT"
+   ],
+   "company_ids": [
+    994,
+    1183,
+    1470,
+    1670,
+    1834,
+    2008,
+    2016,
+    2269,
+    2326,
+    3332,
+    3364,
+    3476,
+    3499,
+    3540,
+    3605,
+    3698,
+    3722,
+    3830
+   ],
+   "title": "코스피, 반도체주 약세로 6%대 급락",
+   "hook": "반도체주 약세로 코스피와 코스닥이 동반 급락했습니다.",
+   "created_at": "2026-07-16T18:03:32.371857"
+  },
+  {
+   "rank": 6,
+   "issue_id": 6,
+   "cluster_id": 52,
+   "stable_id": 52,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.12631578947368421,
+   "scope": "업종·테마",
+   "sector_ids": [
+    3
+   ],
+   "sector_names": [
+    "산업재"
+   ],
+   "company_ids": [
+    2549,
+    2840,
+    3189,
+    3270,
+    3282,
+    3487
+   ],
+   "title": "미국 조선업 협력 가능성에 국내 조선주 주목",
+   "hook": "트럼프 전 대통령의 해외 조선업 협력 발언에 국내 조선주가 상승했습니다.",
+   "created_at": "2026-07-16T14:44:47.446717"
+  },
+  {
+   "rank": 7,
+   "issue_id": 4,
+   "cluster_id": 3,
+   "stable_id": 3,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.12631578947368421,
+   "scope": "회사",
+   "sector_ids": [
+    2
+   ],
+   "sector_names": [
+    "소재"
+   ],
+   "company_ids": [
+    1953
+   ],
+   "title": "엔켐 주가, 장 마감 후 10%대 상승",
+   "hook": "엔켐 주가가 장 마감 후 거래에서 10% 넘게 상승했습니다.",
+   "created_at": "2026-07-16T14:42:27.537760"
+  },
+  {
+   "rank": 8,
+   "issue_id": 12,
+   "cluster_id": 27,
+   "stable_id": 27,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.10526315789473684,
+   "scope": "업종·테마",
+   "sector_ids": [
+    3,
+    8
+   ],
+   "sector_names": [
+    "산업재",
+    "IT"
+   ],
+   "company_ids": [
+    1177
+   ],
+   "title": "한투AC, 美 액셀러레이터와 방산 스타트업 해외 진출 지원",
+   "hook": "한국투자액셀러레이터가 미국 액셀러레이터와 손잡고 국내 방산·드론 스타트업의 미국 진출을 돕습니다.",
+   "created_at": "2026-07-16T18:04:52.855111"
+  },
+  {
+   "rank": 9,
+   "issue_id": 7,
+   "cluster_id": 83,
+   "stable_id": 83,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.10526315789473684,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7
+   ],
+   "sector_names": [
+    "금융"
+   ],
+   "company_ids": [],
+   "title": "코스피 장 초반 급락, 매도 사이드카 발동",
+   "hook": "코스피 급락으로 매도 사이드카가 발동되었습니다.",
+   "created_at": "2026-07-16T14:45:57.379021"
+  },
+  {
+   "rank": 10,
+   "issue_id": 5,
+   "cluster_id": 34,
+   "stable_id": 34,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.10526315789473684,
+   "scope": "회사",
+   "sector_ids": [
+    2,
+    3,
+    4,
+    5,
+    7,
+    8,
+    9
+   ],
+   "sector_names": [
+    "소재",
+    "산업재",
+    "경기소비재",
+    "필수소비재",
+    "금융",
+    "IT",
+    "커뮤니케이션서비스"
+   ],
+   "company_ids": [
+    1078,
+    1953,
+    2222,
+    2324,
+    2330,
+    2481,
+    2634,
+    3004,
+    3426
+   ],
+   "title": "남양유업, 자기주식 소각으로 주주환원 강화",
+   "hook": "남양유업이 자기주식 소각을 결정하며 주주환원 계획을 밝혔습니다.",
+   "created_at": "2026-07-16T14:43:26.098393"
+  },
+  {
+   "rank": 11,
+   "issue_id": 3,
+   "cluster_id": 13,
+   "stable_id": 13,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.10526315789473684,
+   "scope": "회사",
+   "sector_ids": [
+    2
+   ],
+   "sector_names": [
+    "소재"
+   ],
+   "company_ids": [
+    2306,
+    3493
+   ],
+   "title": "영풍·고려아연, 회계 위반으로 과징금 부과",
+   "hook": "금융당국, 영풍·고려아연 등 회계처리 위반에 과징금 부과",
+   "created_at": "2026-07-16T14:41:09.891533"
+  },
+  {
+   "rank": 12,
+   "issue_id": 18,
+   "cluster_id": 36,
+   "stable_id": 36,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.08421052631578947,
+   "scope": "시장 전체",
+   "sector_ids": [],
+   "sector_names": [],
+   "company_ids": [],
+   "title": "상반기 주식관련사채 권리행사 변화와 의미",
+   "hook": "상반기 주식관련사채 권리행사, 어떤 변화가 있었을까요?",
+   "created_at": "2026-07-16T18:10:57.472805"
+  },
+  {
+   "rank": 13,
+   "issue_id": 17,
+   "cluster_id": 269,
+   "stable_id": 35,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.08421052631578947,
+   "scope": "회사",
+   "sector_ids": [
+    6
+   ],
+   "sector_names": [
+    "헬스케어"
+   ],
+   "company_ids": [
+    2853
+   ],
+   "title": "파마리서치, 증권사 목표주가 상향과 실적 기대",
+   "hook": "파마리서치에 대한 증권사 목표주가 상향 소식입니다.",
+   "created_at": "2026-07-16T18:09:53.019684"
+  },
+  {
+   "rank": 14,
+   "issue_id": 16,
+   "cluster_id": 37,
+   "stable_id": 37,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.08421052631578947,
+   "scope": "회사",
+   "sector_ids": [
+    1
+   ],
+   "sector_names": [
+    "에너지"
+   ],
+   "company_ids": [
+    1277,
+    2434
+   ],
+   "title": "SK이노베이션 목표가 상향, 실적 기대감은?",
+   "hook": "SK이노베이션 목표가 상향 소식과 그 배경",
+   "created_at": "2026-07-16T18:08:55.358904"
+  },
+  {
+   "rank": 15,
+   "issue_id": 15,
+   "cluster_id": 54,
+   "stable_id": 54,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.08421052631578947,
+   "scope": "시장 전체",
+   "sector_ids": [
+    7
+   ],
+   "sector_names": [
+    "금융"
+   ],
+   "company_ids": [],
+   "title": "한국은행, 3년 6개월 만에 기준금리 인상",
+   "hook": "한국은행, 3년 6개월 만에 기준금리 인상",
+   "created_at": "2026-07-16T18:07:54.445983"
+  },
+  {
+   "rank": 16,
+   "issue_id": 14,
+   "cluster_id": 56,
+   "stable_id": 56,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.08421052631578947,
+   "scope": "회사",
+   "sector_ids": [
+    8
+   ],
+   "sector_names": [
+    "IT"
+   ],
+   "company_ids": [
+    994
+   ],
+   "title": "IBK증권, 삼성전기 목표가 175만원 상향 분석",
+   "hook": "증권사가 삼성전기 목표가를 높여 잡았습니다.",
+   "created_at": "2026-07-16T18:07:01.482158"
+  },
+  {
+   "rank": 17,
+   "issue_id": 13,
+   "cluster_id": 42,
+   "stable_id": 42,
+   "run_date": "2026-07-16",
+   "is_current": true,
+   "importance": 0.08421052631578947,
+   "scope": "회사",
+   "sector_ids": [
+    7
+   ],
+   "sector_names": [
+    "금융"
+   ],
+   "company_ids": [],
+   "title": "iM증권, 자본 확충으로 사업 확대 추진",
+   "hook": "iM증권이 신종자본증권 발행으로 자본을 확충하고 사업 확대를 추진합니다.",
+   "created_at": "2026-07-16T18:06:01.862462"
+  }
+ ]
+}
