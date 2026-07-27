@@ -1,0 +1,160 @@
+{
+ "prompt_version": "selection-judge-v1",
+ "learning_date": "2026-07-19",
+ "judged_count": 19,
+ "missing_issue_ids": [],
+ "judgments": [
+  {
+   "issue_id": 52,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 8,
+   "discovery_fit": 7,
+   "reason": "국내 증시와 미국 반도체주의 상이한 움직임을 통해 시장 간의 복합적인 관계를 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 51,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 3,
+   "discovery_fit": 9,
+   "reason": "금융 상품 규제 강화가 투자 상품의 접근성과 시장에 미치는 영향을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 54,
+   "learn_value": 8,
+   "focus_fit": 5,
+   "context_fit": 2,
+   "discovery_fit": 9,
+   "reason": "기업의 자사주 소각이나 출자 같은 경영 전략이 기업 가치에 어떤 영향을 미치는지 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 53,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 9,
+   "reason": "금융회사가 다른 기업에 자금을 지원하는 배경과 그로 인한 재무적, 전략적 의미를 배울 수 있습니다."
+  },
+  {
+   "issue_id": 60,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 6,
+   "discovery_fit": 9,
+   "reason": "ETF의 순자산 증가와 분배금 확대를 통해 ETF 시장의 성장과 투자 수익 구조를 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 58,
+   "learn_value": 6,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 6,
+   "reason": "금융당국의 규제 예고를 통해 시장의 불확실성과 정책 변화의 중요성을 인지할 수 있습니다."
+  },
+  {
+   "issue_id": 57,
+   "learn_value": 9,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 9,
+   "reason": "기업의 회계 위반이 가져오는 법적 제재와 기업 신뢰도의 중요성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 56,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 3,
+   "discovery_fit": 9,
+   "reason": "정치인의 발언이 특정 산업 섹터의 주가에 미치는 영향과 정책 변화의 기대감을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 55,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 7,
+   "reason": "특정 산업의 업황 둔화 우려가 전체 증시 하락으로 이어지는 시장의 연관성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 64,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 9,
+   "reason": "코스피 급락과 매도 사이드카 발동을 통해 시장의 과열을 진정시키는 안전장치와 변동성을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 63,
+   "learn_value": 6,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 6,
+   "reason": "특정 금융 상품에 대한 규제 논의 과정을 통해 정책 결정의 복잡성과 시장의 반응을 엿볼 수 있습니다."
+  },
+  {
+   "issue_id": 62,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 6,
+   "discovery_fit": 9,
+   "reason": "코스닥 시장 개편 추진을 통해 시장 구조 변화가 기업과 투자자에게 미치는 영향을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 61,
+   "learn_value": 8,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 9,
+   "reason": "액셀러레이터의 역할과 스타트업의 해외 진출 지원을 통해 투자 생태계와 산업 성장을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 69,
+   "learn_value": 2,
+   "focus_fit": 2,
+   "context_fit": 1,
+   "discovery_fit": 2,
+   "reason": "단순한 개별 종목의 주가 변동 소식으로 시장 작동 원리를 배우기 어렵습니다."
+  },
+  {
+   "issue_id": 68,
+   "learn_value": 8,
+   "focus_fit": 5,
+   "context_fit": 6,
+   "discovery_fit": 9,
+   "reason": "주식관련사채의 권리행사 증가를 통해 다양한 금융 상품의 특징과 시장에서의 활용을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 67,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 3,
+   "discovery_fit": 9,
+   "reason": "정책 논의가 특정 산업의 기업 실적과 주가에 직접적인 영향을 미치는 과정을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 66,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 9,
+   "reason": "미국 생산자물가 하락 소식을 통해 인플레이션 지표가 경제와 시장에 미치는 영향을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 65,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 8,
+   "discovery_fit": 9,
+   "reason": "청년 고용 감소와 채용 시장 변화를 통해 거시 경제의 한 단면과 소비 시장에 미칠 영향을 유추할 수 있습니다."
+  },
+  {
+   "issue_id": 59,
+   "learn_value": 3,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 3,
+   "reason": "증권사 목표가 엇갈림은 단순한 의견 제시로, 시장의 작동 원리를 배우기에는 부족합니다."
+  }
+ ]
+}

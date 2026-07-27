@@ -1,0 +1,152 @@
+{
+ "prompt_version": "selection-judge-v1",
+ "learning_date": "2026-07-24",
+ "judged_count": 18,
+ "missing_issue_ids": [],
+ "judgments": [
+  {
+   "issue_id": 133,
+   "learn_value": 8,
+   "focus_fit": 9,
+   "context_fit": 7,
+   "discovery_fit": 6,
+   "reason": "시장 급락과 함께 발동된 사이드카는 시장 안정화 장치를 이해하는 데 중요한 학습 기회를 제공합니다."
+  },
+  {
+   "issue_id": 141,
+   "learn_value": 7,
+   "focus_fit": 6,
+   "context_fit": 4,
+   "discovery_fit": 8,
+   "reason": "단일종목 레버리지 ETF 규제는 고위험 상품에 대한 이해와 시장의 건전성 유지 노력을 보여줍니다."
+  },
+  {
+   "issue_id": 135,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 9,
+   "discovery_fit": 7,
+   "reason": "뉴욕 증시 약세의 원인으로 유가 급등과 실적 불확실성을 제시하여 시장의 복합적인 움직임을 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 139,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 6,
+   "discovery_fit": 4,
+   "reason": "코스피의 장중 변동은 시장의 역동성을 보여주지만, 변동의 원인 분석이 없어 학습 가치가 다소 낮습니다."
+  },
+  {
+   "issue_id": 137,
+   "learn_value": 5,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 5,
+   "reason": "개별 기업의 신사업 계획은 해당 기업에 대한 정보는 제공하지만, 시장 전체의 작동 원리를 배우기에는 제한적입니다."
+  },
+  {
+   "issue_id": 136,
+   "learn_value": 7,
+   "focus_fit": 4,
+   "context_fit": 3,
+   "discovery_fit": 6,
+   "reason": "개별 기업의 사상 최대 실적은 기업 가치 평가와 주가 연관성을 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 143,
+   "learn_value": 5,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "미래에셋의 가상자산 사업 확장은 금융권의 디지털 자산 시장 진출 동향을 보여주지만, 시장 전체의 원리를 배우기에는 제한적입니다."
+  },
+  {
+   "issue_id": 142,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 5,
+   "discovery_fit": 7,
+   "reason": "알파벳 실적 발표는 글로벌 AI 투자 동향과 빅테크 기업의 영향력을 이해하는 중요한 기회입니다."
+  },
+  {
+   "issue_id": 140,
+   "learn_value": 8,
+   "focus_fit": 9,
+   "context_fit": 7,
+   "discovery_fit": 6,
+   "reason": "시장 급등과 함께 발동된 매수 사이드카는 시장 안정화 장치를 이해하는 데 중요한 학습 기회를 제공합니다."
+  },
+  {
+   "issue_id": 146,
+   "learn_value": 7,
+   "focus_fit": 5,
+   "context_fit": 4,
+   "discovery_fit": 8,
+   "reason": "단일종목 레버리지 ETF 규제 보완책 예고는 금융당국의 시장 관리 노력과 고위험 상품에 대한 이해를 돕습니다."
+  },
+  {
+   "issue_id": 145,
+   "learn_value": 8,
+   "focus_fit": 5,
+   "context_fit": 4,
+   "discovery_fit": 7,
+   "reason": "현대차의 매출 증가와 영업이익 감소는 기업 실적을 다각도로 분석하는 중요성을 알려줍니다."
+  },
+  {
+   "issue_id": 144,
+   "learn_value": 9,
+   "focus_fit": 7,
+   "context_fit": 8,
+   "discovery_fit": 9,
+   "reason": "미국과 중국의 AI 모델 규제 검토는 글로벌 기술 패권 경쟁과 산업 규제의 중요성을 보여줍니다."
+  },
+  {
+   "issue_id": 138,
+   "learn_value": 4,
+   "focus_fit": 2,
+   "context_fit": 1,
+   "discovery_fit": 3,
+   "reason": "개별 종목의 시간외 거래 상승은 시장 전체의 작동 원리를 배우기에는 제한적입니다."
+  },
+  {
+   "issue_id": 150,
+   "learn_value": 7,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 8,
+   "reason": "골든크로스 발생 후 주가 상승은 기술적 분석의 기본 개념을 이해하는 데 좋은 예시가 됩니다."
+  },
+  {
+   "issue_id": 149,
+   "learn_value": 8,
+   "focus_fit": 4,
+   "context_fit": 3,
+   "discovery_fit": 7,
+   "reason": "롯데쇼핑 회장의 지분 매각 계획은 대주주 행보가 주가에 미치는 영향을 이해하는 데 중요한 사례입니다."
+  },
+  {
+   "issue_id": 148,
+   "learn_value": 7,
+   "focus_fit": 4,
+   "context_fit": 3,
+   "discovery_fit": 7,
+   "reason": "삼천당제약의 FDA 개발 경로 확인은 제약 바이오 산업의 신약 개발 과정과 규제 기관의 역할을 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 147,
+   "learn_value": 7,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 7,
+   "reason": "가비아의 공개매수 관련 주주 간 이견은 기업 인수합병 과정에서 발생할 수 있는 다양한 이해관계를 보여줍니다."
+  },
+  {
+   "issue_id": 131,
+   "learn_value": 8,
+   "focus_fit": 5,
+   "context_fit": 3,
+   "discovery_fit": 8,
+   "reason": "가비아의 공개매수 및 자진 상장폐지 추진은 기업의 중요한 의사결정 과정과 그 의미를 이해하는 데 도움이 됩니다."
+  }
+ ]
+}

@@ -1,0 +1,88 @@
+{
+ "prompt_version": "selection-judge-v1",
+ "learning_date": "2026-07-26",
+ "judged_count": 10,
+ "missing_issue_ids": [],
+ "judgments": [
+  {
+   "issue_id": 171,
+   "learn_value": 6,
+   "focus_fit": 6,
+   "context_fit": 7,
+   "discovery_fit": 3,
+   "reason": "시장의 변동성 심화와 급락 후 반등 현상을 통해 시장의 움직임을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 172,
+   "learn_value": 9,
+   "focus_fit": 10,
+   "context_fit": 8,
+   "discovery_fit": 8,
+   "reason": "매도 사이드카 발동은 시장의 급락을 알리는 중요한 신호이자 시장 안정화 장치를 배우는 기회가 됩니다."
+  },
+  {
+   "issue_id": 173,
+   "learn_value": 8,
+   "focus_fit": 7,
+   "context_fit": 3,
+   "discovery_fit": 8,
+   "reason": "특정 금융 상품에 대한 규제 강화는 시장의 건전성을 위한 정책적 개입과 상품의 위험성을 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 174,
+   "learn_value": 6,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 5,
+   "reason": "개별 기업의 성장 전략을 통해 핀테크 산업의 트렌드와 기업의 미래 방향성을 엿볼 수 있습니다."
+  },
+  {
+   "issue_id": 176,
+   "learn_value": 8,
+   "focus_fit": 7,
+   "context_fit": 4,
+   "discovery_fit": 7,
+   "reason": "주택 대출 규제 변화는 부동산 시장과 가계 경제에 미치는 정책의 영향력을 이해하는 중요한 사례입니다."
+  },
+  {
+   "issue_id": 175,
+   "learn_value": 5,
+   "focus_fit": 5,
+   "context_fit": 6,
+   "discovery_fit": 3,
+   "reason": "장중 변동성과 상승분 반납이라는 현상을 통해 시장의 심리와 단기적인 움직임을 파악할 수 있습니다."
+  },
+  {
+   "issue_id": 179,
+   "learn_value": 9,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "개별 기업의 실적 발표가 주가에 미치는 영향과 기업 가치 평가의 중요성을 배울 수 있는 좋은 기회입니다."
+  },
+  {
+   "issue_id": 178,
+   "learn_value": 9,
+   "focus_fit": 10,
+   "context_fit": 8,
+   "discovery_fit": 8,
+   "reason": "매수 사이드카 발동은 시장의 급등을 알리는 중요한 신호이자 시장 안정화 장치를 배우는 기회가 됩니다."
+  },
+  {
+   "issue_id": 177,
+   "learn_value": 6,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 5,
+   "reason": "금융 기업의 디지털 전환과 신사업 추진을 통해 산업의 변화 방향과 기업의 혁신 노력을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 180,
+   "learn_value": 7,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 7,
+   "reason": "금융 당국의 특정 상품에 대한 지속적인 규제 검토와 보완책 마련 과정을 통해 시장의 안정성 유지 노력을 엿볼 수 있습니다."
+  }
+ ]
+}

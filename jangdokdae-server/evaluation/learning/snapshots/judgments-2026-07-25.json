@@ -1,0 +1,168 @@
+{
+ "prompt_version": "selection-judge-v1",
+ "learning_date": "2026-07-25",
+ "judged_count": 20,
+ "missing_issue_ids": [],
+ "judgments": [
+  {
+   "issue_id": 151,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 9,
+   "discovery_fit": 3,
+   "reason": "시장의 변동성과 급락 후 반등의 원리를 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 152,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 5,
+   "reason": "매도 사이드카 발동은 시장 급락 시 작동하는 안전장치로, 시장의 작동 원리를 이해하는 데 중요합니다."
+  },
+  {
+   "issue_id": 153,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 8,
+   "reason": "특정 금융 상품에 대한 규제 강화는 투자 상품의 위험성과 정책의 시장 영향력을 배우는 데 유용합니다."
+  },
+  {
+   "issue_id": 154,
+   "learn_value": 6,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "개별 기업의 미래 전략을 통해 산업의 트렌드와 기업의 성장 방향을 엿볼 수 있습니다."
+  },
+  {
+   "issue_id": 155,
+   "learn_value": 8,
+   "focus_fit": 7,
+   "context_fit": 9,
+   "discovery_fit": 3,
+   "reason": "주요 지수 돌파와 차익 실현 매물 출현 등 시장의 심리와 움직임을 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 159,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 5,
+   "reason": "매수 사이드카 발동은 시장 급등 시 작동하는 안전장치로, 시장의 작동 원리를 이해하는 데 중요합니다."
+  },
+  {
+   "issue_id": 158,
+   "learn_value": 9,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "기업의 실적 발표가 주가에 미치는 영향과 실적 분석의 중요성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 157,
+   "learn_value": 9,
+   "focus_fit": 7,
+   "context_fit": 6,
+   "discovery_fit": 8,
+   "reason": "글로벌 빅테크 기업의 실적 발표가 시장 전체의 기술 트렌드와 투자 심리에 미치는 영향을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 156,
+   "learn_value": 5,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "전통 금융사의 디지털 자산 시장 진출 전략을 통해 산업의 변화 방향을 엿볼 수 있습니다."
+  },
+  {
+   "issue_id": 162,
+   "learn_value": 6,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "시간외 거래의 특징과 특정 종목의 급등 현상을 통해 시장의 다양한 거래 방식을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 161,
+   "learn_value": 8,
+   "focus_fit": 5,
+   "context_fit": 3,
+   "discovery_fit": 8,
+   "reason": "금융당국의 규제 보완책 예고를 통해 특정 투자 상품의 위험성과 정책의 시장 영향력을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 160,
+   "learn_value": 9,
+   "focus_fit": 7,
+   "context_fit": 7,
+   "discovery_fit": 9,
+   "reason": "국제 정세와 기술 규제가 특정 산업 및 관련 기업에 미치는 영향을 이해하는 데 중요한 시사점을 제공합니다."
+  },
+  {
+   "issue_id": 170,
+   "learn_value": 8,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 8,
+   "reason": "골든크로스와 같은 기술적 분석 지표가 주가 움직임을 예측하는 데 어떻게 활용되는지 배울 수 있습니다."
+  },
+  {
+   "issue_id": 169,
+   "learn_value": 8,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 8,
+   "reason": "공개매수와 주주 간 분쟁을 통해 기업 지배구조 및 인수합병 관련 시장 원리를 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 168,
+   "learn_value": 8,
+   "focus_fit": 4,
+   "context_fit": 6,
+   "discovery_fit": 8,
+   "reason": "빅테크 기업 간의 기술 협력이 산업 생태계와 경쟁 구도에 어떤 영향을 미치는지 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 167,
+   "learn_value": 9,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 7,
+   "reason": "대주주의 지분 매각 계획이 주가에 미치는 영향과 시장의 반응을 통해 투자 심리를 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 166,
+   "learn_value": 8,
+   "focus_fit": 3,
+   "context_fit": 5,
+   "discovery_fit": 8,
+   "reason": "증권사 목표주가 상향의 근거와 반도체 업황 개선 기대감이 주가에 미치는 영향을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 165,
+   "learn_value": 9,
+   "focus_fit": 7,
+   "context_fit": 9,
+   "discovery_fit": 6,
+   "reason": "국제 유가 변동이 국내 물가와 에너지 관련 산업에 미치는 영향을 이해하는 데 중요한 맥락을 제공합니다."
+  },
+  {
+   "issue_id": 164,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 8,
+   "discovery_fit": 8,
+   "reason": "M&A 시장의 동향과 주식매수청구권 같은 특정 금융 용어를 통해 시장의 전반적인 활력을 파악할 수 있습니다."
+  },
+  {
+   "issue_id": 163,
+   "learn_value": 8,
+   "focus_fit": 4,
+   "context_fit": 6,
+   "discovery_fit": 8,
+   "reason": "대기업의 신사업 진출 전략을 통해 AI 산업의 성장 방향과 기업의 미래 가치 창출 노력을 이해할 수 있습니다."
+  }
+ ]
+}

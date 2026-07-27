@@ -17,7 +17,7 @@ import json
 from datetime import date, datetime, time
 from pathlib import Path
 
-from sqlalchemy import select
+from sqlalchemy import select, text
 
 from app.api.routers.learning import _load_candidates
 from app.db.base import AsyncSessionLocal
@@ -25,7 +25,7 @@ from app.db.orm_models.news_cluster import NewsCluster
 from app.db.orm_models.sector import Sector
 
 DEFAULT_OUTPUT_DIR = Path("evaluation/learning/snapshots")
-SNAPSHOT_VERSION = 1
+SNAPSHOT_VERSION = 2  # v2: size·source_count·frame 추가(점수 모델 신호)
 
 
 def _end_of_day(day: date) -> datetime:
@@ -45,6 +45,19 @@ async def export_snapshots(
         sector_names = {
             row.id: row.name_ko
             for row in (await db.execute(select(Sector))).scalars().all()
+        }
+        source_counts = {
+            int(cluster_id): int(count)
+            for cluster_id, count in (
+                await db.execute(
+                    text(
+                        "SELECT nc.id, count(DISTINCT n.news_source) "
+                        "FROM news_cluster nc "
+                        "JOIN news n ON n.id = ANY(nc.member_news_ids) "
+                        "GROUP BY nc.id"
+                    )
+                )
+            ).all()
         }
         targets = days or []
         if include_all:
@@ -68,6 +81,9 @@ async def export_snapshots(
                         "run_date": candidate.cluster.run_date.isoformat(),
                         "is_current": bool(getattr(candidate.cluster, "is_current", False)),
                         "importance": candidate.importance,
+                        "size": int(getattr(candidate.cluster, "size", 0) or 0),
+                        "source_count": source_counts.get(int(candidate.cluster.id), 0),
+                        "frame": str(getattr(candidate.analysis, "frame", "")),
                         "scope": str(getattr(candidate.analysis, "scope", "")),
                         "sector_ids": sorted(candidate.sector_ids),
                         "sector_names": [

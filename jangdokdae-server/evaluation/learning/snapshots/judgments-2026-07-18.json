@@ -1,0 +1,112 @@
+{
+ "prompt_version": "selection-judge-v1",
+ "learning_date": "2026-07-18",
+ "judged_count": 13,
+ "missing_issue_ids": [],
+ "judgments": [
+  {
+   "issue_id": 38,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 8,
+   "discovery_fit": 5,
+   "reason": "미국 반도체주의 하락이 국내 시장에 미치는 영향을 통해 글로벌 시장 연동성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 39,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 7,
+   "reason": "특정 금융 상품에 대한 규제 강화가 투자 시장에 미치는 영향을 이해하고 위험 관념을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 41,
+   "learn_value": 6,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 5,
+   "reason": "기업 간의 자금 지원 결정을 통해 기업의 재무 상태와 전략적 판단의 중요성을 엿볼 수 있습니다."
+  },
+  {
+   "issue_id": 40,
+   "learn_value": 9,
+   "focus_fit": 6,
+   "context_fit": 6,
+   "discovery_fit": 8,
+   "reason": "주주환원 정책의 종류와 중요성을 이해하여 기업 가치 평가에 대한 시야를 넓힐 수 있습니다."
+  },
+  {
+   "issue_id": 46,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 7,
+   "reason": "특정 금융 상품에 대한 규제 보완책 예고를 통해 금융 시장의 안정성 유지 노력을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 45,
+   "learn_value": 7,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "기업의 회계기준 위반 사례를 통해 기업 투명성과 규제 준수의 중요성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 44,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 7,
+   "reason": "정치인의 발언이 특정 산업과 주가에 미치는 영향을 통해 시장의 다양한 변수를 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 43,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 6,
+   "reason": "특정 핵심 산업의 약세가 전체 시장 지수에 미치는 직접적인 영향을 명확하게 보여줍니다."
+  },
+  {
+   "issue_id": 42,
+   "learn_value": 6,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 5,
+   "reason": "ETF의 분배금 확정 소식을 통해 ETF의 수익 구조와 분배금의 의미를 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 50,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 7,
+   "reason": "코스닥 시장의 제도 개편 추진을 통해 시장의 질적 성장을 위한 노력과 그 중요성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 49,
+   "learn_value": 6,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 5,
+   "reason": "증권사 목표주가 조정 소식을 통해 기업의 성장 기대감과 시장의 평가가 어떻게 반영되는지 알 수 있습니다."
+  },
+  {
+   "issue_id": 48,
+   "learn_value": 6,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 5,
+   "reason": "국내 스타트업의 해외 진출 지원 사례를 통해 기업의 성장 전략과 글로벌 협력의 중요성을 엿볼 수 있습니다."
+  },
+  {
+   "issue_id": 47,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 10,
+   "discovery_fit": 8,
+   "reason": "시장 급락과 사이드카 발동을 통해 시장의 안전장치와 극심한 변동성 상황을 이해할 수 있습니다."
+  }
+ ]
+}

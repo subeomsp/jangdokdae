@@ -1,0 +1,160 @@
+{
+ "prompt_version": "selection-judge-v1",
+ "learning_date": "2026-07-17",
+ "judged_count": 19,
+ "missing_issue_ids": [],
+ "judgments": [
+  {
+   "issue_id": 19,
+   "learn_value": 7,
+   "focus_fit": 7,
+   "context_fit": 6,
+   "discovery_fit": 5,
+   "reason": "반도체 업황 둔화 가능성은 관련 기업 주가에 영향을 미치며 시장 전체의 투자 심리를 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 20,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 4,
+   "discovery_fit": 7,
+   "reason": "금융 상품 규제 강화는 특정 투자 상품의 위험성과 시장 건전성에 대한 이해를 높여줍니다."
+  },
+  {
+   "issue_id": 22,
+   "learn_value": 7,
+   "focus_fit": 5,
+   "context_fit": 5,
+   "discovery_fit": 6,
+   "reason": "기업들의 주주환원 및 투자 계획은 기업 가치 평가와 주가에 미치는 영향을 학습하는 데 유용합니다."
+  },
+  {
+   "issue_id": 21,
+   "learn_value": 6,
+   "focus_fit": 4,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "reason": "특정 기업의 대규모 자금 지원 결정은 기업 간의 재무적 관계와 그에 따른 영향을 이해하는 사례가 됩니다."
+  },
+  {
+   "issue_id": 29,
+   "learn_value": 8,
+   "focus_fit": 5,
+   "context_fit": 3,
+   "discovery_fit": 8,
+   "reason": "기업의 회계 위반과 그에 따른 제재는 기업 투명성과 규제 준수의 중요성을 알려주는 중요한 사례입니다."
+  },
+  {
+   "issue_id": 27,
+   "learn_value": 8,
+   "focus_fit": 8,
+   "context_fit": 7,
+   "discovery_fit": 6,
+   "reason": "특정 산업의 업황 둔화 우려가 전체 증시 하락으로 이어지는 과정을 통해 시장의 연관성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 26,
+   "learn_value": 7,
+   "focus_fit": 5,
+   "context_fit": 4,
+   "discovery_fit": 7,
+   "reason": "금융 상품 규제 보완책 발표 예정 소식은 시장의 건전성을 위한 규제 당국의 역할을 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 24,
+   "learn_value": 7,
+   "focus_fit": 6,
+   "context_fit": 4,
+   "discovery_fit": 7,
+   "reason": "해외 정상의 발언이 국내 특정 산업의 주가에 직접적인 영향을 미치는 사례를 통해 시장의 외부 요인 민감성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 23,
+   "learn_value": 6,
+   "focus_fit": 4,
+   "context_fit": 4,
+   "discovery_fit": 6,
+   "reason": "ETF의 순자산 증가와 분배금 확대 소식은 ETF의 성장성과 투자 매력을 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 32,
+   "learn_value": 5,
+   "focus_fit": 3,
+   "context_fit": 3,
+   "discovery_fit": 6,
+   "reason": "국내 스타트업의 해외 진출 지원 협약은 벤처 투자와 산업 성장을 위한 파트너십의 중요성을 보여줍니다."
+  },
+  {
+   "issue_id": 31,
+   "learn_value": 5,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 5,
+   "reason": "증권사별 목표주가 상향·하향 엇갈림은 시장의 다양한 관점과 분석의 중요성을 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 30,
+   "learn_value": 7,
+   "focus_fit": 5,
+   "context_fit": 7,
+   "discovery_fit": 7,
+   "reason": "청년 고용 부진은 경제 전반의 상황을 반영하며, 기업의 채용 방식 변화는 장기적인 시장 트렌드를 이해하는 데 중요합니다."
+  },
+  {
+   "issue_id": 28,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 8,
+   "discovery_fit": 8,
+   "reason": "코스피 급락과 매도 사이드카 발동은 시장의 극심한 변동성과 안전장치 작동 원리를 이해하는 데 핵심적인 사건입니다."
+  },
+  {
+   "issue_id": 37,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 9,
+   "discovery_fit": 8,
+   "reason": "미국 생산자물가 하락은 인플레이션 지표의 중요성과 에너지 가격이 경제에 미치는 영향을 학습하는 데 매우 중요합니다."
+  },
+  {
+   "issue_id": 36,
+   "learn_value": 6,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 5,
+   "reason": "특정 기업의 실적 기대감에 따른 목표가 상향은 기업 실적과 주가 간의 관계를 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 35,
+   "learn_value": 8,
+   "focus_fit": 5,
+   "context_fit": 6,
+   "discovery_fit": 9,
+   "reason": "주식관련사채 권리행사 증가는 복잡한 금융 상품의 작동 방식과 시장에 미치는 영향을 이해하는 좋은 기회입니다."
+  },
+  {
+   "issue_id": 34,
+   "learn_value": 7,
+   "focus_fit": 4,
+   "context_fit": 3,
+   "discovery_fit": 6,
+   "reason": "증권사의 자본 확충은 기업의 성장 전략과 재무 건전성 강화의 중요성을 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 33,
+   "learn_value": 5,
+   "focus_fit": 3,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "reason": "비대면 자산관리 서비스 가입자 증가는 금융 서비스의 디지털 전환 트렌드를 이해하는 데 유용합니다."
+  },
+  {
+   "issue_id": 25,
+   "learn_value": 3,
+   "focus_fit": 2,
+   "context_fit": 1,
+   "discovery_fit": 2,
+   "reason": "특정 종목의 단순한 애프터마켓 주가 상승은 시장 작동 원리를 배우기 어렵습니다."
+  }
+ ]
+}

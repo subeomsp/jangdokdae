@@ -1,0 +1,144 @@
+{
+ "prompt_version": "selection-judge-v1",
+ "learning_date": "2026-07-16",
+ "judged_count": 17,
+ "missing_issue_ids": [],
+ "judgments": [
+  {
+   "issue_id": 1,
+   "learn_value": 7,
+   "focus_fit": 7,
+   "context_fit": 8,
+   "discovery_fit": 5,
+   "reason": "반도체 업황은 시장 전체의 방향성을 결정하는 중요한 맥락이며, 투자 속도 조절 우려는 시장에 큰 영향을 미칩니다."
+  },
+  {
+   "issue_id": 9,
+   "learn_value": 6,
+   "focus_fit": 5,
+   "context_fit": 3,
+   "discovery_fit": 7,
+   "reason": "특정 금융 상품에 대한 규제 강화는 시장의 건전성과 투자자 보호 측면에서 중요한 학습 가치가 있습니다."
+  },
+  {
+   "issue_id": 10,
+   "learn_value": 5,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 4,
+   "reason": "특정 기업의 자금 지원 소식은 개별 기업의 재무 상황과 관련이 깊지만, 시장 전체의 흐름을 파악하는 데는 제한적입니다."
+  },
+  {
+   "issue_id": 2,
+   "learn_value": 6,
+   "focus_fit": 5,
+   "context_fit": 3,
+   "discovery_fit": 7,
+   "reason": "금융당국의 정책 예고는 특정 상품 시장에 영향을 미치며, 규제의 중요성을 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 11,
+   "learn_value": 8,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 6,
+   "reason": "반도체주 약세로 인한 코스피 급락은 시장의 핵심적인 움직임이며, 특정 섹터가 전체 시장에 미치는 영향을 명확히 보여줍니다."
+  },
+  {
+   "issue_id": 6,
+   "learn_value": 7,
+   "focus_fit": 6,
+   "context_fit": 4,
+   "discovery_fit": 8,
+   "reason": "정치적 발언이 특정 산업의 주가에 직접적인 영향을 미치는 사례로, 시장의 다양한 변수를 이해하는 데 유용합니다."
+  },
+  {
+   "issue_id": 4,
+   "learn_value": 3,
+   "focus_fit": 2,
+   "context_fit": 1,
+   "discovery_fit": 2,
+   "reason": "특정 종목의 단순한 가격 변동 소식은 시장의 작동 원리를 배우기 어렵고, 전체 시장의 맥락과도 거리가 멓니다."
+  },
+  {
+   "issue_id": 12,
+   "learn_value": 6,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 7,
+   "reason": "스타트업의 해외 진출 지원 소식은 벤처 투자 생태계와 산업 성장의 한 단면을 보여주어 시야를 넓히는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 7,
+   "learn_value": 8,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 8,
+   "reason": "매도 사이드카 발동은 시장의 급격한 변동성을 보여주는 핵심 사건이며, 시장 안정화 장치에 대해 배울 수 있는 좋은 기회입니다."
+  },
+  {
+   "issue_id": 5,
+   "learn_value": 7,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 7,
+   "reason": "자기주식 소각은 주주환원 정책의 중요한 부분으로, 기업 가치와 주가에 미치는 영향을 이해하는 데 유용합니다."
+  },
+  {
+   "issue_id": 3,
+   "learn_value": 6,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 7,
+   "reason": "기업의 회계 위반과 과징금 부과는 기업 투명성과 규제 감독의 중요성을 일깨워주는 학습 가치가 있습니다."
+  },
+  {
+   "issue_id": 18,
+   "learn_value": 7,
+   "focus_fit": 5,
+   "context_fit": 5,
+   "discovery_fit": 8,
+   "reason": "주식관련사채의 권리행사 변화는 시장의 자금 조달 방식과 투자자 심리를 이해하는 데 도움이 되는 심화 학습 내용입니다."
+  },
+  {
+   "issue_id": 17,
+   "learn_value": 4,
+   "focus_fit": 2,
+   "context_fit": 1,
+   "discovery_fit": 3,
+   "reason": "증권사 목표주가 상향은 개별 종목에 대한 의견일 뿐, 시장의 근본적인 작동 원리를 배우기에는 부족합니다."
+  },
+  {
+   "issue_id": 16,
+   "learn_value": 4,
+   "focus_fit": 2,
+   "context_fit": 1,
+   "discovery_fit": 3,
+   "reason": "증권사 목표가 상향은 개별 종목에 대한 의견일 뿐, 시장의 근본적인 작동 원리를 배우기에는 부족합니다."
+  },
+  {
+   "issue_id": 15,
+   "learn_value": 9,
+   "focus_fit": 10,
+   "context_fit": 10,
+   "discovery_fit": 9,
+   "reason": "기준금리 인상은 시장 전체의 유동성과 투자 심리에 지대한 영향을 미치는 핵심적인 거시 경제 정책 변화입니다."
+  },
+  {
+   "issue_id": 14,
+   "learn_value": 4,
+   "focus_fit": 2,
+   "context_fit": 1,
+   "discovery_fit": 3,
+   "reason": "증권사 목표가 상향은 개별 종목에 대한 의견일 뿐, 시장의 근본적인 작동 원리를 배우기에는 부족합니다."
+  },
+  {
+   "issue_id": 13,
+   "learn_value": 6,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "증권사의 자본 확충은 금융회사의 성장 전략과 자금 조달 방식을 이해하는 데 도움이 됩니다."
+  }
+ ]
+}

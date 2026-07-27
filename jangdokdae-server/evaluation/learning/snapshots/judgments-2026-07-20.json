@@ -1,0 +1,88 @@
+{
+ "prompt_version": "selection-judge-v1",
+ "learning_date": "2026-07-20",
+ "judged_count": 10,
+ "missing_issue_ids": [],
+ "judgments": [
+  {
+   "issue_id": 70,
+   "learn_value": 8,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 6,
+   "reason": "증시 급락과 사이드카 발동은 시장의 위험 관리 장치를 이해하는 중요한 사건입니다."
+  },
+  {
+   "issue_id": 71,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 8,
+   "reason": "자사주 소각과 무상증자는 기업 가치와 주가에 영향을 미치는 중요한 기업 활동을 배울 기회입니다."
+  },
+  {
+   "issue_id": 73,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 9,
+   "discovery_fit": 9,
+   "reason": "국제유가 상승은 지정학적 리스크가 실물 경제와 금융 시장에 미치는 영향을 이해하는 데 중요합니다."
+  },
+  {
+   "issue_id": 72,
+   "learn_value": 6,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "기업의 재무 위기 극복 과정과 이해관계자들의 역할을 보여주는 사례입니다."
+  },
+  {
+   "issue_id": 79,
+   "learn_value": 8,
+   "focus_fit": 5,
+   "context_fit": 3,
+   "discovery_fit": 8,
+   "reason": "회계기준 위반과 과징금 부과는 기업 투명성과 규제 준수의 중요성을 알려줍니다."
+  },
+  {
+   "issue_id": 78,
+   "learn_value": 5,
+   "focus_fit": 2,
+   "context_fit": 1,
+   "discovery_fit": 6,
+   "reason": "스타트업의 해외 진출 지원은 벤처 투자와 산업 성장의 한 단면을 보여줍니다."
+  },
+  {
+   "issue_id": 77,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 8,
+   "reason": "레버리지 ETF 보완책은 금융 상품의 위험성과 규제 당국의 역할을 이해하는 데 도움이 됩니다."
+  },
+  {
+   "issue_id": 76,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 7,
+   "reason": "반도체 업황 둔화 우려는 특정 산업의 상황이 전체 증시에 미치는 영향을 명확히 보여줍니다."
+  },
+  {
+   "issue_id": 75,
+   "learn_value": 6,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "ETF의 성과는 자산운용 시장의 동향과 투자 상품의 매력을 보여줍니다."
+  },
+  {
+   "issue_id": 74,
+   "learn_value": 8,
+   "focus_fit": 5,
+   "context_fit": 3,
+   "discovery_fit": 8,
+   "reason": "정치인의 발언이 특정 산업의 투자 심리와 주가에 미치는 영향을 이해할 수 있습니다."
+  }
+ ]
+}

@@ -1,0 +1,128 @@
+{
+ "prompt_version": "selection-judge-v1",
+ "learning_date": "2026-07-21",
+ "judged_count": 15,
+ "missing_issue_ids": [],
+ "judgments": [
+  {
+   "issue_id": 87,
+   "learn_value": 5,
+   "focus_fit": 3,
+   "context_fit": 1,
+   "discovery_fit": 4,
+   "reason": "상장 후 주가 흐름의 일반적인 현상을 보여주지만, 하락 원인에 대한 깊은 학습은 어렵습니다."
+  },
+  {
+   "issue_id": 80,
+   "learn_value": 8,
+   "focus_fit": 9,
+   "context_fit": 8,
+   "discovery_fit": 7,
+   "reason": "시장 급락 시 발동되는 사이드카 제도를 통해 시장 안정화 장치를 배울 수 있는 중요한 사건입니다."
+  },
+  {
+   "issue_id": 89,
+   "learn_value": 1,
+   "focus_fit": 1,
+   "context_fit": 0,
+   "discovery_fit": 1,
+   "reason": "원인 미상의 단순 주가 변동으로 시장 작동 원리를 학습하기 어렵습니다."
+  },
+  {
+   "issue_id": 88,
+   "learn_value": 3,
+   "focus_fit": 2,
+   "context_fit": 1,
+   "discovery_fit": 3,
+   "reason": "특정 투자자들의 매매 동향을 보여주지만, 그 배경이나 시장에 미치는 영향에 대한 학습 가치는 낮습니다."
+  },
+  {
+   "issue_id": 84,
+   "learn_value": 7,
+   "focus_fit": 5,
+   "context_fit": 4,
+   "discovery_fit": 8,
+   "reason": "금융당국의 특정 금융상품 규제 움직임을 통해 시장 안정성 관리의 중요성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 91,
+   "learn_value": 6,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 5,
+   "reason": "증권사 목표주가 상향 조정을 통해 애널리스트 의견이 시장에 미치는 영향을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 90,
+   "learn_value": 9,
+   "focus_fit": 10,
+   "context_fit": 9,
+   "discovery_fit": 6,
+   "reason": "특정 섹터(반도체)의 약세가 전체 시장 지수 하락을 견인하는 인과 관계를 명확히 보여줍니다."
+  },
+  {
+   "issue_id": 86,
+   "learn_value": 7,
+   "focus_fit": 4,
+   "context_fit": 3,
+   "discovery_fit": 8,
+   "reason": "ETF의 순자산 증가와 분배금 지급 소식을 통해 ETF의 작동 방식과 투자 매력을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 95,
+   "learn_value": 5,
+   "focus_fit": 2,
+   "context_fit": 1,
+   "discovery_fit": 6,
+   "reason": "외화증권 투자 지원 시스템 개선을 통해 시장 인프라의 중요성과 해외 투자 편의성 증진 노력을 알 수 있습니다."
+  },
+  {
+   "issue_id": 94,
+   "learn_value": 7,
+   "focus_fit": 3,
+   "context_fit": 1,
+   "discovery_fit": 7,
+   "reason": "기업의 회계처리 위반과 금융당국의 제재를 통해 기업 투명성과 규제 준수의 중요성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 93,
+   "learn_value": 6,
+   "focus_fit": 3,
+   "context_fit": 1,
+   "discovery_fit": 6,
+   "reason": "기업의 인수합병을 통한 사업 확장 전략과 CDMO 산업의 중요성을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 92,
+   "learn_value": 7,
+   "focus_fit": 3,
+   "context_fit": 1,
+   "discovery_fit": 8,
+   "reason": "유상증자를 통한 재무구조 개선과 최대주주 변경 과정을 통해 기업의 위기 극복 노력을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 85,
+   "learn_value": 7,
+   "focus_fit": 5,
+   "context_fit": 4,
+   "discovery_fit": 8,
+   "reason": "코스닥 시장의 질적 개선 노력을 통해 시장의 발전 방향과 상장 기업에 미치는 영향을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 82,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 9,
+   "discovery_fit": 8,
+   "reason": "지정학적 리스크(미-이란 충돌)가 국제유가에 직접적인 영향을 미치는 인과 관계를 명확히 보여줍니다."
+  },
+  {
+   "issue_id": 81,
+   "learn_value": 9,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 8,
+   "reason": "임상 시험 결과가 바이오 기업의 주가에 미치는 결정적인 영향을 명확하게 보여줍니다."
+  }
+ ]
+}

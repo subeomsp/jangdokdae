@@ -1,5 +1,5 @@
 {
- "snapshot_version": 1,
+ "snapshot_version": 2,
  "learning_date": "2026-07-23",
  "as_of": "2026-07-23T23:59:59",
  "window_days": 7,
@@ -12,6 +12,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.4,
+   "size": 16,
+   "source_count": 5,
+   "frame": "PLAN",
    "scope": "회사",
    "sector_ids": [
     8
@@ -38,6 +41,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.25,
+   "size": 10,
+   "source_count": 5,
+   "frame": "PRICE",
    "scope": "시장 전체",
    "sector_ids": [
     7
@@ -58,6 +64,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.225,
+   "size": 9,
+   "source_count": 7,
+   "frame": "PLAN",
    "scope": "회사",
    "sector_ids": [
     7
@@ -81,6 +90,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.225,
+   "size": 9,
+   "source_count": 1,
+   "frame": "PRICE",
    "scope": "회사",
    "sector_ids": [
     2
@@ -103,6 +115,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.225,
+   "size": 9,
+   "source_count": 7,
+   "frame": "PRICE",
    "scope": "시장 전체",
    "sector_ids": [
     7
@@ -126,6 +141,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.225,
+   "size": 9,
+   "source_count": 8,
+   "frame": "PRICE",
    "scope": "시장 전체",
    "sector_ids": [
     3,
@@ -177,6 +195,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.2,
+   "size": 8,
+   "source_count": 5,
+   "frame": "EARNINGS",
    "scope": "회사",
    "sector_ids": [
     8
@@ -200,6 +221,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.2,
+   "size": 8,
+   "source_count": 7,
+   "frame": "PLAN",
    "scope": "회사",
    "sector_ids": [
     7
@@ -220,6 +244,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.17500000000000002,
+   "size": 7,
+   "source_count": 1,
+   "frame": "POLICY",
    "scope": "업종·테마",
    "sector_ids": [
     8
@@ -240,6 +267,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.17500000000000002,
+   "size": 7,
+   "source_count": 5,
+   "frame": "EARNINGS",
    "scope": "회사",
    "sector_ids": [
     3
@@ -260,6 +290,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.17500000000000002,
+   "size": 7,
+   "source_count": 4,
+   "frame": "EARNINGS",
    "scope": "회사",
    "sector_ids": [
     7
@@ -283,6 +316,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.17500000000000002,
+   "size": 7,
+   "source_count": 4,
+   "frame": "OPINION",
    "scope": "업종·테마",
    "sector_ids": [
     4
@@ -307,6 +343,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.17500000000000002,
+   "size": 7,
+   "source_count": 2,
+   "frame": "TREND",
    "scope": "시장 전체",
    "sector_ids": [
     1
@@ -327,6 +366,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.17500000000000002,
+   "size": 7,
+   "source_count": 6,
+   "frame": "POLICY",
    "scope": "시장 전체",
    "sector_ids": [
     7,
@@ -352,6 +394,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.17500000000000002,
+   "size": 7,
+   "source_count": 3,
+   "frame": "PRICE",
    "scope": "시장 전체",
    "sector_ids": [
     1,
@@ -378,6 +423,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.15000000000000002,
+   "size": 6,
+   "source_count": 3,
+   "frame": "INCIDENT",
    "scope": "회사",
    "sector_ids": [
     4
@@ -400,6 +448,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.15000000000000002,
+   "size": 6,
+   "source_count": 2,
+   "frame": "EARNINGS",
    "scope": "회사",
    "sector_ids": [
     4
@@ -420,6 +471,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.15000000000000002,
+   "size": 6,
+   "source_count": 4,
+   "frame": "POLICY",
    "scope": "시장 전체",
    "sector_ids": [
     4,
@@ -442,6 +496,9 @@
    "run_date": "2026-07-23",
    "is_current": true,
    "importance": 0.15000000000000002,
+   "size": 6,
+   "source_count": 6,
+   "frame": "TREND",
    "scope": "시장 전체",
    "sector_ids": [],
    "sector_names": [],
@@ -458,6 +515,9 @@
    "run_date": "2026-07-22",
    "is_current": true,
    "importance": 0.2,
+   "size": 8,
+   "source_count": 1,
+   "frame": "PRICE",
    "scope": "시장 전체",
    "sector_ids": [
     7
@@ -478,6 +538,9 @@
    "run_date": "2026-07-22",
    "is_current": true,
    "importance": 0.15000000000000002,
+   "size": 6,
+   "source_count": 4,
+   "frame": "PLAN",
    "scope": "회사",
    "sector_ids": [
     6
@@ -500,6 +563,9 @@
    "run_date": "2026-07-22",
    "is_current": true,
    "importance": 0.15000000000000002,
+   "size": 6,
+   "source_count": 6,
+   "frame": "OPINION",
    "scope": "업종·테마",
    "sector_ids": [
     7
@@ -523,6 +589,9 @@
    "run_date": "2026-07-22",
    "is_current": false,
    "importance": 0.32000000000000006,
+   "size": 8,
+   "source_count": 2,
+   "frame": "PRICE",
    "scope": "회사",
    "sector_ids": [
     8,
@@ -550,6 +619,9 @@
    "run_date": "2026-07-21",
    "is_current": true,
    "importance": 0.4,
+   "size": 12,
+   "source_count": 6,
+   "frame": "PRICE",
    "scope": "회사",
    "sector_ids": [
     3
@@ -570,6 +642,9 @@
    "run_date": "2026-07-21",
    "is_current": true,
    "importance": 0.2,
+   "size": 6,
+   "source_count": 5,
+   "frame": "PRICE",
    "scope": "시장 전체",
    "sector_ids": [
     7,
@@ -595,6 +670,9 @@
    "run_date": "2026-07-21",
    "is_current": true,
    "importance": 0.2,
+   "size": 6,
+   "source_count": 5,
+   "frame": "EARNINGS",
    "scope": "회사",
    "sector_ids": [
     7
@@ -615,6 +693,9 @@
    "run_date": "2026-07-21",
    "is_current": true,
    "importance": 0.16666666666666669,
+   "size": 5,
+   "source_count": 4,
+   "frame": "PLAN",
    "scope": "회사",
    "sector_ids": [
     7
@@ -635,6 +716,9 @@
    "run_date": "2026-07-21",
    "is_current": true,
    "importance": 0.16666666666666669,
+   "size": 5,
+   "source_count": 5,
+   "frame": "INCIDENT",
    "scope": "회사",
    "sector_ids": [
     2
@@ -658,6 +742,9 @@
    "run_date": "2026-07-21",
    "is_current": true,
    "importance": 0.16666666666666669,
+   "size": 5,
+   "source_count": 5,
+   "frame": "INCIDENT",
    "scope": "회사",
    "sector_ids": [
     2,
@@ -683,6 +770,9 @@
    "run_date": "2026-07-21",
    "is_current": true,
    "importance": 0.16666666666666669,
+   "size": 5,
+   "source_count": 3,
+   "frame": "POLICY",
    "scope": "시장 전체",
    "sector_ids": [
     7
@@ -703,6 +793,9 @@
    "run_date": "2026-07-21",
    "is_current": true,
    "importance": 0.06666666666666667,
+   "size": 2,
+   "source_count": 1,
+   "frame": "INCIDENT",
    "scope": "회사",
    "sector_ids": [
     6
@@ -725,6 +818,9 @@
    "run_date": "2026-07-20",
    "is_current": true,
    "importance": 0.36000000000000004,
+   "size": 9,
+   "source_count": 4,
+   "frame": "PLAN",
    "scope": "시장 전체",
    "sector_ids": [
     2,
@@ -765,6 +861,9 @@
    "run_date": "2026-07-20",
    "is_current": true,
    "importance": 0.27999999999999997,
+   "size": 7,
+   "source_count": 5,
+   "frame": "PLAN",
    "scope": "회사",
    "sector_ids": [
     4,
@@ -787,6 +886,9 @@
    "run_date": "2026-07-20",
    "is_current": true,
    "importance": 0.24,
+   "size": 6,
+   "source_count": 4,
+   "frame": "PLAN",
    "scope": "회사",
    "sector_ids": [
     3,
@@ -811,6 +913,9 @@
    "run_date": "2026-07-20",
    "is_current": true,
    "importance": 0.24,
+   "size": 6,
+   "source_count": 4,
+   "frame": "POLICY",
    "scope": "업종·테마",
    "sector_ids": [
     3
@@ -838,6 +943,9 @@
    "run_date": "2026-07-19",
    "is_current": true,
    "importance": 0.4,
+   "size": 28,
+   "source_count": 9,
+   "frame": "PRICE",
    "scope": "시장 전체",
    "sector_ids": [
     7,

@@ -1,0 +1,160 @@
+{
+ "prompt_version": "selection-judge-v1",
+ "learning_date": "2026-07-23",
+ "judged_count": 19,
+ "missing_issue_ids": [],
+ "judgments": [
+  {
+   "issue_id": 111,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 8,
+   "reason": "공개매수 및 상장폐지라는 기업의 중요한 의사결정 과정을 배울 수 있다."
+  },
+  {
+   "issue_id": 113,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 7,
+   "reason": "시장 급락 시 발동되는 매도 사이드카의 의미와 시장 안정화 장치를 이해할 수 있다."
+  },
+  {
+   "issue_id": 121,
+   "learn_value": 6,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "금융사의 신사업 전략 발표를 통해 산업의 변화 방향을 엿볼 수 있다."
+  },
+  {
+   "issue_id": 119,
+   "learn_value": 3,
+   "focus_fit": 3,
+   "context_fit": 1,
+   "discovery_fit": 4,
+   "reason": "단순한 종목의 시간외 가격 변동 소식으로 시장 작동 원리를 배우기 어렵다."
+  },
+  {
+   "issue_id": 115,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 7,
+   "reason": "시장 급등 시 발동되는 매수 사이드카의 의미와 시장 안정화 장치를 이해할 수 있다."
+  },
+  {
+   "issue_id": 114,
+   "learn_value": 5,
+   "focus_fit": 7,
+   "context_fit": 8,
+   "discovery_fit": 4,
+   "reason": "장중 고점 돌파 후 상승폭을 반납하는 시장의 변동성 흐름을 파악할 수 있다."
+  },
+  {
+   "issue_id": 123,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 6,
+   "discovery_fit": 7,
+   "reason": "글로벌 빅테크 기업의 실적 발표를 통해 AI 투자 방향성과 시장의 기대감을 이해할 수 있다."
+  },
+  {
+   "issue_id": 122,
+   "learn_value": 6,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 7,
+   "reason": "전통 금융사의 디지털 자산 시장 진출 및 사업 확장 전략을 통해 산업 변화를 엿볼 수 있다."
+  },
+  {
+   "issue_id": 126,
+   "learn_value": 8,
+   "focus_fit": 7,
+   "context_fit": 7,
+   "discovery_fit": 8,
+   "reason": "미국과 중국 간 AI 기술 규제 논의를 통해 지정학적 요인이 산업에 미치는 영향을 이해할 수 있다."
+  },
+  {
+   "issue_id": 125,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "기업의 사상 최대 실적 달성 소식을 통해 실적이 주가에 미치는 영향을 배울 수 있다."
+  },
+  {
+   "issue_id": 124,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 8,
+   "reason": "금융지주의 비은행 부문 성장이 전체 실적에 미치는 영향을 통해 사업 다각화의 중요성을 이해할 수 있다."
+  },
+  {
+   "issue_id": 120,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 7,
+   "discovery_fit": 8,
+   "reason": "내수 소비 회복과 외국인 증가가 특정 업종의 실적 및 목표주가에 미치는 영향을 배울 수 있다."
+  },
+  {
+   "issue_id": 118,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 9,
+   "discovery_fit": 7,
+   "reason": "중동 지역의 지정학적 긴장이 국제유가 상승으로 이어지는 원리를 이해할 수 있다."
+  },
+  {
+   "issue_id": 117,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 6,
+   "discovery_fit": 8,
+   "reason": "금융당국의 특정 금융 상품 규제 논의를 통해 시장 안정화 노력과 투자 상품의 위험성을 이해할 수 있다."
+  },
+  {
+   "issue_id": 116,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 9,
+   "discovery_fit": 7,
+   "reason": "중동 불안과 유가 상승이 뉴욕 증시 하락으로 이어지는 글로벌 시장의 상호작용을 이해할 수 있다."
+  },
+  {
+   "issue_id": 130,
+   "learn_value": 8,
+   "focus_fit": 4,
+   "context_fit": 2,
+   "discovery_fit": 8,
+   "reason": "기업이 운영자금 조달을 위해 유상증자를 결정하는 과정을 통해 자금 조달 방식을 배울 수 있다."
+  },
+  {
+   "issue_id": 129,
+   "learn_value": 9,
+   "focus_fit": 7,
+   "context_fit": 2,
+   "discovery_fit": 9,
+   "reason": "매출 증가에도 영업이익이 감소하는 사례를 통해 기업 실적 분석 시 매출과 이익의 차이를 이해할 수 있다."
+  },
+  {
+   "issue_id": 128,
+   "learn_value": 8,
+   "focus_fit": 7,
+   "context_fit": 7,
+   "discovery_fit": 8,
+   "reason": "특정 사건을 계기로 사모펀드 규제 강화 논의가 시작되는 과정을 통해 금융 규제의 필요성과 변화를 이해할 수 있다."
+  },
+  {
+   "issue_id": 127,
+   "learn_value": 6,
+   "focus_fit": 4,
+   "context_fit": 6,
+   "discovery_fit": 8,
+   "reason": "상장사 M&A 감소 추세와 주식매수청구대금의 의미를 통해 기업 활동의 변화를 파악할 수 있다."
+  }
+ ]
+}

@@ -1,0 +1,120 @@
+{
+ "prompt_version": "selection-judge-v1",
+ "learning_date": "2026-07-22",
+ "judged_count": 14,
+ "missing_issue_ids": [],
+ "judgments": [
+  {
+   "issue_id": 102,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 8,
+   "reason": "공개매수 및 상장폐지 과정을 통해 기업 지배구조 변화와 시장 퇴출 메커니즘을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 97,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 7,
+   "reason": "시장 급락 시 발동되는 사이드카의 의미와 시장 안정화 장치에 대해 학습할 수 있습니다."
+  },
+  {
+   "issue_id": 104,
+   "learn_value": 6,
+   "focus_fit": 6,
+   "context_fit": 8,
+   "discovery_fit": 4,
+   "reason": "장중 변동성이 컸던 시장의 움직임을 통해 투자자들의 심리와 매매 패턴을 엿볼 수 있습니다."
+  },
+  {
+   "issue_id": 105,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 10,
+   "discovery_fit": 9,
+   "reason": "국고채 금리 상승은 시장 전반의 자금 조달 비용과 투자 심리에 영향을 미치는 중요한 거시경제 지표입니다."
+  },
+  {
+   "issue_id": 99,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 7,
+   "reason": "시장 급등 시 발동되는 사이드카의 의미와 시장 과열 방지 장치에 대해 학습할 수 있습니다."
+  },
+  {
+   "issue_id": 101,
+   "learn_value": 6,
+   "focus_fit": 4,
+   "context_fit": 3,
+   "discovery_fit": 6,
+   "reason": "증권사 목표주가 상향의 배경을 통해 기업 분석과 투자 의견 형성 과정을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 100,
+   "learn_value": 8,
+   "focus_fit": 7,
+   "context_fit": 6,
+   "discovery_fit": 9,
+   "reason": "금융당국의 규제 움직임을 통해 시장의 건전성 유지 노력과 특정 금융 상품의 위험성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 96,
+   "learn_value": 5,
+   "focus_fit": 3,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "reason": "시간외 거래의 존재와 해당 시간대의 주가 변동 가능성을 알 수 있지만, 상승 원인이 불분명하여 학습 가치가 제한적입니다."
+  },
+  {
+   "issue_id": 110,
+   "learn_value": 9,
+   "focus_fit": 9,
+   "context_fit": 9,
+   "discovery_fit": 9,
+   "reason": "국제 정세가 국제유가에 미치는 영향과 유가 변동이 경제 전반에 미치는 파급 효과를 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 109,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 8,
+   "reason": "대기업의 M&A를 통해 사업 확장 전략과 특정 산업(CDMO)의 성장 동력을 이해할 수 있습니다."
+  },
+  {
+   "issue_id": 108,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 7,
+   "discovery_fit": 9,
+   "reason": "M&A 시장의 동향을 통해 기업 활동의 활성화 정도와 경제 상황을 간접적으로 파악할 수 있으며, 주식매수청구권 개념을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 107,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 6,
+   "discovery_fit": 7,
+   "reason": "주요 기업의 실적 발표가 주가와 산업 트렌드(AI)에 미치는 영향을 이해하고, 기업 가치 평가의 중요성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 106,
+   "learn_value": 9,
+   "focus_fit": 7,
+   "context_fit": 6,
+   "discovery_fit": 9,
+   "reason": "금융 전문가의 경고를 통해 특정 고위험 상품(단일종목 레버리지 ETF)의 위험성을 인지하고 신중한 투자의 중요성을 배울 수 있습니다."
+  },
+  {
+   "issue_id": 98,
+   "learn_value": 3,
+   "focus_fit": 2,
+   "context_fit": 2,
+   "discovery_fit": 2,
+   "reason": "특정 투자자의 매매 동향은 시장의 작동 원리나 인과 관계를 학습하기 어렵고, 맹목적인 추종을 유도할 수 있습니다."
+  }
+ ]
+}
