@@ -223,6 +223,18 @@ def test_grounded_dictionary_validator_rejects_new_numbers_and_advice():
     ]
 
 
+def test_grounded_dictionary_validator_accepts_number_merged_in_raw_formula():
+    # PDF 추출 원문은 "×10015세"처럼 수식과 뒤 문장의 수치가 한 토큰으로 붙을 수 있다.
+    raw = "경제활동참가율 = 경제활동인구(취업자 + 실업자)×10015세 이상 인구"
+    draft = DictionaryDraft(
+        term_type="finance",
+        definition="경제활동인구를 15세 이상 인구로 나눈 뒤 100을 곱하여 계산합니다.",
+        example=None,
+    )
+
+    assert validate_grounded_draft(raw, draft) == []
+
+
 def test_grounded_dictionary_validator_rejects_meta_example_artifact():
     draft = DictionaryDraft(
         term_type="finance",

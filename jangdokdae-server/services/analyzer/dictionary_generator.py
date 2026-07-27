@@ -14,7 +14,7 @@ from pydantic import BaseModel, Field, field_validator
 
 from app.config import settings
 
-GROUNDED_DICTIONARY_PROMPT_VERSION = "bok-definition-v5"
+GROUNDED_DICTIONARY_PROMPT_VERSION = "bok-definition-v6"
 GROUNDED_DICTIONARY_MIN_SCORE = 90
 GROUNDED_DICTIONARY_MAX_ATTEMPTS = 2
 _FORMAL_SENTENCE_END_RE = re.compile(r"[가-힣]니다(?=[.!?]|$)")
@@ -161,11 +161,24 @@ async def generate_grounded_dictionary_draft(
         "요소·계산식)를 여러 개 제시하면 그중 중요한 항목을 생략하지 않는다. 일부 예시에만 "
         "해당하는 특징을 용어 전체의 정의로 일반화하지 않는다.\n"
         "다만 [용어]에서 비롯되는 하류 결과·영향·파급효과(다른 지표나 물가·수출 등으로 "
-        "이어지는 연쇄 효과)가 원문에 길게 이어지면, 그것까지 모두 담지 말고 [용어]가 "
-        "무엇이고 어떻게 산출·구성되는지에 집중해 요약한다.\n"
+        "이어지는 연쇄 효과)나 당사자가 이후 상황에 따라 취하는 행동·손익 시나리오가 "
+        "원문에 길게 이어지면, 그것까지 모두 담지 말고 [용어]가 무엇이고 어떻게 "
+        "산출·구성되는지에 집중해 요약한다.\n"
+        "원문이 [용어]의 하위 항목(방법·유형·구분·파생 용법)을 열거하며 각각 상세히 "
+        "설명하면, 항목 이름을 간결히 나열하는 것으로 충분하다. 각 항목의 상세 정의까지 "
+        "옮기려고 문장을 늘리지 않는다.\n"
+        "[용어]가 기반 개념에서 만든 지수·비율·지표라면 기반 개념의 정의를 [용어] 자체의 "
+        "정의처럼 옮겨 쓰지 않는다. 대신 [용어]가 무엇을 나타내는 지표인지 한 문장으로 "
+        "밝히고 산출 방법을 함께 담는다.\n"
+        "원문이 [용어]의 발동 조건·운영 방식·적용 범위 같은 핵심 특징을 여러 개 제시하면 "
+        "그것들은 생략하지 않는다. 문장 수를 늘리는 대신 '~하며', '~하고'로 절을 묶어 "
+        "3문장 안에 압축해 담는다.\n"
+        "수치는 원문에 있는 표기 그대로만 사용한다. 원문에 없는 수치를 만들거나 %, 배, "
+        "단위 기호를 새로 붙이지 않는다.\n"
         "원문의 주체·대상·방향 관계를 바꾸지 말고 자연스러운 한국어 조사를 사용한다.\n"
         "돈이나 예금을 제공한 출처에는 '~에게 받다'가 아니라 '~로부터 받다'를 사용한다.\n"
-        "핵심 의미를 1~3개의 짧은 문장으로 풀어 쓰고, 어려운 용어는 쉬운 말로 바꾼다.\n"
+        "핵심 의미를 1~3개의 짧은 문장으로 풀어 쓰고, 어려운 용어는 쉬운 말로 바꾼다. "
+        "정의 전체는 공백을 포함해 320자를 넘기지 않는다.\n"
         "정의와 예시의 모든 문장은 '~입니다/~합니다' 문체로 통일한다.\n"
         "제출 전에 맞춤법과 오탈자를 확인하고 자연스러운 한국어 문장만 반환한다.\n"
         "매수·매도 권유나 투자 판단을 하지 않는다.\n"
@@ -212,7 +225,9 @@ def validate_grounded_draft(raw_definition: str, draft: DictionaryDraft) -> list
 
     raw_numbers = set(re.findall(r"\d+(?:[.,]\d+)?%?", raw_definition))
     draft_numbers = set(re.findall(r"\d+(?:[.,]\d+)?%?", f"{definition} {draft.example or ''}"))
-    if draft_numbers - raw_numbers:
+    # PDF 추출 원문은 수식·조판이 붙어 "×10015세"처럼 수치 토큰이 합쳐질 수 있다.
+    # 토큰 일치가 없어도 원문 문자열 안에 그대로 존재하는 수치는 근거 있는 것으로 본다.
+    if any(number not in raw_definition for number in draft_numbers - raw_numbers):
         problems.append("unsupported_number")
     return problems
 
@@ -241,8 +256,13 @@ async def verify_grounded_dictionary_draft(
         "계산식)를 여러 개 제시했는데 후보가 그중 일부만 남기거나, 일부 예시의 특징을 전체 "
         "정의로 일반화하면 supported=false다.\n"
         "다만 [용어]에서 비롯되는 하류 결과·영향·파급효과(다른 지표나 물가·수출 등으로 "
-        "이어지는 연쇄 효과)를 짧은 설명이 생략하는 것은 근거 위반이 아니다. 누락 자체는 "
-        "감점 사유가 아니며, 원문을 왜곡하거나 원문 밖 내용을 더했을 때만 supported=false다.\n"
+        "이어지는 연쇄 효과)나 당사자가 이후 상황에 따라 취하는 행동·손익 시나리오를 짧은 "
+        "설명이 생략하는 것은 근거 위반이 아니다. 누락 자체는 감점 사유가 아니며, 원문을 "
+        "왜곡하거나 원문 밖 내용을 더했을 때만 supported=false다.\n"
+        "원문이 [용어]의 하위 항목(방법·유형·구분·파생 용법)을 열거하며 각각 상세히 "
+        "설명한 경우, 후보가 항목 이름을 나열하거나 간결히 요약했다면 각 항목의 상세 "
+        "정의 생략은 근거 위반이 아니다. 항목을 왜곡하거나 다른 항목의 내용을 섞었을 "
+        "때만 supported=false다.\n"
         "후보 예시에 코드, 지시문, 메타 설명, 출력 형식의 흔적이 있으면 supported=false다.\n"
         "원문에 없는 원인·결과·수치·시점·전망이 하나라도 있으면 supported=false다.\n"
         "맞춤법 오류, 오탈자, 어색한 문장이 있으면 90점 미만을 준다.\n"
