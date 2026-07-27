@@ -14,9 +14,9 @@ on:
           - afternoon
           - afterhours
   schedule:
-    # GitHub cron is UTC. Start with the two recommended KST runs.
-    - cron: "7 0 * * *"   # 09:07 KST
-    - cron: "37 6 * * *"  # 15:37 KST
+    # GitHub cron is UTC. 하루 1회 아침 실행 — 수집 파이프라인의 신선도 필터(24h)와
+    # 중복 제거 창(24h), DART 전일~당일 조회가 "이전 실행부터 현재 실행까지"를 이룬다.
+    - cron: "30 23 * * *"  # 08:30 KST
 
 permissions:
   contents: read
