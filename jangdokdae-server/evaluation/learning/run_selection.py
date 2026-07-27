@@ -66,9 +66,63 @@ def replay_day(task: dict) -> dict:
     }
 
 
+def replay_day_v2(
+    task: dict,
+    prev_selected: list[dict],
+    similarity_all: dict,
+    model: str = "v2",
+) -> tuple[dict, list[dict]]:
+    """점수 모델을 순차 시뮬레이션으로 재생한다. 전일 선택은 모델 자신의 결과다."""
+    from evaluation.learning.scoring import select_daily_v2, select_daily_v3
+
+    snapshot = json.loads((SNAPSHOT_DIR / task["snapshot"]).read_text())
+    rows = snapshot["candidates"]
+    if model == "v3":
+        judgment_path = SNAPSHOT_DIR / f"judgments-{task['learning_date']}.json"
+        judgments = {
+            j["issue_id"]: j
+            for j in json.loads(judgment_path.read_text())["judgments"]
+        }
+        chosen = select_daily_v3(
+            rows,
+            task["learning_date"],
+            prev_selected,
+            similarity_all.get(task["learning_date"]),
+            judgments,
+        )
+    else:
+        chosen = select_daily_v2(
+            rows,
+            task["learning_date"],
+            prev_selected,
+            similarity_all.get(task["learning_date"]),
+        )
+    algo = {role: row["issue_id"] for role, row in chosen}
+    human = {s["role"]: s["issue_id"] for s in task["selections"]}
+    algo_ids, human_ids = set(algo.values()), set(human.values())
+    rank_by_id = {row["issue_id"]: row["rank"] for row in rows}
+    result = {
+        "learning_date": task["learning_date"],
+        "pool_size": len(rows),
+        "algo": algo,
+        "human": human,
+        "overlap": len(algo_ids & human_ids),
+        "role_match": sum(1 for role in human if algo.get(role) == human[role]),
+        "human_ranks": sorted(rank_by_id[i] for i in human_ids),
+        "titles": {row["issue_id"]: row["title"] for row in rows},
+    }
+    return result, [row for _, row in chosen]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="선택 알고리즘 vs 사람 라벨 재현 평가")
     parser.add_argument("--verbose", action="store_true", help="날짜별 선택 제목 출력")
+    parser.add_argument(
+        "--model",
+        choices=["current", "v2", "v3"],
+        default="current",
+        help="current=운영 휴리스틱, v2=코드 신호 점수, v3=LLM 편집 판정 결합",
+    )
     args = parser.parse_args()
 
     tasks = [
@@ -76,7 +130,22 @@ def main() -> None:
         for line in GOLD_PATH.read_text().splitlines()
         if line.strip()
     ]
-    results = [replay_day(task) for task in tasks]
+    tasks.sort(key=lambda t: t["learning_date"])
+    if args.model in ("v2", "v3"):
+        similarity_path = SNAPSHOT_DIR / "cross-day-similarity.json"
+        similarity_all = json.loads(similarity_path.read_text())
+        results = []
+        # 신선도 비교 창: 최근 3일 발행분(모델 자신의 선택)을 유지한다.
+        recent_selected: list[list[dict]] = []
+        for task in tasks:
+            flattened = [row for day_rows in recent_selected for row in day_rows]
+            result, day_selected = replay_day_v2(
+                task, flattened, similarity_all, model=args.model
+            )
+            results.append(result)
+            recent_selected = (recent_selected + [day_selected])[-3:]
+    else:
+        results = [replay_day(task) for task in tasks]
 
     total_overlap = sum(r["overlap"] for r in results)
     total_role = sum(r["role_match"] for r in results)
