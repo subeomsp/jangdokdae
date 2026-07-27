@@ -82,10 +82,14 @@ GitHub Actions (09:07, 15:37 KST 또는 수동 실행)
 개인 노트북을 24시간 켜둘 수 없어서 운영 정본을 Airflow에서 GitHub Actions로 전환했다.
 Airflow DAG와 Docker Compose는 삭제하지 않았지만 현재 주 실행기는 아니다.
 
-워크플로는 다음 두 시각에 실행된다.
+워크플로는 하루 1회 실행된다(2026-07-28 사용자 결정으로 2회→1회 축소).
 
-- `7 0 * * *`: 매일 09:07 KST
-- `37 6 * * *`: 매일 15:37 KST
+- `30 23 * * *`(UTC): 매일 08:30 KST
+
+수집 범위는 "이전 실행부터 현재 실행까지"다. 별도 상태 저장 없이 뉴스 신선도 필터
+24시간(`DEFAULT_THRESHOLD_HOURS`), 중복 제거 창 24시간(`pipeline_window_hours`),
+DART 전일~당일 조회의 조합으로 성립한다. 하루 1회 고정 실행이 전제이므로 실행 주기를
+바꾸면 이 창들도 함께 재검토한다.
 
 `workflow_dispatch`로 `premarket`, `morning`, `afternoon`, `afterhours` 세션을 수동 실행할
 수 있다. 동일 파이프라인의 중복 실행은 허용하지 않고 대기시키며, 제한 시간은 90분이다.
@@ -227,6 +231,13 @@ Alembic 현재 head는 `e0a2b4c6d8f0` 하나다.
 - 승인된 `term_units`와 검수 상태
 - `dictionary_terms`의 한국은행 기반 승인 설명
 - `evaluation/dictionary/tasks/*.jsonl` 골드셋
+- `evaluation/learning/snapshots/*.json` 일별 후보 풀 스냅샷(선택 기준 평가용)
+
+파이프라인 데이터는 2주 보관 정책 대상이다(사용자 결정 2026-07-28, 서비스화 전제 없음).
+`scripts/prune_pipeline_data.py`가 news·news_cluster·news_analysis·issue_docent·
+disclosures를 14일 기준으로 정리하되, 사전(`dictionary_terms.first_issue_docent_id`)과
+사용자 활동이 참조하는 행은 남긴다. 기본은 dry-run이고 `--apply`를 명시해야 삭제한다.
+아직 GitHub Actions에는 연결하지 않았다(활성화 전 사용자 확인 필요).
 
 ## 5. 용어사전 작업을 이어가는 정확한 순서
 
