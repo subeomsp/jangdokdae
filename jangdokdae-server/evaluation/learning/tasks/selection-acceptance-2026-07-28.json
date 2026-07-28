@@ -1,0 +1,53 @@
+{
+ "schema": "selection-acceptance-v1",
+ "reviewed_at": "2026-07-28T02:14:36.509Z",
+ "reviewed_by": "project-owner",
+ "model": "v3",
+ "summary": {"ok": 28, "no": 5, "acceptance_rate": 0.848},
+ "days": [
+  {"learning_date": "2026-07-16", "verdicts": [
+   {"role": "focus", "issue_id": 1, "verdict": "ok", "note": ""},
+   {"role": "context", "issue_id": 15, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 6, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-17", "verdicts": [
+   {"role": "focus", "issue_id": 27, "verdict": "ok", "note": ""},
+   {"role": "context", "issue_id": 37, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 29, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-18", "verdicts": [
+   {"role": "focus", "issue_id": 40, "verdict": "ok", "note": ""},
+   {"role": "context", "issue_id": 47, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 49, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-19", "verdicts": [
+   {"role": "focus", "issue_id": 51, "verdict": "ok", "note": ""},
+   {"role": "context", "issue_id": 65, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 68, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-20", "verdicts": [
+   {"role": "focus", "issue_id": 74, "verdict": "ok", "note": ""},
+   {"role": "context", "issue_id": 73, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 77, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-21", "verdicts": [
+   {"role": "focus", "issue_id": 81, "verdict": "ok", "note": ""},
+   {"role": "context", "issue_id": 90, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 92, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-22", "verdicts": [
+   {"role": "focus", "issue_id": 107, "verdict": "ok", "note": ""},
+   {"role": "context", "issue_id": 105, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 108, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-23", "verdicts": [
+   {"role": "focus", "issue_id": 129, "verdict": "ok", "note": ""},
+   {"role": "context", "issue_id": 115, "verdict": "no", "note": "지겨워, 사실 이런거는 그냥, 뭔가 3개 말고 맨 마지막에 그냥 한줄정리정도로 여러개를 빼는것도 괜찮겠다. 그러니까 한 페이지에 여러가지 쩌리기사들을 넣는거지"},
+   {"role": "discovery", "issue_id": 111, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-24", "verdicts": [
+   {"role": "focus", "issue_id": 144, "verdict": "ok", "note": ""},
+   {"role": "context", "issue_id": 135, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 149, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-25", "verdicts": [
+   {"role": "focus", "issue_id": 153, "verdict": "no", "note": "이것도 동일해, 일단 지난 N일동안 나온내용인데, 새로운점이 있었는가? 에 대한 판단기준이 먼저 들어가야할것 같고, 없다면 맨 마지막 쩌리 기사로"},
+   {"role": "context", "issue_id": 165, "verdict": "no", "note": "상기와 동일"},
+   {"role": "discovery", "issue_id": 166, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-26", "verdicts": [
+   {"role": "focus", "issue_id": 176, "verdict": "ok", "note": ""},
+   {"role": "context", "issue_id": 172, "verdict": "no", "note": "상동"},
+   {"role": "discovery", "issue_id": 179, "verdict": "no", "note": "여기에, 그 이유가 상세하게 기술되어있다면 모르겠는데 그렇지 않다면 사실 필요 없을것같아"}]}
+ ]
+}
