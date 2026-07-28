@@ -1,0 +1,49 @@
+{
+ "schema": "selection-acceptance-v1",
+ "reviewed_at": "2026-07-28",
+ "reviewed_by": "project-owner",
+ "model": "v4",
+ "summary": {"ok": 29, "no": 0, "acceptance_rate": 1.0},
+ "days": [
+  {"learning_date": "2026-07-16", "verdicts": [
+   {"role": "context", "issue_id": 15, "verdict": "ok", "note": ""},
+   {"role": "focus", "issue_id": 9, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 6, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-17", "verdicts": [
+   {"role": "context", "issue_id": 37, "verdict": "ok", "note": ""},
+   {"role": "focus", "issue_id": 29, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 28, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-18", "verdicts": [
+   {"role": "context", "issue_id": 43, "verdict": "ok", "note": ""},
+   {"role": "focus", "issue_id": 50, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-19", "verdicts": [
+   {"role": "context", "issue_id": 52, "verdict": "ok", "note": ""},
+   {"role": "focus", "issue_id": 67, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-20", "verdicts": [
+   {"role": "context", "issue_id": 73, "verdict": "ok", "note": ""},
+   {"role": "focus", "issue_id": 72, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-21", "verdicts": [
+   {"role": "context", "issue_id": 84, "verdict": "ok", "note": ""},
+   {"role": "focus", "issue_id": 92, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 81, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-22", "verdicts": [
+   {"role": "context", "issue_id": 105, "verdict": "ok", "note": ""},
+   {"role": "focus", "issue_id": 107, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 101, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-23", "verdicts": [
+   {"role": "context", "issue_id": 116, "verdict": "ok", "note": ""},
+   {"role": "focus", "issue_id": 111, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 130, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-24", "verdicts": [
+   {"role": "context", "issue_id": 144, "verdict": "ok", "note": ""},
+   {"role": "focus", "issue_id": 141, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 149, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-25", "verdicts": [
+   {"role": "context", "issue_id": 165, "verdict": "ok", "note": ""},
+   {"role": "focus", "issue_id": 168, "verdict": "ok", "note": ""},
+   {"role": "discovery", "issue_id": 170, "verdict": "ok", "note": ""}]},
+  {"learning_date": "2026-07-26", "verdicts": [
+   {"role": "context", "issue_id": 176, "verdict": "ok", "note": ""},
+   {"role": "focus", "issue_id": 174, "verdict": "ok", "note": ""}]}
+ ]
+}

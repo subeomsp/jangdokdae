@@ -19,7 +19,7 @@ import json
 from pathlib import Path
 from types import SimpleNamespace
 
-from app.api.routers.learning import LearningCandidate, select_daily_candidates
+from services.learning_selection import LearningCandidate, select_daily_candidates
 
 SNAPSHOT_DIR = Path("evaluation/learning/snapshots")
 GOLD_PATH = Path("evaluation/learning/tasks/selection_gold.jsonl")
@@ -73,17 +73,25 @@ def replay_day_v2(
     model: str = "v2",
 ) -> tuple[dict, list[dict]]:
     """점수 모델을 순차 시뮬레이션으로 재생한다. 전일 선택은 모델 자신의 결과다."""
-    from evaluation.learning.scoring import select_daily_v2, select_daily_v3
+    from evaluation.learning.scoring import (
+        select_daily_v2,
+        select_daily_v3,
+        select_daily_v4,
+    )
 
     snapshot = json.loads((SNAPSHOT_DIR / task["snapshot"]).read_text())
     rows = snapshot["candidates"]
-    if model == "v3":
-        judgment_path = SNAPSHOT_DIR / f"judgments-{task['learning_date']}.json"
+    if model in {"v3", "v4"}:
+        judgment_prefix = "judgments-v4" if model == "v4" else "judgments"
+        judgment_path = (
+            SNAPSHOT_DIR / f"{judgment_prefix}-{task['learning_date']}.json"
+        )
         judgments = {
             j["issue_id"]: j
             for j in json.loads(judgment_path.read_text())["judgments"]
         }
-        chosen = select_daily_v3(
+        selector = select_daily_v4 if model == "v4" else select_daily_v3
+        chosen = selector(
             rows,
             task["learning_date"],
             prev_selected,
@@ -119,9 +127,12 @@ def main() -> None:
     parser.add_argument("--verbose", action="store_true", help="날짜별 선택 제목 출력")
     parser.add_argument(
         "--model",
-        choices=["current", "v2", "v3"],
+        choices=["current", "v2", "v3", "v4"],
         default="current",
-        help="current=운영 휴리스틱, v2=코드 신호 점수, v3=LLM 편집 판정 결합",
+        help=(
+            "current=운영 휴리스틱, v2=코드 신호, v3=LLM 편집 판정, "
+            "v4=무전개 반복·발견 깊이 게이트"
+        ),
     )
     args = parser.parse_args()
 
@@ -131,11 +142,13 @@ def main() -> None:
         if line.strip()
     ]
     tasks.sort(key=lambda t: t["learning_date"])
-    if args.model in ("v2", "v3"):
+    if args.model in ("v2", "v3", "v4"):
         similarity_path = SNAPSHOT_DIR / "cross-day-similarity.json"
         similarity_all = json.loads(similarity_path.read_text())
         results = []
-        # 신선도 비교 창: 최근 3일 발행분(모델 자신의 선택)을 유지한다.
+        # v4는 수용률 불허 사례(5일 전 규제 반복)까지 포착하도록 7일을 본다.
+        # v2/v3 재현 수치는 기존 3일 창을 유지한다.
+        history_days = 7 if args.model == "v4" else 3
         recent_selected: list[list[dict]] = []
         for task in tasks:
             flattened = [row for day_rows in recent_selected for row in day_rows]
@@ -143,7 +156,7 @@ def main() -> None:
                 task, flattened, similarity_all, model=args.model
             )
             results.append(result)
-            recent_selected = (recent_selected + [day_selected])[-3:]
+            recent_selected = (recent_selected + [day_selected])[-history_days:]
     else:
         results = [replay_day(task) for task in tasks]
 

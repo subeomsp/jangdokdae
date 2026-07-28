@@ -1,17 +1,22 @@
 # -*- coding: utf-8 -*-
 # ruff: noqa: E501  # HTML 템플릿 문자열 포함
-"""v3 선택 수용률 검토 UI 빌더."""
+"""선택 모델 수용률 검토 UI 빌더."""
+import argparse
 import json
-import sys
 from pathlib import Path
 
-# 사용: uv run python scripts/labeling/build_acceptance_review.py <v3_picks.json>
-# picks JSON은 evaluation.learning.run_selection의 replay_day_v2(model="v3")로
+# 사용: uv run python scripts/labeling/build_acceptance_review.py <picks.json> --model v4
+# picks JSON은 evaluation.learning.run_selection의 replay_day_v2로
 # 날짜별 선택을 뽑아 [{date, items:[{role, issue_id, title, hook, scope, sectors,
 # judge_reason}]}] 형태로 만든다.
-DATA = json.loads(Path(sys.argv[1]).read_text())
+parser = argparse.ArgumentParser(description="오늘의 세 가지 선택 수용률 검토 UI")
+parser.add_argument("picks", type=Path)
+parser.add_argument("--model", choices=["v3", "v4"], default="v3")
+args = parser.parse_args()
+DATA = json.loads(args.picks.read_text())
+MODEL = args.model
 
-HTML = """<title>오늘의 세 가지 — v3 선택 수용률 검토</title>
+HTML = """<title>오늘의 세 가지 — __MODEL__ 선택 수용률 검토</title>
 <style>
 :root{
   --ink:#111214; --ground:#FFFFFF; --muted:#6E7076; --hair:#E4E4E7;
@@ -118,13 +123,13 @@ section.day{padding-top:32px}
 </style>
 <div class="wrap">
 <header class="top">
-  <h1>v3 선택 수용률 검토</h1>
+  <h1>__MODEL__ 선택 수용률 검토</h1>
   <div class="spacer"></div>
-  <div class="progress"><b id="doneCount">0</b>/33 판정</div>
+  <div class="progress"><b id="doneCount">0</b>/<span id="totalCount">0</span> 판정</div>
   <button class="export" id="exportBtn">결과 JSON 내보내기</button>
 </header>
 <div class="intro">
-  <p>점수 모델 v3가 11일치 각 날짜에 고른 세 가지입니다. 정답과 같을 필요는 없고,
+  <p>점수 모델 __MODEL__가 각 날짜에 고른 세 가지입니다. 정답과 같을 필요는 없고,
   <b>"그날 서비스에 나갔어도 괜찮았는가"</b>만 판단해 주세요. 항목마다 허용/불허를 누르고,
   불허라면 이유를 짧게 남겨주시면 다음 보정에 그대로 쓰입니다.</p>
 </div>
@@ -145,7 +150,9 @@ section.day{padding-top:32px}
 <script>
 const DATA = __DATA__;
 const ROLE_LABEL = {focus:"핵심", context:"맥락", discovery:"발견"};
-const KEY = "jangdokdae-v3-acceptance-v1";
+const KEY = "jangdokdae-__MODEL__-acceptance-v1";
+const TOTAL = DATA.reduce((sum, day) => sum + day.items.length, 0);
+document.getElementById("totalCount").textContent = TOTAL;
 let state = {};
 try { state = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { state = {}; }
 function itemState(date, id){
@@ -210,7 +217,7 @@ function buildExport(){
       return {role: item.role, issue_id: item.issue_id, verdict: st.verdict, note: st.note || ""};
     }),
   }));
-  return JSON.stringify({schema: "selection-acceptance-v1",
+  return JSON.stringify({schema: "selection-acceptance-v1", model: "__MODEL__",
     reviewed_at: new Date().toISOString(), days}, null, 1);
 }
 document.getElementById("exportBtn").addEventListener("click", async () => {
@@ -239,7 +246,9 @@ function toast(msg){
 </script>
 """
 
-html = HTML.replace("__DATA__", json.dumps(DATA, ensure_ascii=False))
-out = Path("v3-acceptance-review.html")
+html = HTML.replace("__DATA__", json.dumps(DATA, ensure_ascii=False)).replace(
+    "__MODEL__", MODEL
+)
+out = Path(f"{MODEL}-acceptance-review.html")
 out.write_text(html, encoding="utf-8")
 print(out, out.stat().st_size)

@@ -1,0 +1,281 @@
+{
+ "prompt_version": "selection-judge-v2.1",
+ "learning_date": "2026-07-24",
+ "history_days": 7,
+ "compared_issue_ids": [
+  37,
+  29,
+  28,
+  43,
+  50,
+  52,
+  67,
+  73,
+  72,
+  84,
+  92,
+  81,
+  105,
+  107,
+  101,
+  116,
+  111,
+  130
+ ],
+ "candidate_issue_ids": [
+  133,
+  141,
+  135,
+  139,
+  137,
+  136,
+  143,
+  142,
+  140,
+  146,
+  145,
+  144,
+  138,
+  150,
+  149,
+  148,
+  147,
+  131
+ ],
+ "judged_count": 18,
+ "repair_attempted": true,
+ "judgments": [
+  {
+   "issue_id": 133,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 5,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    28
+   ],
+   "reason": "매도 사이드카 발동은 28번과 동일 주제. 새로운 전개 없음."
+  },
+  {
+   "issue_id": 141,
+   "learn_value": 8,
+   "focus_fit": 7,
+   "context_fit": 6,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    84
+   ],
+   "reason": "단일종목 레버리지 ETF 규제 검토(84)에서 조기 시행으로 구체화됨."
+  },
+  {
+   "issue_id": 135,
+   "learn_value": 7,
+   "focus_fit": 7,
+   "context_fit": 8,
+   "discovery_fit": 3,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    116
+   ],
+   "reason": "뉴욕 증시 하락 원인으로 유가 상승이 반복됨 (116번)."
+  },
+  {
+   "issue_id": 139,
+   "learn_value": 5,
+   "focus_fit": 6,
+   "context_fit": 6,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "코스피의 당일 등락 결과."
+  },
+  {
+   "issue_id": 137,
+   "learn_value": 7,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "카카오페이증권의 신사업 계획 발표."
+  },
+  {
+   "issue_id": 136,
+   "learn_value": 6,
+   "focus_fit": 5,
+   "context_fit": 2,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "LS일렉트릭의 사상 최대 실적 발표."
+  },
+  {
+   "issue_id": 143,
+   "learn_value": 7,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "미래에셋의 가상자산 사업 확장 계획 발표."
+  },
+  {
+   "issue_id": 142,
+   "learn_value": 6,
+   "focus_fit": 6,
+   "context_fit": 4,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    107
+   ],
+   "reason": "알파벳 실적 발표와 AI 투자 방향에 대한 관심은 107번과 동일."
+  },
+  {
+   "issue_id": 140,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 5,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    28
+   ],
+   "reason": "매도 사이드카(28)와 같은 제도이나 방향이 반대인 새로운 전개."
+  },
+  {
+   "issue_id": 146,
+   "learn_value": 7,
+   "focus_fit": 7,
+   "context_fit": 6,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    84
+   ],
+   "reason": "단일종목 레버리지 ETF 규제 검토(84)와 발표 예고는 큰 틀에서 같은 전개."
+  },
+  {
+   "issue_id": 145,
+   "learn_value": 6,
+   "focus_fit": 5,
+   "context_fit": 2,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "현대차의 2분기 실적 발표."
+  },
+  {
+   "issue_id": 144,
+   "learn_value": 8,
+   "focus_fit": 8,
+   "context_fit": 7,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "미국 정부의 중국 AI 모델 규제 검토."
+  },
+  {
+   "issue_id": 138,
+   "learn_value": 4,
+   "focus_fit": 4,
+   "context_fit": 1,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "엔켐 주가의 시간외 거래 상승."
+  },
+  {
+   "issue_id": 150,
+   "learn_value": 7,
+   "focus_fit": 5,
+   "context_fit": 3,
+   "discovery_fit": 7,
+   "explains_why": true,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "골든크로스 발생 후 주가 상승 현상 설명."
+  },
+  {
+   "issue_id": 149,
+   "learn_value": 6,
+   "focus_fit": 5,
+   "context_fit": 2,
+   "discovery_fit": 3,
+   "explains_why": true,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "롯데쇼핑 회장 지분 매각 계획과 주가 하락."
+  },
+  {
+   "issue_id": 148,
+   "learn_value": 7,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "삼천당제약의 신약 개발 관련 FDA 답변 확인."
+  },
+  {
+   "issue_id": 147,
+   "learn_value": 6,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    111
+   ],
+   "reason": "가비아 공개매수(111) 관련 주주 간 이견 발생."
+  },
+  {
+   "issue_id": 131,
+   "learn_value": 7,
+   "focus_fit": 7,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    111
+   ],
+   "reason": "가비아 공개매수 통한 상장폐지 추진은 111번과 동일."
+  }
+ ]
+}

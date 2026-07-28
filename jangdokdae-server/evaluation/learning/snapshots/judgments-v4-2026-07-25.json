@@ -1,0 +1,316 @@
+{
+ "prompt_version": "selection-judge-v2.1",
+ "learning_date": "2026-07-25",
+ "history_days": 7,
+ "compared_issue_ids": [
+  43,
+  50,
+  52,
+  67,
+  73,
+  72,
+  84,
+  92,
+  81,
+  105,
+  107,
+  101,
+  116,
+  111,
+  130,
+  144,
+  141,
+  149
+ ],
+ "candidate_issue_ids": [
+  151,
+  152,
+  153,
+  154,
+  155,
+  159,
+  158,
+  157,
+  156,
+  162,
+  161,
+  160,
+  170,
+  169,
+  168,
+  167,
+  166,
+  165,
+  164,
+  163
+ ],
+ "judged_count": 20,
+ "repair_attempted": true,
+ "judgments": [
+  {
+   "issue_id": 151,
+   "learn_value": 5,
+   "focus_fit": 6,
+   "context_fit": 7,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    43,
+    52,
+    116
+   ],
+   "reason": "코스피 변동성 지속은 시장 상황 학습 가치 있음. 이전 코스피 등락과 주제 겹치나, 급락 후 반등 및 변동성 지속은 새로운 전개."
+  },
+  {
+   "issue_id": 152,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 5,
+   "discovery_fit": 7,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "매도 사이드카 발동은 구체적인 시장 조치 학습 가치 높음. 사이드카 제도 자체는 이전 발행분에 없으므로 새로운 주제."
+  },
+  {
+   "issue_id": 153,
+   "learn_value": 7,
+   "focus_fit": 7,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    84,
+    141
+   ],
+   "reason": "단일종목 레버리지 상품 규제 강화는 학습 가치 높음. 이전 규제 검토/시행과 주제 겹치나, '조기 강화'는 새로운 전개."
+  },
+  {
+   "issue_id": 154,
+   "learn_value": 6,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "카카오페이증권의 AI 투자 및 K-주식 세계화 전략은 새로운 기업 전략."
+  },
+  {
+   "issue_id": 155,
+   "learn_value": 5,
+   "focus_fit": 7,
+   "context_fit": 6,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    43,
+    52,
+    116
+   ],
+   "reason": "코스피 7000선 돌파 후 반납은 시장의 중요한 움직임. 이전 코스피 등락과 주제 겹치나, 7000선 돌파는 새로운 전개."
+  },
+  {
+   "issue_id": 159,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 5,
+   "discovery_fit": 7,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "매수 사이드카 발동은 구체적인 시장 조치 학습 가치 높음. 사이드카 제도 자체는 이전 발행분에 없으므로 새로운 주제."
+  },
+  {
+   "issue_id": 158,
+   "learn_value": 5,
+   "focus_fit": 6,
+   "context_fit": 1,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "LS일렉트릭의 사상 최대 실적 발표는 새로운 기업 실적."
+  },
+  {
+   "issue_id": 157,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 4,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    107
+   ],
+   "reason": "알파벳 실적 발표는 중요한 글로벌 기업 이벤트. 이전 알파벳 실적 발표와 주제 겹치나, 'AI 투자 지속 여부 가늠할 지표'라는 구체적 관점은 새로운 전개."
+  },
+  {
+   "issue_id": 156,
+   "learn_value": 5,
+   "focus_fit": 5,
+   "context_fit": 1,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "미래에셋 코빗의 새로운 투자 플랫폼 구상은 새로운 기업 전략."
+  },
+  {
+   "issue_id": 162,
+   "learn_value": 4,
+   "focus_fit": 5,
+   "context_fit": 1,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "시간외 거래 주가 급등은 새로운 개별 종목 현상."
+  },
+  {
+   "issue_id": 161,
+   "learn_value": 6,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    84,
+    141
+   ],
+   "reason": "단일종목 레버리지 ETF 규제 보완책 발표 예고는 학습 가치 있음. 이전 규제 검토/시행과 주제 겹치나, '보완책 발표 예고'는 새로운 전개."
+  },
+  {
+   "issue_id": 160,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 5,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    144
+   ],
+   "reason": "미중 AI 모델 규제 검토는 중요한 글로벌 이슈. 이전 규제 검토와 주제 겹치나, '고심'이라는 표현은 논의 심화를 암시하는 새로운 전개."
+  },
+  {
+   "issue_id": 170,
+   "learn_value": 8,
+   "focus_fit": 4,
+   "context_fit": 1,
+   "discovery_fit": 9,
+   "explains_why": true,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "골든크로스 발생 후 주가 상승은 기술적 분석 지표 학습 가치 높음. 원인과 결과 제시."
+  },
+  {
+   "issue_id": 169,
+   "learn_value": 6,
+   "focus_fit": 6,
+   "context_fit": 1,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    111
+   ],
+   "reason": "가비아 공개매수 관련 주주 간 공방은 중요한 기업 이슈. 이전 공개매수 추진과 주제 겹치나, '주주 간 공방'은 새로운 전개."
+  },
+  {
+   "issue_id": 168,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 4,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "MS의 AMD AI 랙 도입은 글로벌 IT 기업의 중요한 기술 도입."
+  },
+  {
+   "issue_id": 167,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 1,
+   "discovery_fit": 5,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    149
+   ],
+   "reason": "롯데쇼핑 회장 지분 매각 계획에 주가 하락은 원인과 결과 제시. 이전 지분 매각 계획 발표와 동일한 내용으로 새로운 전개 없음."
+  },
+  {
+   "issue_id": 166,
+   "learn_value": 6,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "explains_why": true,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "하나머티리얼즈 목표주가 상향은 증권사 분석의 배경 학습 가치 있음. 원인과 결과 제시."
+  },
+  {
+   "issue_id": 165,
+   "learn_value": 6,
+   "focus_fit": 6,
+   "context_fit": 7,
+   "discovery_fit": 5,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    73,
+    116
+   ],
+   "reason": "국내 기름값과 국제유가 연관성 학습 가치 있음. 원인과 결과 제시. 이전 국제유가 상승과 주제 겹치나, '하락세 둔화, 상승 전환'은 새로운 전개."
+  },
+  {
+   "issue_id": 164,
+   "learn_value": 6,
+   "focus_fit": 5,
+   "context_fit": 6,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "상반기 M&A 감소는 시장 전체 동향 학습 가치 있음."
+  },
+  {
+   "issue_id": 163,
+   "learn_value": 6,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "SKT의 AI 데이터센터 자회사 설립 계획은 새로운 기업 전략."
+  }
+ ]
+}

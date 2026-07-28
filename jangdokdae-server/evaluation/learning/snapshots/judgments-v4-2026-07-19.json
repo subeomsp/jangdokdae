@@ -1,0 +1,286 @@
+{
+ "prompt_version": "selection-judge-v2.1",
+ "learning_date": "2026-07-19",
+ "history_days": 7,
+ "compared_issue_ids": [
+  15,
+  9,
+  6,
+  37,
+  29,
+  28,
+  43,
+  50
+ ],
+ "candidate_issue_ids": [
+  52,
+  51,
+  54,
+  53,
+  60,
+  58,
+  57,
+  56,
+  55,
+  64,
+  63,
+  62,
+  61,
+  69,
+  68,
+  67,
+  66,
+  65,
+  59
+ ],
+ "judged_count": 19,
+ "repair_attempted": false,
+ "judgments": [
+  {
+   "issue_id": 52,
+   "learn_value": 7,
+   "focus_fit": 6,
+   "context_fit": 8,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "국내 증시와 미국 반도체주의 혼조세 현상을 다루며 시장 상황 이해에 도움. 훅에 원인 설명 없음."
+  },
+  {
+   "issue_id": 51,
+   "learn_value": 8,
+   "focus_fit": 8,
+   "context_fit": 4,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    9
+   ],
+   "reason": "단일종목 레버리지 상품 규제 강화에 대한 구체적인 보완 방안 발표로 새로운 전개."
+  },
+  {
+   "issue_id": 54,
+   "learn_value": 6,
+   "focus_fit": 5,
+   "context_fit": 5,
+   "discovery_fit": 7,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "다양한 기업의 새로운 계획 발표 소식. 훅에 원인 설명 없음."
+  },
+  {
+   "issue_id": 53,
+   "learn_value": 5,
+   "focus_fit": 8,
+   "context_fit": 2,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "특정 기업의 자금 지원 결정. 훅에 원인 설명 없음."
+  },
+  {
+   "issue_id": 60,
+   "learn_value": 6,
+   "focus_fit": 5,
+   "context_fit": 4,
+   "discovery_fit": 7,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "ETF의 순자산 및 분배금 동향. 훅에 원인 설명 없음."
+  },
+  {
+   "issue_id": 58,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    9
+   ],
+   "reason": "단일종목 레버리지 상품 규제 관련 발표 예고로, 새로운 결정이나 사실이 아님."
+  },
+  {
+   "issue_id": 57,
+   "learn_value": 7,
+   "focus_fit": 9,
+   "context_fit": 2,
+   "discovery_fit": 6,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    29
+   ],
+   "reason": "이전 발행분(issue_id=29)과 제목·훅이 동일하며 새로운 전개가 없음."
+  },
+  {
+   "issue_id": 56,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 3,
+   "discovery_fit": 6,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    6
+   ],
+   "reason": "이전 발행분(issue_id=6)과 동일한 트럼프 발언 및 조선주 반응. 새로운 전개 없음."
+  },
+  {
+   "issue_id": 55,
+   "learn_value": 7,
+   "focus_fit": 7,
+   "context_fit": 8,
+   "discovery_fit": 5,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    43
+   ],
+   "reason": "이전 발행분(issue_id=43)과 동일하게 반도체 업황 우려로 인한 증시 하락. 새로운 전개 없음."
+  },
+  {
+   "issue_id": 64,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 7,
+   "discovery_fit": 6,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    28
+   ],
+   "reason": "이전 발행분(issue_id=28)과 동일한 코스피 급락 및 매도 사이드카 발동. 새로운 전개 없음."
+  },
+  {
+   "issue_id": 63,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 4,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    9
+   ],
+   "reason": "단일종목 레버리지 상품 규제 논의의 구체적인 방향(상폐 어려움, 보완 논의)이 제시되어 새로운 전개."
+  },
+  {
+   "issue_id": 62,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 5,
+   "discovery_fit": 7,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    50
+   ],
+   "reason": "이전 발행분(issue_id=50)에서 이미 코스닥 시장 개편 방안 발표를 다룸. 새로운 전개 없음."
+  },
+  {
+   "issue_id": 61,
+   "learn_value": 6,
+   "focus_fit": 8,
+   "context_fit": 2,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "특정 기업의 해외 진출 지원 협력 소식. 훅에 원인 설명 없음."
+  },
+  {
+   "issue_id": 69,
+   "learn_value": 3,
+   "focus_fit": 8,
+   "context_fit": 1,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "특정 기업의 주가 변동 소식. 훅에 원인 설명 없음."
+  },
+  {
+   "issue_id": 68,
+   "learn_value": 8,
+   "focus_fit": 6,
+   "context_fit": 5,
+   "discovery_fit": 8,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "주식관련사채 권리행사 증가 트렌드. 훅에 원인 설명 없음."
+  },
+  {
+   "issue_id": 67,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 3,
+   "discovery_fit": 6,
+   "explains_why": true,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "특정 산업에 대한 정책 논의가 주가에 미친 영향. 원인 명시."
+  },
+  {
+   "issue_id": 66,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 8,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    37
+   ],
+   "reason": "이전 발행분(issue_id=37)과 동일한 미국 생산자물가 하락 소식. 새로운 전개 없음."
+  },
+  {
+   "issue_id": 65,
+   "learn_value": 6,
+   "focus_fit": 4,
+   "context_fit": 6,
+   "discovery_fit": 7,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "청년 고용 및 채용 시장 변화 트렌드. 훅에 원인 설명 없음."
+  },
+  {
+   "issue_id": 59,
+   "learn_value": 5,
+   "focus_fit": 8,
+   "context_fit": 1,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "특정 기업에 대한 증권사 목표가 및 투자의견 소식. 훅에 원인 설명 없음."
+  }
+ ]
+}

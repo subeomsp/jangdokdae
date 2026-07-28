@@ -1,0 +1,222 @@
+{
+ "prompt_version": "selection-judge-v2.1",
+ "learning_date": "2026-07-22",
+ "history_days": 7,
+ "compared_issue_ids": [
+  15,
+  9,
+  6,
+  37,
+  29,
+  28,
+  43,
+  50,
+  52,
+  67,
+  73,
+  72,
+  84,
+  92,
+  81
+ ],
+ "candidate_issue_ids": [
+  102,
+  97,
+  104,
+  105,
+  99,
+  101,
+  100,
+  96,
+  110,
+  109,
+  108,
+  107,
+  106,
+  98
+ ],
+ "judged_count": 14,
+ "repair_attempted": false,
+ "judgments": [
+  {
+   "issue_id": 102,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 1,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "가비아의 상장폐지 추진 소식. 특정 기업의 중요한 이벤트."
+  },
+  {
+   "issue_id": 97,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 7,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    28
+   ],
+   "reason": "매도 사이드카 발동은 이전에도 있었던 현상으로, 새로운 전개가 없음."
+  },
+  {
+   "issue_id": 104,
+   "learn_value": 5,
+   "focus_fit": 6,
+   "context_fit": 6,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "장중 급등 후 반납이라는 시장 움직임. 원인 설명 없음."
+  },
+  {
+   "issue_id": 105,
+   "learn_value": 6,
+   "focus_fit": 5,
+   "context_fit": 8,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "국고채 금리 상승 소식. 시장 전반의 금리 동향을 보여줌."
+  },
+  {
+   "issue_id": 99,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 7,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    28
+   ],
+   "reason": "매수 사이드카 발동은 매도 사이드카와 같은 주제로, 새로운 전개가 없음."
+  },
+  {
+   "issue_id": 101,
+   "learn_value": 7,
+   "focus_fit": 6,
+   "context_fit": 4,
+   "discovery_fit": 6,
+   "explains_why": true,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "증권가 목표주가 상향의 배경을 제시하여 원인 설명이 포함됨."
+  },
+  {
+   "issue_id": 100,
+   "learn_value": 7,
+   "focus_fit": 7,
+   "context_fit": 3,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    9,
+    84
+   ],
+   "reason": "단일종목 레버리지 상품에 대한 규제 강화 및 검토에 이은 구체적인 보완책 발표 예고로 새로운 전개."
+  },
+  {
+   "issue_id": 96,
+   "learn_value": 4,
+   "focus_fit": 6,
+   "context_fit": 1,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "특정 종목의 시간외 거래 상승 소식. 원인 설명 없음."
+  },
+  {
+   "issue_id": 110,
+   "learn_value": 8,
+   "focus_fit": 8,
+   "context_fit": 7,
+   "discovery_fit": 7,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    73
+   ],
+   "reason": "미·이란 충돌 격화로 인한 국제유가 상승은 이전과 동일한 주제와 전개."
+  },
+  {
+   "issue_id": 109,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 1,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "삼성바이오로직스의 기업 인수 발표. 특정 기업의 중요한 이벤트."
+  },
+  {
+   "issue_id": 108,
+   "learn_value": 7,
+   "focus_fit": 6,
+   "context_fit": 7,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "상반기 상장사 M&A 감소세 및 주식매수청구대금 급감이라는 시장 트렌드."
+  },
+  {
+   "issue_id": 107,
+   "learn_value": 7,
+   "focus_fit": 7,
+   "context_fit": 5,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "알파벳 실적 발표와 AI 투자 방향에 대한 시장의 관심. 특정 기업의 실적 발표 예고."
+  },
+  {
+   "issue_id": 106,
+   "learn_value": 7,
+   "focus_fit": 5,
+   "context_fit": 3,
+   "discovery_fit": 7,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    9,
+    84
+   ],
+   "reason": "단일종목 레버리지 ETF에 대한 운용사 대표의 직접적인 투자 경고로 새로운 관점의 전개."
+  },
+  {
+   "issue_id": 98,
+   "learn_value": 5,
+   "focus_fit": 4,
+   "context_fit": 3,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "주식 초고수들의 반도체 대형주 매매 동향. 특정 투자자들의 움직임."
+  }
+ ]
+}

@@ -1,0 +1,164 @@
+{
+ "prompt_version": "selection-judge-v2.1",
+ "learning_date": "2026-07-20",
+ "history_days": 7,
+ "compared_issue_ids": [
+  15,
+  9,
+  6,
+  37,
+  29,
+  28,
+  43,
+  50,
+  52,
+  67
+ ],
+ "candidate_issue_ids": [
+  70,
+  71,
+  73,
+  72,
+  79,
+  78,
+  77,
+  76,
+  75,
+  74
+ ],
+ "judged_count": 10,
+ "repair_attempted": false,
+ "judgments": [
+  {
+   "issue_id": 70,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 6,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    28
+   ],
+   "reason": "매도 사이드카 발동은 시장 급락 시 나타나는 현상으로, 이전에도 발생한 바 있음. 제목·훅에 급락 원인 없음."
+  },
+  {
+   "issue_id": 71,
+   "learn_value": 8,
+   "focus_fit": 5,
+   "context_fit": 4,
+   "discovery_fit": 7,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "자사주 소각·무상증자는 기업 가치 제고 방안으로 초보자에게 유용한 학습 내용. 일반적인 기업 발표로 중복 없음."
+  },
+  {
+   "issue_id": 73,
+   "learn_value": 9,
+   "focus_fit": 8,
+   "context_fit": 8,
+   "discovery_fit": 6,
+   "explains_why": true,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "지정학적 리스크가 국제유가에 미치는 영향을 명확히 설명. 새로운 사건."
+  },
+  {
+   "issue_id": 72,
+   "learn_value": 6,
+   "focus_fit": 9,
+   "context_fit": 2,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "기업의 회생 절차와 자금 확보 과정을 보여주는 구체적 사례. 새로운 사건."
+  },
+  {
+   "issue_id": 79,
+   "learn_value": 7,
+   "focus_fit": 9,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    29
+   ],
+   "reason": "영풍·고려아연의 회계 위반 과징금 부과는 이전과 동일한 사건."
+  },
+  {
+   "issue_id": 78,
+   "learn_value": 5,
+   "focus_fit": 8,
+   "context_fit": 2,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "스타트업 해외 진출 지원 관련 구체적 협력 사례. 새로운 내용."
+  },
+  {
+   "issue_id": 77,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 5,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    9
+   ],
+   "reason": "단일종목 레버리지 상품에 대한 규제는 이전에도 있었으나, '보완책 발표 예고'는 새로운 정책적 전개."
+  },
+  {
+   "issue_id": 76,
+   "learn_value": 9,
+   "focus_fit": 7,
+   "context_fit": 9,
+   "discovery_fit": 7,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    43,
+    52
+   ],
+   "reason": "반도체 업황 둔화 우려로 인한 증시 하락은 이전에도 언급된 주제. '우려'는 새로운 사실·결정·수치가 아님."
+  },
+  {
+   "issue_id": 75,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "자산운용사 ETF의 구체적인 성과 발표. 새로운 내용."
+  },
+  {
+   "issue_id": 74,
+   "learn_value": 8,
+   "focus_fit": 9,
+   "context_fit": 6,
+   "discovery_fit": 6,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    6
+   ],
+   "reason": "트럼프 전 대통령의 조선업 관련 발언은 이전에도 국내 조선주에 영향을 미친 바 있음. 새로운 전개 없음."
+  }
+ ]
+}

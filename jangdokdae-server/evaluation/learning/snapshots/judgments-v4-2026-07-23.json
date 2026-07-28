@@ -1,0 +1,291 @@
+{
+ "prompt_version": "selection-judge-v2.1",
+ "learning_date": "2026-07-23",
+ "history_days": 7,
+ "compared_issue_ids": [
+  15,
+  9,
+  6,
+  37,
+  29,
+  28,
+  43,
+  50,
+  52,
+  67,
+  73,
+  72,
+  84,
+  92,
+  81,
+  105,
+  107,
+  101
+ ],
+ "candidate_issue_ids": [
+  111,
+  113,
+  121,
+  119,
+  115,
+  114,
+  123,
+  122,
+  126,
+  125,
+  124,
+  120,
+  118,
+  117,
+  116,
+  130,
+  129,
+  128,
+  127
+ ],
+ "judged_count": 19,
+ "repair_attempted": false,
+ "judgments": [
+  {
+   "issue_id": 111,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 1,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "가비아의 공개매수 및 상장폐지 추진은 구체적인 기업 이벤트 학습 가치가 높음. 시장 전체 맥락과는 무관."
+  },
+  {
+   "issue_id": 113,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 5,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    28
+   ],
+   "reason": "매도 사이드카 발동은 시장의 중요한 사건이나, 원인 설명이 부족. 이전 발행분(issue_id=28)과 동일한 현상 반복."
+  },
+  {
+   "issue_id": 121,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 1,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "카카오페이증권의 새 전략 발표는 기업의 구체적인 계획 학습에 유용. 시장 전체 맥락과는 무관."
+  },
+  {
+   "issue_id": 119,
+   "learn_value": 4,
+   "focus_fit": 6,
+   "context_fit": 1,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "특정 종목의 시간외 거래 상승 사실만 전달. 학습 가치나 깊이가 낮음."
+  },
+  {
+   "issue_id": 115,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 5,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    28
+   ],
+   "reason": "매수 사이드카 발동은 시장의 중요한 사건이나, 원인 설명이 부족. 매도 사이드카(issue_id=28)와 같은 제도이나 방향이 달라 새 전개로 판단."
+  },
+  {
+   "issue_id": 114,
+   "learn_value": 5,
+   "focus_fit": 6,
+   "context_fit": 6,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "코스피의 하루 등락 패턴을 보여주나, 원인 설명이 부족하여 학습 가치에 한계."
+  },
+  {
+   "issue_id": 123,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 3,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    107
+   ],
+   "reason": "알파벳 실적 발표와 AI 투자 방향에 대한 주목은 중요한 이슈. 이전 발행분(issue_id=107)과 동일한 주제이며, '발표를 앞두고'라는 내용은 새 전개로 보기 어려움."
+  },
+  {
+   "issue_id": 122,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 1,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "미래에셋 코빗의 디지털 자산 사업 확장 계획은 기업의 구체적인 전략 학습에 유용. 시장 전체 맥락과는 무관."
+  },
+  {
+   "issue_id": 126,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 6,
+   "discovery_fit": 7,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "미국의 중국 AI 모델 규제 논의는 글로벌 기술 정책의 중요한 이슈. 시장 작동 원리 이해에 도움."
+  },
+  {
+   "issue_id": 125,
+   "learn_value": 5,
+   "focus_fit": 7,
+   "context_fit": 1,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "LS일렉트릭의 사상 최대 실적 달성 사실만 전달. 원인 설명이 없어 학습 가치에 한계."
+  },
+  {
+   "issue_id": 124,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 2,
+   "discovery_fit": 4,
+   "explains_why": true,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "KB금융의 실적 달성 원인(비은행 성장)이 명시되어 학습 가치가 높음. 금융 산업 트렌드 이해에 도움."
+  },
+  {
+   "issue_id": 120,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 4,
+   "discovery_fit": 5,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    101
+   ],
+   "reason": "백화점 업종 목표주가 상향의 원인(소비 회복 기대)이 명시되어 학습 가치가 높음. 이전 발행분(issue_id=101)과 동일한 내용 반복."
+  },
+  {
+   "issue_id": 118,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 8,
+   "discovery_fit": 6,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    73
+   ],
+   "reason": "국제유가 상승의 원인(중동 긴장 고조)이 명시되어 학습 가치가 높음. 이전 발행분(issue_id=73)과 동일한 원인으로 인한 현상 반복."
+  },
+  {
+   "issue_id": 117,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 5,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    9,
+    84
+   ],
+   "reason": "단일종목 레버리지 ETF 관련 보완책 발표 예고는 중요한 정책 이슈. 이전 발행분(issue_id=9, 84)에서 규제 강화 및 방안 검토에 이어 '발표 예고'는 새로운 전개로 판단."
+  },
+  {
+   "issue_id": 116,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 9,
+   "discovery_fit": 7,
+   "explains_why": true,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "뉴욕증시 하락의 원인(중동 불안, 유가 상승)이 명시되어 학습 가치가 높음. 글로벌 시장 맥락 이해에 매우 중요."
+  },
+  {
+   "issue_id": 130,
+   "learn_value": 6,
+   "focus_fit": 8,
+   "context_fit": 1,
+   "discovery_fit": 4,
+   "explains_why": true,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "에넥스의 유상증자 결정과 그 목적(운영자금 조달)이 명시되어 학습 가치가 높음. 기업 이벤트 이해에 도움."
+  },
+  {
+   "issue_id": 129,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 1,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "현대차의 매출과 영업이익의 복합적인 실적 사실만 전달. 영업이익 감소 원인 설명이 없어 학습 가치에 한계."
+  },
+  {
+   "issue_id": 128,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 6,
+   "discovery_fit": 7,
+   "explains_why": true,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "사모펀드 규제 강화 논의의 원인(홈플러스 사태)이 명시되어 학습 가치가 높음. 금융 시장 작동 원리 이해에 도움."
+  },
+  {
+   "issue_id": 127,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 7,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "상반기 M&A 시장 동향을 보여주나, 감소 원인 설명이 없어 학습 가치에 한계. 시장 전반의 트렌드 이해에 도움."
+  }
+ ]
+}

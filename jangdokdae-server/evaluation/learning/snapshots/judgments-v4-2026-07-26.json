@@ -1,0 +1,166 @@
+{
+ "prompt_version": "selection-judge-v2.1",
+ "learning_date": "2026-07-26",
+ "history_days": 7,
+ "compared_issue_ids": [
+  52,
+  67,
+  73,
+  72,
+  84,
+  92,
+  81,
+  105,
+  107,
+  101,
+  116,
+  111,
+  130,
+  144,
+  141,
+  149,
+  165,
+  168,
+  170
+ ],
+ "candidate_issue_ids": [
+  171,
+  172,
+  173,
+  174,
+  176,
+  175,
+  179,
+  178,
+  177,
+  180
+ ],
+ "judged_count": 10,
+ "repair_attempted": true,
+ "judgments": [
+  {
+   "issue_id": 171,
+   "learn_value": 3,
+   "focus_fit": 5,
+   "context_fit": 7,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "코스피의 급락 후 반등 및 변동성 지속 사실만 전달하며, 원인이나 구조 설명 없음. 최근 발행분과 실질적으로 같은 주제 없음."
+  },
+  {
+   "issue_id": 172,
+   "learn_value": 6,
+   "focus_fit": 8,
+   "context_fit": 7,
+   "discovery_fit": 7,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "매도 사이드카 발동 사실을 전달하나 급락 원인 설명 없음. 최근 발행분 중 사이드카 관련 주제 없음."
+  },
+  {
+   "issue_id": 173,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 6,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    141
+   ],
+   "reason": "단일종목 레버리지 ETF 예탁금 규제 조기 시행을 알리나, 141번과 동일한 내용의 반복으로 새로운 전개 없음."
+  },
+  {
+   "issue_id": 174,
+   "learn_value": 5,
+   "focus_fit": 8,
+   "context_fit": 3,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "카카오페이증권의 성장 전략 발표 사실만 전달하며, 전략 선택의 원인이나 구체적 작동 방식 설명 없음. 최근 발행분과 실질적으로 같은 주제 없음."
+  },
+  {
+   "issue_id": 176,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 7,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "주택 대출 규제 검토 사실을 전달하나, 검토 배경이나 예상 영향 설명 없음. 최근 발행분과 실질적으로 같은 주제 없음."
+  },
+  {
+   "issue_id": 175,
+   "learn_value": 3,
+   "focus_fit": 5,
+   "context_fit": 7,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "코스피의 장중 상승분 반납 사실만 전달하며, 원인이나 구조 설명 없음. 최근 발행분과 실질적으로 같은 주제 없음."
+  },
+  {
+   "issue_id": 179,
+   "learn_value": 4,
+   "focus_fit": 8,
+   "context_fit": 3,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "LS일렉트릭의 사상 최대 실적 달성 사실만 전달하며, 실적 달성 원인 설명 없음. 최근 발행분과 실질적으로 같은 주제 없음."
+  },
+  {
+   "issue_id": 178,
+   "learn_value": 6,
+   "focus_fit": 8,
+   "context_fit": 7,
+   "discovery_fit": 7,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "매수 사이드카 발동 사실을 전달하나 급등 원인 설명 없음. 최근 발행분 중 사이드카 관련 주제 없음."
+  },
+  {
+   "issue_id": 177,
+   "learn_value": 5,
+   "focus_fit": 8,
+   "context_fit": 4,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "미래에셋의 코빗 리브랜딩 및 신사업 추진 사실만 전달하며, 구체적인 배경이나 사업 내용 설명 없음. 최근 발행분과 실질적으로 같은 주제 없음."
+  },
+  {
+   "issue_id": 180,
+   "learn_value": 6,
+   "focus_fit": 8,
+   "context_fit": 6,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    84
+   ],
+   "reason": "단일종목 레버리지 ETF 보완책 발표 예고를 알리나, 84번과 동일한 내용의 반복으로 새로운 전개 없음."
+  }
+ ]
+}

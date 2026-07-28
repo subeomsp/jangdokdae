@@ -1,0 +1,232 @@
+{
+ "prompt_version": "selection-judge-v2.1",
+ "learning_date": "2026-07-21",
+ "history_days": 7,
+ "compared_issue_ids": [
+  15,
+  9,
+  6,
+  37,
+  29,
+  28,
+  43,
+  50,
+  52,
+  67,
+  73,
+  72
+ ],
+ "candidate_issue_ids": [
+  87,
+  80,
+  89,
+  88,
+  84,
+  91,
+  90,
+  86,
+  95,
+  94,
+  93,
+  92,
+  85,
+  82,
+  81
+ ],
+ "judged_count": 15,
+ "repair_attempted": false,
+ "judgments": [
+  {
+   "issue_id": 87,
+   "learn_value": 3,
+   "focus_fit": 7,
+   "context_fit": 1,
+   "discovery_fit": 2,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "스페이스X 주가 하락 사실만 전달, 원인 설명 없음."
+  },
+  {
+   "issue_id": 80,
+   "learn_value": 6,
+   "focus_fit": 8,
+   "context_fit": 5,
+   "discovery_fit": 7,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    28
+   ],
+   "reason": "매도 사이드카 발동은 시장 급락의 결과이며, 급락의 원인 설명 없음. issue_id=28과 동일 주제 반복."
+  },
+  {
+   "issue_id": 89,
+   "learn_value": 2,
+   "focus_fit": 6,
+   "context_fit": 1,
+   "discovery_fit": 1,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "엔켐 주가 상승 사실만 전달, 원인 미상으로 학습 가치 낮음."
+  },
+  {
+   "issue_id": 88,
+   "learn_value": 4,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "초고수 투자자들의 매매 사실만 전달, 원인 설명 없음."
+  },
+  {
+   "issue_id": 84,
+   "learn_value": 7,
+   "focus_fit": 7,
+   "context_fit": 3,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [
+    9
+   ],
+   "reason": "단일종목 레버리지 ETF 보완 방안 검토는 issue_id=9의 규제 강화와 같은 주제이나, '조만간 발표 예정'이라는 새 전개 있음."
+  },
+  {
+   "issue_id": 91,
+   "learn_value": 4,
+   "focus_fit": 6,
+   "context_fit": 2,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "증권사 목표주가 상향 조정 사실만 전달, 원인 설명 없음."
+  },
+  {
+   "issue_id": 90,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 7,
+   "discovery_fit": 6,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    43
+   ],
+   "reason": "'반도체주 약세로' 하락했다는 원인 명시. issue_id=43과 동일 주제 반복."
+  },
+  {
+   "issue_id": 86,
+   "learn_value": 5,
+   "focus_fit": 6,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "ETF 순자산 및 분배금 증가 사실만 전달, 원인 설명 없음."
+  },
+  {
+   "issue_id": 95,
+   "learn_value": 6,
+   "focus_fit": 7,
+   "context_fit": 3,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "시스템 가동 사실만 전달, 왜 필요한지에 대한 설명 부족."
+  },
+  {
+   "issue_id": 94,
+   "learn_value": 6,
+   "focus_fit": 8,
+   "context_fit": 1,
+   "discovery_fit": 4,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    29
+   ],
+   "reason": "과징금 부과 사실만 전달, 원인 설명 없음. issue_id=29와 동일 주제 반복."
+  },
+  {
+   "issue_id": 93,
+   "learn_value": 6,
+   "focus_fit": 8,
+   "context_fit": 1,
+   "discovery_fit": 3,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "기업 인수 사실만 전달, 원인 설명 없음."
+  },
+  {
+   "issue_id": 92,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 1,
+   "discovery_fit": 5,
+   "explains_why": false,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "유상증자 및 재무 개선 추진 사실만 전달, 원인 설명 없음."
+  },
+  {
+   "issue_id": 85,
+   "learn_value": 7,
+   "focus_fit": 7,
+   "context_fit": 3,
+   "discovery_fit": 6,
+   "explains_why": false,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    50
+   ],
+   "reason": "제도 개선 추진 사실만 전달, 원인 설명 없음. issue_id=50과 동일 주제 반복."
+  },
+  {
+   "issue_id": 82,
+   "learn_value": 8,
+   "focus_fit": 8,
+   "context_fit": 7,
+   "discovery_fit": 8,
+   "explains_why": true,
+   "topic_overlap": true,
+   "has_new_development": false,
+   "matched_previous_issue_ids": [
+    73
+   ],
+   "reason": "'미국과 이란의 무력 충돌로' 국제유가가 급등했다는 원인 명시. issue_id=73과 동일 주제 반복."
+  },
+  {
+   "issue_id": 81,
+   "learn_value": 7,
+   "focus_fit": 8,
+   "context_fit": 1,
+   "discovery_fit": 6,
+   "explains_why": true,
+   "topic_overlap": false,
+   "has_new_development": true,
+   "matched_previous_issue_ids": [],
+   "reason": "'임상 3상 결과에' 주가가 급락했다는 원인 명시."
+  }
+ ]
+}
