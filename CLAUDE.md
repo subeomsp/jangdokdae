@@ -1,6 +1,6 @@
 # 장독대 프로젝트 인수인계
 
-> 상태 기준일: 2026-07-21
+> 상태 기준일: 2026-07-28
 >
 > 개발 담당 AI: Claude Code
 >
@@ -179,6 +179,31 @@ Next.js MVP에는 다음 화면과 흐름이 있다.
 - 사람 승인 전에는 최종 결과도 `candidate` 유지
 - 본문 첫 등장에만 밑줄을 표시하고 tooltip/sheet와 원문 링크 제공
 
+### 하루 세 콘텐츠 선택 기준 (P0-2, 1차 사이클 완료 2026-07-28)
+
+정본 문서는 `jangdokdae-server/docs/design/17-daily-selection-criteria.md`다. 흐름과 산출물:
+
+- **일별 후보 풀 스냅샷**: `scripts/export_learning_selection_snapshots.py`가 "그날
+  API가 봤을 후보"를 재구성해 `evaluation/learning/snapshots/selection-pool-*.json`으로
+  보존(현재 12일치, v2 스키마: size·source_count·frame 포함). DB 2주 보관과 무관하게
+  평가 재현 가능. 새 날짜가 쌓이면 이 스크립트로 추가 export한다.
+- **사람 라벨 골드셋**: 11일치(7/16~26) `evaluation/learning/tasks/selection_gold.jsonl`.
+  라벨 수집 UI는 `scripts/labeling/build_selection_labeler.py`로 생성(Artifact로 전달),
+  결과 JSON은 `scripts/import_learning_selection_labels.py`로 반영.
+- **LLM 편집 판정**: `scripts/judge_learning_candidates.py`(`selection-judge-v1`,
+  날짜당 1콜, `judgments-*.json` 캐시) — 후보별 learn_value·역할 적합도.
+- **점수 모델**: `evaluation/learning/scoring.py`. 당일 후보 우선(라벨 33/33 근거),
+  신선도(최근 3일 발행분, 유사도 0.82+ 하드 제외), LLM 판정 결합, 조합 규칙
+  (맥락 먼저, 지수 시세형(시장 전체+PRICE)은 핵심 제외, 섹터 다양성).
+- **평가**: `uv run python -m evaluation.learning.run_selection --model v3` (순차
+  시뮬레이션). 결과: 운영 휴리스틱 18.2% → v3 일치율 33.3%, **수용률 84.8%**
+  (사용자 검토 28/33, `evaluation/learning/tasks/selection-acceptance-2026-07-28.json`).
+- **아직 API에는 미반영.** v3는 오프라인 검증만 끝난 상태다.
+
+불허 5건 분석: 4건 무전개 반복(사이드카·규제·유가 — 임베딩 유사도로 못 잡는 주제
+단위 피로), 1건 설명 깊이 부족. → 다음 보정(v4)은 "지난 N일 내용인데 새로운 점이
+있는가" LLM 판정을 게이트 앞단에 추가하는 것.
+
 ### 평가 체계
 
 에이전트 평가는 마지막 출력만 보는 대신 Task, transcript, outcome, metrics를 분리했다.
@@ -201,22 +226,22 @@ Next.js MVP에는 다음 화면과 흐름이 있다.
 
 이 결과는 **작은 회귀 게이트**일 뿐 전체 789개 자동 승인을 허용하는 근거가 아니다.
 
-## 4. 2026-07-22 DB 스냅샷
+## 4. 2026-07-28 DB 스냅샷
 
 아래 수치는 현재 로컬 `.env`가 가리키는 새 Neon DB를 읽기 전용으로 확인한 값이다. 데이터
-파이프라인 실행에 따라 변할 수 있다.
+파이프라인 실행에 따라 변할 수 있다. DB 전체 크기는 약 51MB(Neon 무료 티어 여유 큼).
 
 | 항목 | 현재 값 |
 | --- | ---: |
-| 뉴스 | 1,182 |
-| 뉴스 분석 | 83 |
-| 생성 이슈 콘텐츠 | 79 |
+| 뉴스 | 4,246 |
+| 뉴스 분석 | 210 |
+| 생성 이슈 콘텐츠 | 204 |
 | 한국은행 원문 항목 | 789 |
 | 현재 콘텐츠 기반 선택 원문 | 25 |
 | `term_units_status=approved` 원문 | 33 |
 | `term_units_status=pending` 원문 | 756 |
 | 한국은행 기반 `approved + verified` 설명 | 35 |
-| 기존 LLM 레거시 용어 | 340 |
+| 기존 LLM 레거시 용어 | 337 |
 
 Alembic 현재 head는 `e0a2b4c6d8f0` 하나다.
 
@@ -303,30 +328,35 @@ uv run python -m evaluation.dictionary.run_definition --repeats 3
 (완료 2026-07-28) ~~검증기 v6 보정 + 3차 배치 재평가~~ — 102/102 통과로 HOLD 해제.
 자세한 원인·조치는 §3 평가 체계와 aggregate 평가 결과 문서 참조.
 
-1. **쉬운 설명 4차 배치** (선별 pending이 다시 생기면)
+1. **선택 기준 v4 보정 + API 반영 논의** (가장 먼저 — §3 선택 기준 참조)
+   - 수용률 검토의 불허 4/5가 무전개 반복이었다. "지난 N일에 나온 내용인데 새로운
+     점이 있는가"를 판정하는 조건부 LLM 게이트를 앞단에 추가한다(v4). 최근 발행분과
+     주제가 겹치는 후보에만 호출해 비용을 제한한다.
+   - 발견 역할은 "왜"가 설명된 콘텐츠만 자격이 있다 — 판정 루브릭에 반영한다.
+   - v4 후 같은 방식의 수용률 재검토로 개선을 확인하고, 통과하면 오늘의 학습 API에
+     반영한다(파이프라인에 판정 단계 추가 + `select_daily_candidates` 교체).
+   - 후보가 부족할 때는 계속 적은 수만 반환하고 근거 없는 AI 콘텐츠를 만들지 않는다.
+
+2. **사용자 결정 대기 항목** (물어보고 진행)
+   - "한줄 정리" 섹션 기획: 메인 3개 아래 반복·얕은 이슈를 한 줄씩 모아 보여주는
+     사용자 제안. API·프론트 변경 필요(프론트는 v1.0.0 승인본이라 별도 논의).
+   - 언론사 등급표: 메이저/일반 가중치(파급력 축의 미확정 부분).
+   - 2주 보관 정리(`scripts/prune_pipeline_data.py`)의 GitHub Actions 자동 실행 연결
+     여부 — 스크립트·dry-run 검증은 끝났고 연결만 사용자 확인 대기.
+   - 기존 11일 라벨 중 기준 문서와 어긋나는 날의 재라벨 여부.
+
+3. **쉬운 설명 4차 배치** (선별 pending이 다시 생기면)
    - 현재 `is_selected` 25개 원문은 전부 커버 완료라 당장 할 배치는 없다. 파이프라인이
      새 콘텐츠에서 새 용어를 선별하면 재개한다.
    - §5 순서(분리 승인→생성→검수→승인→골드셋→평가)를 반복한다.
-   - 선별된 pending 원문에서 초보자 가치가 높은 용어를 고른다. 분리 단위가 `approved`인지
-     먼저 확인하고, 없으면 분리 승인부터 한다.
    - 생성 결과가 90점이어도 자동 승인하지 않는다. 실패 transcript를 읽고 회귀 조건을 추가한다.
 
-2. **하루 세 콘텐츠의 선택 기준 고도화** — 진행 중(2026-07-28 1차 사이클 완료)
-   - 기준 문서: `jangdokdae-server/docs/design/17-daily-selection-criteria.md` (정본).
-   - 완료: 일별 후보 풀 스냅샷(12일), 사람 라벨 골드셋 11일, LLM 편집 판정
-     (`selection-judge-v1`, 날짜당 1콜 캐시), 점수 모델 v3.
-   - 결과: 운영 휴리스틱 일치율 18.2% → v3 33.3%, **수용률 84.8%**(사용자 검토 28/33).
-   - 다음(v4): 불허 4/5가 무전개 반복 — "지난 N일 내용인데 새로운 점이 있는가" LLM
-     판정을 게이트 앞단에 추가. 발견 역할은 "왜"가 설명된 콘텐츠만. 이후 API 반영 논의.
-   - 사용자 제안 기획(미확정): 메인 3개 아래 "한줄 정리" 섹션(반복·얕은 이슈 모음).
-   - 후보가 부족할 때는 계속 적은 수만 반환하고 근거 없는 AI 콘텐츠를 만들지 않는다.
-
-3. **프론트 디자인 — v1 확정(재설계 보류)**
+4. **프론트 디자인 — v1 확정(재설계 보류)**
    - 사용자가 현재 디자인을 v1 승인본으로 확정했다(`v1.0.0` 태그). 재설계는 P0가 아니다.
    - 임의로 시각 시스템을 갈아엎지 않는다. 변경이 필요하면 v1을 기준선으로 별도 논의한다.
    - 기능 변경 시 온보딩·오늘 홈·읽기·퀴즈·완료 화면의 기존 흐름과 API 계약을 보존한다.
 
-4. **실제 공개 배포 상태 확인**
+5. **실제 공개 배포 상태 확인**
    - GitHub Actions 배치는 정상 확인됐다.
    - API와 프론트의 현재 호스팅 서비스·URL은 사용자에게 확인한다.
    - 운영 API라면 CORS, `FRONTEND_BASE_URL`, HTTPS 쿠키, OAuth callback을 다시 검증한다.
@@ -406,6 +436,24 @@ E2E는 실제 FastAPI와 DB가 필요하다.
 npm run test:e2e
 ```
 
+### 선택 기준 평가 (서버 디렉터리)
+
+```bash
+# 스냅샷 추가 export (새 날짜가 쌓였을 때)
+uv run python -m scripts.export_learning_selection_snapshots --all
+uv run python -m scripts.export_learning_cross_day_similarity
+
+# LLM 편집 판정 (날짜당 1콜, 캐시됨 — 비용 발생)
+uv run python -m scripts.judge_learning_candidates
+
+# 재현 평가 (current=운영 휴리스틱, v2=코드 신호, v3=LLM 판정 결합)
+uv run python -m evaluation.learning.run_selection --model v3 --verbose
+
+# 라벨링/수용률 검토 UI 생성 (Artifact로 사용자에게 전달)
+uv run python scripts/labeling/build_selection_labeler.py
+uv run python -m scripts.import_learning_selection_labels <labels.json>
+```
+
 ### 파이프라인
 
 로컬 1회 실행은 DB를 변경하고 Vertex AI 비용을 발생시킨다. 사용자가 실행을 요청했거나
@@ -438,14 +486,18 @@ uv run python -m services.pipeline.runner morning
 3. 서버 `uv run alembic heads`와 `current`가 같은지 확인한다.
 4. 전체 테스트를 돌리기 전 관련 소형 테스트부터 실행한다.
 5. DB 작업이면 먼저 read-only count와 대상 행 상태를 확인한다.
-6. 다음 용어 5개 작업을 시작한다면 분리 단위가 이미 `approved`인지 먼저 확인한다.
+6. 사전 작업 재개라면 분리 단위가 이미 `approved`인지 먼저 확인한다(현재 선별분은 전부 완료).
 7. 프론트 작업이면 기능 흐름을 보존하고, 현재 디자인이 `v1.0.0` 승인본임을 기억한다(임의 재설계 금지).
+8. 선택 기준 작업(P0-1 v4)을 잇는다면 `docs/design/17-daily-selection-criteria.md`와
+   수용률 검토 파일을 먼저 읽고, `run_selection --model v3`가 재현되는지 확인한다.
 
 ## 10. 반드시 읽을 문서
 
 - `README.md`: 현재 모노레포 실행 개요
 - `.github/workflows/news-pipeline.yml`: 운영 배치의 실제 정본
 - `jangdokdae-server/docs/design/16-daily-learning-mvp.md`: 하루 세 가지 학습 규칙
+- `jangdokdae-server/docs/design/17-daily-selection-criteria.md`: 하루 세 콘텐츠 선택
+  기준 정본(역할 정의, 파급력·신선도·학습 가치, 점수 모델 사양, 수용률 결과)
 - `jangdokdae-server/docs/guide/02-github-actions-new-environment-setup.md`: 신규 운영 환경 구축
 - `jangdokdae-server/docs/guide/03-bok-inline-glossary.md`: 한국은행 사전 운영 순서
 - `jangdokdae-server/docs/evaluation/10-dictionary-agent-eval-plan.md`: 사전 평가와 자동화 기준
@@ -454,5 +506,6 @@ uv run python -m services.pipeline.runner morning
 - `jangdokdae-server/evaluation/dictionary/tasks/README.md`: 골드셋 규칙
 - `jangdokdae-web/README.md`: 프론트 기능과 로컬 실행
 
-마지막 기능 기준 커밋은 v6 게이트 보정·34 Task 평가 커밋(2026-07-28,
-`fix(dictionary)`/`feat(eval)`/`docs(eval)` 3연속)이다. 3차 배치 HOLD는 해제됐다.
+2026-07-28 기준 주요 커밋 흐름: 사전 v6 게이트(`d0e1dbb`~`4e03c77`, HOLD 해제) →
+운영 하루 1회 전환·스냅샷·prune 스크립트(`78f317c`~`fc3638a`) → 선택 기준 골드셋·
+v3 점수 모델(`06ec69d`~`4b3ca67`) → 수용률 기록(`a36606f`) → 이 인수인계 갱신.
