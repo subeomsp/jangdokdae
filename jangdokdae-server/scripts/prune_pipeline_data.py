@@ -1,7 +1,8 @@
 """파이프라인 산출 데이터를 보관 기간(기본 14일) 밖에서 정리한다.
 
-재생성 가능한 파이프라인 데이터(news, news_cluster, news_analysis, issue_docent,
-disclosures)만 대상으로 한다. 다음은 보관 기간과 무관하게 절대 지우지 않는다.
+재생성 가능한 파이프라인 데이터(daily learning plan·judgment, news, news_cluster,
+news_analysis, issue_docent, disclosures)만 대상으로 한다. 다음은 보관 기간과 무관하게
+절대 지우지 않는다.
 
 - 사전 계열 테이블 전체(dictionary_source_entries, term_units, dictionary_terms)
 - 사용자·활동 테이블 전체
@@ -31,8 +32,15 @@ from utils.dates import now_kst
 
 DEFAULT_RETENTION_DAYS = 14
 
-# 삭제는 FK 역순: issue_docent → news_analysis → news_cluster → news → disclosures
+# 계획 삭제가 item·judgment를 CASCADE한 뒤 기존 FK 역순으로 지운다.
 _COUNT_AND_DELETE = [
+    (
+        "daily_learning_plans",
+        """
+        FROM daily_learning_plans
+        WHERE learning_date < :cutoff_date
+        """,
+    ),
     (
         "issue_docent",
         """

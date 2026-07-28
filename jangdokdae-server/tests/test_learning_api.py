@@ -7,14 +7,14 @@ os.environ.setdefault("DATABASE_URL", "postgresql://user:pass@localhost:5432/tes
 os.environ.setdefault("SECRET_KEY", "test-secret")
 
 from app.api.routers.learning import (
-    LearningCandidate,
+    _personalize_canonical_plan,
     _quiz_question,
     _role_copy,
-    select_daily_candidates,
     submit_daily_quiz,
 )
 from app.api.schemas.learning import DailyQuizSubmitRequest
 from app.db.orm_models.issue_docent import IssueDocent
+from services.learning_selection import LearningCandidate, select_daily_candidates
 
 
 def _candidate(
@@ -101,6 +101,23 @@ def test_focus_copy_does_not_claim_personalization_for_fallback():
         "오늘의 핵심",
         "오늘 가장 먼저 이해할 이슈예요",
     )
+
+
+def test_personalization_never_adds_candidate_outside_v4_plan():
+    canonical = [
+        ("focus", _candidate(1, importance=0.9, scope="회사", sectors=[1])),
+        ("context", _candidate(2, importance=0.8, scope="시장 전체", sectors=[2])),
+        ("discovery", _candidate(3, importance=0.7, scope="회사", sectors=[3])),
+    ]
+
+    chosen = _personalize_canonical_plan(
+        canonical,
+        sector_ids={3},
+        company_ids=set(),
+    )
+
+    assert chosen[0][1].issue_id == 3
+    assert {candidate.issue_id for _, candidate in chosen} == {1, 2, 3}
 
 
 def test_daily_quiz_exposes_only_the_single_issue_question():

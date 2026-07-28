@@ -2,12 +2,10 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from datetime import timedelta
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy import func, select
+from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -23,119 +21,22 @@ from app.api.schemas.learning import (
 from app.core.security import get_current_user_optional
 from app.db.base import KST_NOW, get_db
 from app.db.orm_models.issue_docent import IssueDocent
-from app.db.orm_models.news_analysis import NewsAnalysis
-from app.db.orm_models.news_cluster import NewsCluster
 from app.db.orm_models.user_issue_activity import UserIssueActivity
 from app.db.queries import get_user_interests
+from services.learning_selection import (
+    LearningCandidate,
+    select_daily_candidates,
+)
+from services.learning_selection import (
+    load_candidates as _load_candidates,
+)
+from services.learning_selection import (
+    matches_interests as _matches_interests,
+)
+from services.pipeline.daily_learning_planner import load_daily_plan_candidates
 from utils.dates import now_kst
 
 router = APIRouter(prefix="/learning", tags=["learning"])
-
-_CANDIDATE_WINDOW_DAYS = 7
-_CANDIDATE_LIMIT = 60
-
-
-@dataclass(frozen=True)
-class LearningCandidate:
-    docent: Any
-    cluster: Any
-    analysis: Any
-
-    @property
-    def issue_id(self) -> int:
-        return int(self.docent.id)
-
-    @property
-    def importance(self) -> float:
-        return float(getattr(self.cluster, "importance", 0.0) or 0.0)
-
-    @property
-    def sector_ids(self) -> set[int]:
-        return {int(value) for value in (getattr(self.analysis, "sector_ids", None) or [])}
-
-    @property
-    def company_ids(self) -> set[int]:
-        return {int(value) for value in (getattr(self.analysis, "company_ids", None) or [])}
-
-    @property
-    def is_market_context(self) -> bool:
-        return str(getattr(self.analysis, "scope", "")) == "시장 전체"
-
-
-def _matches_interests(
-    candidate: LearningCandidate,
-    sector_ids: set[int],
-    company_ids: set[int],
-) -> bool:
-    return bool(candidate.sector_ids & sector_ids or candidate.company_ids & company_ids)
-
-
-def _first_not_selected(
-    candidates: list[LearningCandidate], selected: list[LearningCandidate]
-) -> LearningCandidate | None:
-    selected_ids = {candidate.issue_id for candidate in selected}
-    return next(
-        (candidate for candidate in candidates if candidate.issue_id not in selected_ids),
-        None,
-    )
-
-
-def select_daily_candidates(
-    candidates: list[LearningCandidate],
-    *,
-    sector_ids: set[int],
-    company_ids: set[int],
-) -> list[tuple[LearningRole, LearningCandidate]]:
-    """최신·중요도순 후보를 관심→시장 맥락→관심 밖 발견의 최대 세 자리로 재배열한다."""
-    if not candidates:
-        return []
-
-    # `_load_candidates`가 최신 실행일→중요도순으로 만든 순서를 유지한다. 여기서
-    # 중요도만으로 다시 정렬하면 오래된 고득점 뉴스가 오늘 뉴스보다 앞설 수 있다.
-    ranked = candidates
-    selected: list[LearningCandidate] = []
-
-    matching = [
-        candidate
-        for candidate in ranked
-        if _matches_interests(candidate, sector_ids, company_ids)
-    ]
-    direct_matching = [candidate for candidate in matching if not candidate.is_market_context]
-    focus = _first_not_selected(direct_matching or matching or ranked, selected)
-    if focus is not None:
-        selected.append(focus)
-
-    context_matching = [
-        candidate for candidate in matching if candidate.is_market_context
-    ]
-    all_context = [candidate for candidate in ranked if candidate.is_market_context]
-    context = _first_not_selected(context_matching or all_context or ranked, selected)
-    if context is not None:
-        selected.append(context)
-
-    non_matching = [
-        candidate
-        for candidate in ranked
-        if not _matches_interests(candidate, sector_ids, company_ids)
-    ]
-    used_sectors = set().union(*(candidate.sector_ids for candidate in selected))
-    diverse_non_matching = [
-        candidate
-        for candidate in non_matching
-        if not candidate.sector_ids or candidate.sector_ids.isdisjoint(used_sectors)
-    ]
-    discovery = _first_not_selected(diverse_non_matching or non_matching or ranked, selected)
-    if discovery is not None:
-        selected.append(discovery)
-
-    while len(selected) < min(3, len(ranked)):
-        fallback = _first_not_selected(ranked, selected)
-        if fallback is None:
-            break
-        selected.append(fallback)
-
-    roles: list[LearningRole] = ["focus", "context", "discovery"]
-    return list(zip(roles, selected, strict=False))
 
 
 def _primary_quiz(docent: Any) -> dict[str, Any]:
@@ -168,43 +69,20 @@ def _role_copy(role: LearningRole, personalized: bool) -> tuple[str, str]:
     return "시야 넓히기", "익숙한 관심사 밖의 중요한 흐름이에요"
 
 
-async def _load_candidates(
-    db: AsyncSession, as_of: Any | None = None
-) -> list[LearningCandidate]:
-    """오늘의 학습 후보를 로드한다. as_of를 주면 그 시점의 후보 풀을 재구성한다(평가용)."""
-    reference = as_of if as_of is not None else now_kst()
-    since = reference - timedelta(days=_CANDIDATE_WINDOW_DAYS)
-    rows = (
-        await db.execute(
-            select(IssueDocent, NewsCluster, NewsAnalysis)
-            .join(NewsCluster, IssueDocent.cluster_id == NewsCluster.id)
-            .join(NewsAnalysis, IssueDocent.cluster_id == NewsAnalysis.cluster_id)
-            .where(IssueDocent.created_at >= since)
-            .where(IssueDocent.created_at <= reference)
-            .where(NewsAnalysis.is_investment_relevant.is_(True))
-            .where(NewsAnalysis.needs_review.is_(False))
-            .where(func.jsonb_array_length(IssueDocent.quizzes) > 0)
-            .order_by(
-                NewsCluster.run_date.desc(),
-                NewsCluster.is_current.desc(),
-                NewsCluster.importance.desc(),
-                IssueDocent.created_at.desc(),
-            )
-            .limit(_CANDIDATE_LIMIT)
-        )
-    ).all()
-
-    # 같은 stable cluster가 여러 실행일에 다시 생성됐으면 최신 콘텐츠 하나만 쓴다.
-    deduplicated: list[LearningCandidate] = []
-    seen: set[tuple[str, int]] = set()
-    for docent, cluster, analysis in rows:
-        stable_id = getattr(cluster, "stable_id", None)
-        key = ("stable", int(stable_id)) if stable_id is not None else ("cluster", cluster.id)
-        if key in seen:
-            continue
-        seen.add(key)
-        deduplicated.append(LearningCandidate(docent, cluster, analysis))
-    return deduplicated
+def _personalize_canonical_plan(
+    canonical_plan: list[tuple[LearningRole, LearningCandidate]],
+    *,
+    sector_ids: set[int],
+    company_ids: set[int],
+) -> list[tuple[LearningRole, LearningCandidate]]:
+    """v4 승인 집합을 유지한 채 관심사가 있으면 기존 세 자리 규칙으로 재배열한다."""
+    if not sector_ids and not company_ids:
+        return canonical_plan
+    return select_daily_candidates(
+        [candidate for _, candidate in canonical_plan],
+        sector_ids=sector_ids,
+        company_ids=company_ids,
+    )
 
 
 @router.get("/today", response_model=DailyLearningResponse)
@@ -221,12 +99,25 @@ async def get_today_learning(
         requested_sector_ids.update(interests["sector_ids"])
         requested_company_ids.update(interests["company_ids"])
 
-    candidates = await _load_candidates(db)
-    chosen = select_daily_candidates(
-        candidates,
-        sector_ids=requested_sector_ids,
-        company_ids=requested_company_ids,
-    )
+    learning_date = now_kst().date()
+    canonical_plan = await load_daily_plan_candidates(db, learning_date)
+    if canonical_plan is None:
+        # 마이그레이션 직후 첫 파이프라인 실행 전에는 기존 휴리스틱으로 서비스 연속성을
+        # 유지한다. 계획이 0건으로 저장된 날([])은 빈 계획을 그대로 존중한다.
+        candidates = await _load_candidates(db)
+        chosen = select_daily_candidates(
+            candidates,
+            sector_ids=requested_sector_ids,
+            company_ids=requested_company_ids,
+        )
+    else:
+        # 개인화는 v4가 승인한 기본 계획 안에서만 순서를 조정한다. 판정에서 탈락한
+        # 후보를 관심사 때문에 다시 끌어올리지 않는다.
+        chosen = _personalize_canonical_plan(
+            canonical_plan,
+            sector_ids=requested_sector_ids,
+            company_ids=requested_company_ids,
+        )
     issue_ids = [candidate.issue_id for _, candidate in chosen]
 
     completed_ids: set[int] = set()
@@ -267,7 +158,7 @@ async def get_today_learning(
 
     completed_count = sum(item.completed for item in items)
     return DailyLearningResponse(
-        learning_date=now_kst().date(),
+        learning_date=learning_date,
         items=items,
         completed_count=completed_count,
         total_count=len(items),

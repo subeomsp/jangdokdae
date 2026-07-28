@@ -1,7 +1,7 @@
 """오늘의 학습 후보 풀을 날짜별 스냅샷으로 내보낸다.
 
 하루 세 콘텐츠 선택 기준 골드셋(P0-2)의 재료다. 각 날짜에 대해 "그날 API가 봤을
-후보 풀"을 `_load_candidates(as_of=그날 끝)`으로 재구성해 JSON으로 저장한다.
+후보 풀"을 `load_candidates(as_of=그날 끝)`으로 재구성해 JSON으로 저장한다.
 저장된 스냅샷은 DB 보관 정책과 무관하게 평가를 재현할 수 있게 한다.
 
 사용:
@@ -19,10 +19,10 @@ from pathlib import Path
 
 from sqlalchemy import select, text
 
-from app.api.routers.learning import _load_candidates
 from app.db.base import AsyncSessionLocal
 from app.db.orm_models.news_cluster import NewsCluster
 from app.db.orm_models.sector import Sector
+from services.learning_selection import load_candidates
 
 DEFAULT_OUTPUT_DIR = Path("evaluation/learning/snapshots")
 SNAPSHOT_VERSION = 2  # v2: size·source_count·frame 추가(점수 모델 신호)
@@ -63,7 +63,7 @@ async def export_snapshots(
         if include_all:
             targets = await _candidate_dates(db)
         for day in targets:
-            candidates = await _load_candidates(db, as_of=_end_of_day(day))
+            candidates = await load_candidates(db, as_of=_end_of_day(day))
             if not candidates:
                 continue
             snapshot = {

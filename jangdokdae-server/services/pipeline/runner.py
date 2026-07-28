@@ -1,9 +1,10 @@
-"""하이브리드 로컬 실행용 러너 — Airflow 없이 전체 파이프라인을 1회 완주한다.
+"""GitHub Actions·로컬 공용 러너 — 전체 파이프라인을 1회 완주한다.
 
-운영 오케스트레이션은 Airflow DAG가 전담하고, 이 러너는 로컬·테스트 편의만 맡는 얇은 함수다.
-단계 간 데이터는 공유 DB 상태 핸드오프라 러너든 DAG든 동작은 동일하다.
+운영에서는 `.github/workflows/news-pipeline.yml`이 이 모듈을 실행한다. 단계 간 데이터는
+공유 DB 상태로 넘기며, 마지막에 API가 읽을 v4 일일 기본 계획까지 고정한다.
 
-흐름: (NewsCollector ∥ CompanyCollector) → EmbeddingClusterer → NewsAnalyzer(분류·콘텐츠, →10).
+흐름: (NewsCollector ∥ CompanyCollector) → EmbeddingClusterer → NewsAnalyzer
+→ DailyLearningPlanner(v4 판정·기본 계획).
 전처리는 별도 단계가 아니라 NewsCollector 안의 인메모리 모듈이다(설계 04 §1.2).
 
 사용:
@@ -17,6 +18,10 @@ import sys
 
 from app.db.base import AsyncSessionLocal
 from services.pipeline.company_collector import CompanyCollector
+from services.pipeline.daily_learning_planner import (
+    DailyLearningPlannerState,
+    run_daily_learning_planner,
+)
 from services.pipeline.embedding_clusterer import EmbeddingClusterer, EmbeddingClustererState
 from services.pipeline.news_analyzer import NewsAnalyzer, NewsAnalyzerState
 from services.pipeline.news_collector import NewsCollector, NewsCollectorState
@@ -33,10 +38,10 @@ async def _run_news_collector(schedule: str) -> NewsCollectorState:
 
 
 async def run_pipeline(schedule: str = DEFAULT_SCHEDULE) -> dict[str, object]:
-    """수집(병렬) → 임베딩·클러스터링 → 분석. 1회 호출 = 전체 파이프라인 완주.
+    """수집(병렬) → 임베딩·클러스터링 → 분석 → 일일 계획. 1회 호출 = 전체 파이프라인 완주.
 
-    수집 한쪽이 실패하면 전체가 중단된다 — 로컬·테스트 도구라 부분 실패를 숨기기보다
-    즉시 드러내는 쪽이 낫다(운영의 Task별 격리·재시도는 Airflow가 담당).
+    수집 한쪽이 실패하면 전체가 중단된다. GitHub Actions가 실행 실패를 기록하고,
+    다음 실행 또는 workflow_dispatch 재실행으로 복구한다.
     """
     news_state, company_state = await asyncio.gather(
         _run_news_collector(schedule),
@@ -50,15 +55,24 @@ async def run_pipeline(schedule: str = DEFAULT_SCHEDULE) -> dict[str, object]:
     async with AsyncSessionLocal() as db:
         analyze_state: NewsAnalyzerState = await NewsAnalyzer().run(db)
 
+    async with AsyncSessionLocal() as db:
+        learning_state: DailyLearningPlannerState = await run_daily_learning_planner(db)
+
     logger.info(
-        "run_pipeline 완료 schedule=%s news=%s company=%s embed=%s analyze=%s",
-        schedule, news_state, company_state, embed_state, analyze_state,
+        "run_pipeline 완료 schedule=%s news=%s company=%s embed=%s analyze=%s learning=%s",
+        schedule,
+        news_state,
+        company_state,
+        embed_state,
+        analyze_state,
+        learning_state,
     )
     return {
         "news": news_state,
         "company": company_state,
         "embedding": embed_state,
         "analyze": analyze_state,
+        "learning": learning_state,
     }
 
 
