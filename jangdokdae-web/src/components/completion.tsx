@@ -75,9 +75,14 @@ export function Completion() {
       </section>
 
       <BottomBar>
-        <Link className="btn btn--ghost btn--wide" href="/">
-          오늘의 이슈 다시 보기
-        </Link>
+        <div className="bottom-bar__actions">
+          <Link className="btn btn--primary btn--wide" href="/archive">
+            지난 이슈 보기
+          </Link>
+          <Link className="bottom-bar__text-link" href="/">
+            오늘의 이슈 다시 보기
+          </Link>
+        </div>
       </BottomBar>
     </main>
   );

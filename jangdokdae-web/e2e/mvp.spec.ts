@@ -50,4 +50,10 @@ test("관심 선택부터 세 이슈 퀴즈와 오늘의 완료까지 이어진�
     page.getByRole("heading", { name: /오늘 알아야 할 만큼은/ }),
   ).toBeVisible();
   await expect(page.getByText("3/3")).toBeVisible();
+
+  await page.getByRole("link", { name: "지난 이슈 보기" }).click();
+  await expect(page).toHaveURL(/\/archive$/);
+  await expect(
+    page.getByRole("heading", { name: "놓친 날의 세 가지를 다시 봐요." }),
+  ).toBeVisible();
 });

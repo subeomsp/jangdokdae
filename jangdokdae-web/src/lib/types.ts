@@ -36,6 +36,15 @@ export interface DailyLearning {
   personalized: boolean;
 }
 
+export interface LearningArchiveDay {
+  learning_date: string;
+  items: IssueCard[];
+}
+
+export interface LearningArchive {
+  days: LearningArchiveDay[];
+}
+
 export interface ReaderCard {
   head: string;
   paragraphs: string[];

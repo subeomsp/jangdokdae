@@ -128,9 +128,14 @@ export function DailyHome() {
     <main className="shell">
       <header className="topbar">
         <Brand />
-        <Link className="topbar__link" href="/onboarding">
-          관심 바꾸기
-        </Link>
+        <nav aria-label="홈 메뉴" className="topbar__links">
+          <Link className="topbar__link" href="/archive">
+            지난 이슈
+          </Link>
+          <Link className="topbar__link" href="/onboarding">
+            관심 바꾸기
+          </Link>
+        </nav>
       </header>
 
       <section className="home-head">

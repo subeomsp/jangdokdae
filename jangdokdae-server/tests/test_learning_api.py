@@ -1,4 +1,5 @@
 import os
+from datetime import date, datetime
 from types import SimpleNamespace
 
 import pytest
@@ -10,6 +11,7 @@ from app.api.routers.learning import (
     _personalize_canonical_plan,
     _quiz_question,
     _role_copy,
+    get_learning_archive,
     submit_daily_quiz,
 )
 from app.api.schemas.learning import DailyQuizSubmitRequest
@@ -24,10 +26,21 @@ def _candidate(
     scope: str,
     sectors: list[int],
     companies: list[int] | None = None,
+    run_date: date | None = None,
 ) -> LearningCandidate:
     return LearningCandidate(
-        docent=SimpleNamespace(id=issue_id, quizzes=_quizzes()),
-        cluster=SimpleNamespace(importance=importance),
+        docent=SimpleNamespace(
+            id=issue_id,
+            title=f"이슈 {issue_id}",
+            hook_lines={"neutral": f"이슈 {issue_id} 요약"},
+            quizzes=_quizzes(),
+            created_at=datetime(2026, 7, 31, 9, 0),
+        ),
+        cluster=SimpleNamespace(
+            importance=importance,
+            run_date=run_date,
+            size=3,
+        ),
         analysis=SimpleNamespace(
             scope=scope,
             sector_ids=sectors,
@@ -118,6 +131,48 @@ def test_personalization_never_adds_candidate_outside_v4_plan():
 
     assert chosen[0][1].issue_id == 3
     assert {candidate.issue_id for _, candidate in chosen} == {1, 2, 3}
+
+
+@pytest.mark.asyncio
+async def test_learning_archive_prefers_saved_plan_and_reconstructs_older_day(
+    monkeypatch,
+):
+    from app.api.routers import learning
+
+    monkeypatch.setattr(learning, "now_kst", lambda: datetime(2026, 8, 3, 10, 0))
+
+    saved = [
+        ("focus", _candidate(1, importance=0.9, scope="회사", sectors=[1])),
+        ("context", _candidate(2, importance=0.8, scope="시장 전체", sectors=[2])),
+    ]
+
+    async def fake_saved_plan(_db, learning_date):
+        return saved if learning_date == date(2026, 8, 2) else None
+
+    async def fake_load(_db, as_of=None):
+        day = as_of.date()
+        return [
+            _candidate(
+                issue_id,
+                importance=1 - issue_id / 100,
+                scope="회사",
+                sectors=[issue_id],
+                run_date=day,
+            )
+            for issue_id in (3, 4, 5, 6)
+        ]
+
+    monkeypatch.setattr(learning, "load_daily_plan_candidates", fake_saved_plan)
+    monkeypatch.setattr(learning, "_load_candidates", fake_load)
+
+    response = await get_learning_archive(days=2, db=object())
+
+    assert [row.learning_date for row in response.days] == [
+        date(2026, 8, 2),
+        date(2026, 8, 1),
+    ]
+    assert [item.id for item in response.days[0].items] == [1, 2]
+    assert [item.id for item in response.days[1].items] == [3, 4, 5]
 
 
 def test_daily_quiz_exposes_only_the_single_issue_question():

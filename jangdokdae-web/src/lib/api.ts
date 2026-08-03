@@ -2,6 +2,7 @@ import type {
   DailyLearning,
   DailyQuizResult,
   IssueDetail,
+  LearningArchive,
   Sector,
 } from "@/lib/types";
 
@@ -55,6 +56,11 @@ export function getTodayLearning(sectorIds: number[]): Promise<DailyLearning> {
 
 export function getIssue(issueId: number): Promise<IssueDetail> {
   return apiFetch<IssueDetail>(`/api/v1/issues/${issueId}`);
+}
+
+export function getLearningArchive(days = 14): Promise<LearningArchive> {
+  const params = new URLSearchParams({ days: String(days) });
+  return apiFetch<LearningArchive>(`/api/v1/learning/archive?${params.toString()}`);
 }
 
 export function submitDailyQuiz(

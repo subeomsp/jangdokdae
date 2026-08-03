@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime, time, timedelta
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -16,6 +17,8 @@ from app.api.schemas.learning import (
     DailyLearningResponse,
     DailyQuizSubmitRequest,
     DailyQuizSubmitResponse,
+    LearningArchiveDayResponse,
+    LearningArchiveResponse,
     LearningRole,
 )
 from app.core.security import get_current_user_optional
@@ -83,6 +86,49 @@ def _personalize_canonical_plan(
         sector_ids=sector_ids,
         company_ids=company_ids,
     )
+
+
+@router.get("/archive", response_model=LearningArchiveResponse)
+async def get_learning_archive(
+    days: int = Query(default=14, ge=1, le=14),
+    db: AsyncSession = Depends(get_db),
+) -> LearningArchiveResponse:
+    """오늘을 제외한 최근 학습일의 기본 계획을 날짜별로 반환한다."""
+    today = now_kst().date()
+    archive_days: list[LearningArchiveDayResponse] = []
+    for days_ago in range(1, days + 1):
+        learning_date = today - timedelta(days=days_ago)
+        canonical_plan = await load_daily_plan_candidates(db, learning_date)
+
+        # v4 계획 저장 기능 도입 전 날짜는 그날 생성된 후보로 최소한 재구성한다.
+        if canonical_plan is None:
+            end_of_day = datetime.combine(learning_date, time.max)
+            candidates = await _load_candidates(db, as_of=end_of_day)
+            fresh = [
+                candidate
+                for candidate in candidates
+                if getattr(candidate.cluster, "run_date", None) == learning_date
+            ]
+            canonical_plan = select_daily_candidates(
+                fresh,
+                sector_ids=set(),
+                company_ids=set(),
+            )
+
+        if not canonical_plan:
+            continue
+        archive_days.append(
+            LearningArchiveDayResponse(
+                learning_date=learning_date,
+                items=[
+                    build_issue_list_item(
+                        candidate.docent, candidate.cluster, candidate.analysis
+                    )
+                    for _, candidate in canonical_plan
+                ],
+            )
+        )
+    return LearningArchiveResponse(days=archive_days)
 
 
 @router.get("/today", response_model=DailyLearningResponse)

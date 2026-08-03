@@ -29,6 +29,15 @@ class DailyLearningResponse(BaseModel):
     personalized: bool
 
 
+class LearningArchiveDayResponse(BaseModel):
+    learning_date: date
+    items: list[IssueCardResponse]
+
+
+class LearningArchiveResponse(BaseModel):
+    days: list[LearningArchiveDayResponse]
+
+
 class DailyQuizSubmitRequest(BaseModel):
     selected_index: int = Field(ge=0, le=3)
 
