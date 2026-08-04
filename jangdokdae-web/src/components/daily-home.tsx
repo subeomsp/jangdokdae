@@ -132,9 +132,6 @@ export function DailyHome() {
           <Link className="topbar__link" href="/archive">
             지난 이슈
           </Link>
-          <Link className="topbar__link" href="/onboarding">
-            관심 바꾸기
-          </Link>
         </nav>
       </header>
 

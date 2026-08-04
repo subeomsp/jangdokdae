@@ -1,6 +1,6 @@
 /* ============================================================
    장독대 디자인 시스템 — "오늘의 세 가지" 체크리스트 리추얼
-   ink-on-white 근접 모노크롬 + 코발트 단일 액센트.
+   ink-on-white 근접 모노크롬 + 흙빛 갈색 단일 액센트.
    장식 없음: 타이포 계층, hairline 구분선, 큰 숫자가 화면을 이끈다.
    ============================================================ */
 
@@ -13,9 +13,9 @@
   --ink-3: #74777f;
   --line: #e7e8ea;
   --line-strong: #d5d7db;
-  --accent: #2e47ff;
-  --accent-pressed: #2233d9;
-  --accent-tint: #eef1ff;
+  --accent: #8b5e3c;
+  --accent-pressed: #6f472e;
+  --accent-tint: #f4ece5;
   --danger: #d92d20;
   --danger-tint: #fef1f0;
 
