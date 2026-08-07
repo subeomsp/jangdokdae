@@ -58,8 +58,14 @@ def test_build_issue_detail_maps_content_heads_terms_and_sources():
         id=82,
         cluster_id=7,
         title="미국 기준금리 동결, 시장은 어떻게 반응할까?",
-        hook_lines={},
-        content_heads=[{"label": "무슨 일이에요", "answer": "연준이 기준금리를 동결했습니다."}],
+        hook_lines={"pain": "금리가 멈췄는데, 이제 무엇을 봐야 할까요?"},
+        content_heads=[
+            {
+                "label": "무슨 일이에요",
+                "question": "확정된 사실부터 확인해요.",
+                "answer": "연준이 기준금리를 동결했습니다.",
+            }
+        ],
         term_spans=[{"term": "기준금리", "sentence": "연준이 기준금리를 동결했습니다."}],
         created_at=datetime(2026, 6, 22, 9, 30),
     )
@@ -79,6 +85,8 @@ def test_build_issue_detail_maps_content_heads_terms_and_sources():
 
     assert detail.cards[0].head == "무슨 일이에요"
     assert detail.cards[0].paragraphs == ["연준이 기준금리를 동결했습니다."]
+    assert detail.cards[0].question == "확정된 사실부터 확인해요."
+    assert detail.pain_hook == "금리가 멈췄는데, 이제 무엇을 봐야 할까요?"
     assert detail.terms[0].name == "기준금리"
     assert detail.terms[0].definition == "준비 중인 용어입니다."
     assert detail.sources[0].news_source == "Reuters"

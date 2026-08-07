@@ -48,6 +48,7 @@ export interface LearningArchive {
 export interface ReaderCard {
   head: string;
   paragraphs: string[];
+  question: string;
 }
 
 export interface IssueTerm {
@@ -75,6 +76,7 @@ export interface IssueDetail extends IssueCard {
   cards: ReaderCard[];
   terms: IssueTerm[];
   sources: SourceArticle[];
+  pain_hook: string | null;
 }
 
 export interface DailyQuizResult {

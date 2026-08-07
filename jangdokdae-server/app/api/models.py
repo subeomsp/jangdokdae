@@ -24,6 +24,7 @@ class IssueListResponse(BaseModel):
 class IssueReaderCardResponse(BaseModel):
     head: str
     paragraphs: list[str]
+    question: str = ""
 
 
 class IssueTermResponse(BaseModel):
@@ -51,6 +52,7 @@ class IssueDetailResponse(IssueCardResponse):
     cards: list[IssueReaderCardResponse]
     terms: list[IssueTermResponse]
     sources: list[SourceArticleResponse]
+    pain_hook: str | None = None
 
 
 class QuizQuestionResponse(BaseModel):

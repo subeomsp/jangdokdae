@@ -97,7 +97,13 @@ def _cards(content_heads: list[dict[str, Any]]) -> list[IssueReaderCardResponse]
         label = str(head.get("label") or head.get("head") or "핵심")
         answer = head.get("answer") or ""
         paragraphs = answer if isinstance(answer, list) else [str(answer)]
-        cards.append(IssueReaderCardResponse(head=label, paragraphs=[p for p in paragraphs if p]))
+        cards.append(
+            IssueReaderCardResponse(
+                head=label,
+                paragraphs=[p for p in paragraphs if p],
+                question=str(head.get("question") or ""),
+            )
+        )
     return cards
 
 
@@ -149,6 +155,10 @@ def build_issue_detail(
             else _terms(getattr(docent, "term_spans", []) or [], term_definitions)
         ),
         sources=_sources(articles),
+        pain_hook=(
+            str((getattr(docent, "hook_lines", None) or {}).get("pain") or "").strip()
+            or None
+        ),
     )
 
 

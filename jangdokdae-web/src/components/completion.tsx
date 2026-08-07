@@ -9,6 +9,13 @@ import { CheckIcon } from "@/components/icons";
 import { getDailyPlan } from "@/lib/storage";
 import type { StoredDailyPlan } from "@/lib/types";
 
+function formatItemCount(count: number): string {
+  if (count === 1) return "한 가지";
+  if (count === 2) return "두 가지";
+  if (count === 3) return "세 가지";
+  return `${count}가지`;
+}
+
 export function Completion() {
   const [plan, setPlan] = useState<StoredDailyPlan | null>(null);
 
@@ -19,6 +26,7 @@ export function Completion() {
 
   const completed = plan?.completedIssueIds.length ?? 0;
   const total = plan?.learning.total_count ?? 3;
+  const itemCountLabel = formatItemCount(total);
 
   return (
     <main className="shell">
@@ -57,7 +65,7 @@ export function Completion() {
         </h1>
         <p className="completion__copy">
           더 많은 뉴스를 읽지 않아도 괜찮아요.
-          <br />내일 다시 중요한 세 가지만 담아둘게요.
+          <br />내일 다시 중요한 {itemCountLabel} 담아둘게요.
         </p>
 
         {plan && plan.learning.items.length > 0 && (

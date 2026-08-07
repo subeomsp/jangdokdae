@@ -17,6 +17,13 @@ import {
 } from "@/lib/storage";
 import type { StoredDailyPlan } from "@/lib/types";
 
+function formatItemCount(count: number): string {
+  if (count === 1) return "한 가지만";
+  if (count === 2) return "두 가지만";
+  if (count === 3) return "세 가지만";
+  return `${count}가지만`;
+}
+
 function formatToday(date: string): string {
   const parsed = new Date(`${date}T00:00:00+09:00`);
   return new Intl.DateTimeFormat("ko-KR", {
@@ -97,7 +104,7 @@ export function DailyHome() {
           {Array.from({ length: 3 }, (_, index) => (
             <div className="skeleton home-skeleton__row" key={index} />
           ))}
-          <p className="loading-caption">오늘 꼭 볼 세 가지를 담고 있어요</p>
+          <p className="loading-caption">오늘 꼭 볼 이슈를 담고 있어요</p>
         </div>
       </main>
     );
@@ -123,6 +130,8 @@ export function DailyHome() {
 
   const isComplete =
     plan.learning.total_count > 0 && completedCount >= plan.learning.total_count;
+  const itemCount = plan.learning.items.length;
+  const itemCountLabel = formatItemCount(itemCount);
 
   return (
     <main className="shell">
@@ -138,8 +147,17 @@ export function DailyHome() {
       <section className="home-head">
         <p className="home-head__date">{formatToday(plan.learningDate)}</p>
         <h1>
-          오늘은
-          <br />세 가지만 보면 돼요.
+          {itemCount > 0 ? (
+            <>
+              오늘은
+              <br />{itemCountLabel} 보면 돼요.
+            </>
+          ) : (
+            <>
+              오늘은
+              <br />쉬어가도 괜찮아요.
+            </>
+          )}
         </h1>
         <p className="home-head__sub">넘치는 뉴스 대신, 지금 이해할 흐름만 담았습니다.</p>
       </section>
@@ -164,10 +182,10 @@ export function DailyHome() {
           <p className="quiet-marks" aria-hidden="true">– – –</p>
           <p className="page-head__label">오늘은 조용한 날</p>
           <h2>꼭 읽어야 할 이슈가 아직 없어요.</h2>
-          <p>중요하지 않은 소식으로 세 자리를 억지로 채우지 않을게요.</p>
+          <p>중요하지 않은 소식으로 빈자리를 억지로 채우지 않을게요.</p>
         </section>
       ) : (
-        <ol className="daily-list" aria-label="오늘의 세 가지 이슈">
+        <ol className="daily-list" aria-label={`오늘의 이슈 ${itemCount}개`}>
           {plan.learning.items.map((item) => {
             const completed = isIssueComplete(plan, item.issue.id);
             return (

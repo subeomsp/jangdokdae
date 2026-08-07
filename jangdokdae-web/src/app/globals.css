@@ -1034,10 +1034,57 @@ button {
   letter-spacing: -0.02em;
 }
 
+.reader-lens {
+  margin-top: 28px;
+  padding: 17px 18px 18px;
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
+  border-radius: var(--r-md);
+  background: var(--accent-tint);
+}
+
+.reader-lens__label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+}
+
+.reader-lens__title {
+  margin-top: 7px;
+  font-size: 15px;
+  font-weight: 750;
+  color: var(--ink);
+}
+
+.reader-lens__copy {
+  margin-top: 5px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
 .step__para {
   margin-top: 16px;
   font-size: 16px;
   line-height: 1.78;
+}
+
+.step__question {
+  margin-top: 16px;
+  padding: 11px 13px;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-tint);
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.step__question span {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
 }
 
 /* 출처 */
