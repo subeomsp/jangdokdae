@@ -103,13 +103,6 @@ export function ArchiveReader({ issueId }: { issueId: number }) {
           <h1>{detail.title}</h1>
           <p className="step__teaser">{detail.teaser}</p>
           <p className="step__stats">기사 {detail.article_count}개 · 다시 읽기</p>
-          {detail.pain_hook && (
-            <aside className="reader-lens" aria-label="주린이 필터">
-              <p className="reader-lens__label">주린이 필터</p>
-              <p className="reader-lens__title">이 이슈는 이 질문부터 풀어볼게요.</p>
-              <p className="reader-lens__copy">{detail.pain_hook}</p>
-            </aside>
-          )}
         </header>
 
         {detail.cards.map((card, cardIndex) => (
