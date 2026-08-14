@@ -289,12 +289,6 @@ export function LearningReader({ issueId }: { issueId: number }) {
           <h2 className="step__head" ref={headingRef} tabIndex={-1}>
             {card.head}
           </h2>
-          {card.question && (
-            <p className="step__question">
-              <span>먼저 확인할 것</span>
-              {card.question}
-            </p>
-          )}
           {card.paragraphs.map((paragraph, paragraphIndex) => (
             <p className="step__para" key={paragraphIndex}>
               {renderParagraphWithTerms(

@@ -1040,24 +1040,6 @@ button {
   line-height: 1.78;
 }
 
-.step__question {
-  margin-top: 16px;
-  padding: 11px 13px;
-  border-left: 3px solid var(--accent);
-  background: var(--accent-tint);
-  color: var(--ink-2);
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.step__question span {
-  display: block;
-  margin-bottom: 3px;
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--accent);
-}
-
 /* 출처 */
 
 .sources {

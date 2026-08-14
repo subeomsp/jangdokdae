@@ -109,12 +109,6 @@ export function ArchiveReader({ issueId }: { issueId: number }) {
           <section className="archive-reader__card" key={`${card.head}-${cardIndex}`}>
             <p className="step__num" aria-hidden="true">{cardIndex + 1}</p>
             <h2>{card.head}</h2>
-            {card.question && (
-              <p className="step__question">
-                <span>먼저 확인할 것</span>
-                {card.question}
-              </p>
-            )}
             {card.paragraphs.map((paragraph, paragraphIndex) => (
               <p className="step__para" key={paragraphIndex}>
                 {renderParagraphWithTerms(
